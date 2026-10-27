@@ -1,0 +1,276 @@
+:root {
+  --accessibility-font-scale: 1;
+  --accessibility-symbol-color: #08724f;
+}
+
+html {
+  font-size: calc(100% * var(--accessibility-font-scale));
+}
+
+body.accessibility-readable-font,
+body.accessibility-readable-font :where(button, input, select, textarea) {
+  font-family: Verdana, Arial, sans-serif !important;
+  letter-spacing: .015em;
+  line-height: 1.65;
+}
+
+body.accessibility-underline-links a {
+  text-decoration: underline !important;
+  text-underline-offset: .18em;
+}
+
+body.accessibility-text-spacing :where(p, li, label, input, textarea, button) {
+  letter-spacing: .04em;
+  word-spacing: .12em;
+  line-height: 1.8;
+}
+
+html.accessibility-reduced-motion,
+html.accessibility-reduced-motion *,
+html.accessibility-reduced-motion *::before,
+html.accessibility-reduced-motion *::after {
+  scroll-behavior: auto !important;
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+}
+
+html.accessibility-high-contrast {
+  --primary-color: #005a70;
+  --primary-dark: #003746;
+  --secondary-color: #007b78;
+  --light-color: #fff;
+  --dark-color: #000;
+  --gray-color: #282828;
+  --white-color: #fff;
+  --box-shadow: 0 0 0 2px #000;
+}
+
+html.accessibility-high-contrast body,
+html.accessibility-high-contrast :where(article, section, aside, header, footer, nav, input, select, textarea) {
+  color: #000;
+}
+
+html.accessibility-high-contrast a {
+  color: #003c9e;
+  text-decoration: none;
+}
+
+.accessibility-toolbar {
+  position: fixed;
+  z-index: 1250;
+  right: 24px;
+  bottom: calc(24px + var(--floating-control-size) + 12px);
+  color: #15252b;
+  font-family: Arial, sans-serif;
+}
+
+.accessibility-toolbar__toggle {
+  display: grid;
+  width: var(--floating-control-size);
+  min-width: var(--floating-control-size);
+  min-height: var(--floating-control-size);
+  height: var(--floating-control-size);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: #08724f;
+  box-shadow: 0 8px 24px rgba(18, 63, 66, .24);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.accessibility-toolbar__toggle i {
+  font-size: 30px;
+  line-height: 1;
+}
+
+:root[data-theme="dark"] .accessibility-toolbar__toggle {
+  color: #fff;
+  background: #08724f;
+}
+
+html.accessibility-high-contrast .accessibility-toolbar__toggle {
+  color: #fff;
+  background: #003746;
+}
+
+:root[data-theme="dark"] {
+  --accessibility-symbol-color: #78edba;
+}
+
+html.accessibility-high-contrast {
+  --accessibility-symbol-color: #003746;
+}
+
+.accessibility-toolbar__toggle span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.accessibility-toolbar__panel {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  left: auto;
+  display: grid;
+  width: min(320px, calc(100vw - 32px));
+  max-height: calc(100vh - 180px);
+  gap: 10px;
+  overflow-y: auto;
+  padding: 16px;
+  border: 1px solid #82949b;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .2);
+}
+
+.accessibility-toolbar__panel[hidden] {
+  display: none;
+}
+
+.accessibility-toolbar__panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.accessibility-toolbar__panel button {
+  min-height: 42px;
+  padding: 8px 11px;
+  border: 1px solid #54717c;
+  border-radius: 8px;
+  color: #102b34;
+  background: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-align: start;
+  cursor: pointer;
+}
+
+.accessibility-toolbar__panel button[aria-pressed="true"] {
+  color: #fff;
+  background: #174b5a;
+}
+
+.accessibility-toolbar__status {
+  min-height: 1.4em;
+  margin: 0;
+  color: #284957;
+  font-size: .85rem;
+}
+
+.accessibility-toolbar__reset {
+  border-color: #7b4141 !important;
+  color: #642c2c !important;
+}
+
+.accessibility-toolbar__sizes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.accessibility-toolbar__sizes button {
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .accessibility-toolbar {
+    right: 12px;
+    bottom: calc(84px + var(--floating-control-size) + 14px + env(safe-area-inset-bottom));
+  }
+  .accessibility-toolbar__toggle {
+    width: var(--floating-control-size);
+    height: var(--floating-control-size);
+  }
+  .accessibility-toolbar__toggle i {
+    font-size: 28px;
+  }
+}
+
+.doctor-share-dialog {
+  width: min(440px, calc(100vw - 32px));
+  max-height: min(80vh, 640px);
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #c8d8d8;
+  border-radius: 20px;
+  color: #17333a;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(13, 45, 50, .28);
+}
+
+.doctor-share-dialog::backdrop {
+  background: rgba(8, 29, 34, .58);
+  backdrop-filter: blur(2px);
+}
+
+.doctor-share-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.doctor-share-dialog__header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.doctor-share-dialog__close {
+  display: grid;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid #c8d8d8;
+  border-radius: 50%;
+  color: #17333a;
+  background: #fff;
+  cursor: pointer;
+}
+
+.doctor-share-dialog__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: 10px;
+}
+
+.doctor-share-dialog__option {
+  display: flex;
+  min-width: 0;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 12px;
+  border: 1px solid #b7cece;
+  border-radius: 12px;
+  color: #123d43;
+  background: #f5fbfa;
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.doctor-share-dialog__option:hover,
+.doctor-share-dialog__option:focus-visible,
+.doctor-share-dialog__close:focus-visible {
+  border-color: #087c70;
+  outline: 3px solid rgba(8, 124, 112, .25);
+  outline-offset: 2px;
+}
+
+@media print {
+  .accessibility-toolbar { display: none !important; }
+}

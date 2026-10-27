@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Welcome to Dr. [Name]'s clinic in Kuwait. Explore services and book an appointment.">
+  <title>Dr. [Name] Clinic | [Specialty] in Kuwait</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Noto+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-en="Skip to content" data-ar="انتقل إلى المحتوى">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">+</span><span>Dr. [Name] Clinic</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="menu-close" type="button" aria-label="Close menu"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        <a href="index.html" aria-current="page" data-en="Home" data-ar="الرئيسية">Home</a><a href="about.html" data-en="About" data-ar="عن الطبيب">About</a><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a><a href="shop.html" data-en="Shop" data-ar="المتجر">Shop</a><a href="appointment.html" data-en="Appointment" data-ar="المواعيد">Appointment</a><a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a><a href="faq.html" data-en="FAQ &amp; Reviews" data-ar="الأسئلة الشائعة وآراء المرضى" data-hi="अक्सर पूछे जाने वाले प्रश्न और समीक्षाएँ">FAQ &amp; Reviews</a>
+        <div class="language-switch" aria-label="Language"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="ar" aria-pressed="false">عربي</button></div>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-en="Care you can count on" data-ar="رعاية صحية موثوقة">Care you can count on</p>
+          <h1 data-en="Dr. [Name], [Specialty] Specialist" data-ar="د. [الاسم]، اختصاصي [التخصص]">Dr. [Name], [Specialty] Specialist</h1>
+          <p data-clinic-bio hidden></p>
+          <div class="button-row"><a class="button button-primary" href="appointment.html" data-en="Book an Appointment" data-ar="احجز موعداً">Book an Appointment</a><a class="button button-secondary" href="#" data-whatsapp data-en="Chat on WhatsApp" data-ar="تواصل عبر واتساب">Chat on WhatsApp</a></div>
+        </div>
+        <div class="hero-image"><img src="img/doctor.svg" alt="Replace with the doctor's approved portrait"></div>
+      </div>
+    </section>
+    <section class="section section-muted">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow" data-en="How we can help" data-ar="كيف يمكننا مساعدتك">How we can help</p><h2 data-en="Our Services" data-ar="خدماتنا">Our Services</h2><p data-en="A selection of clinic services. Confirm availability, fees and insurance coverage with the clinic." data-ar="مجموعة من خدمات العيادة. يرجى التأكد من التوفر والرسوم والتغطية التأمينية مع العيادة.">A selection of clinic services. Confirm availability, fees and insurance coverage with the clinic.</p></div>
+        <div class="service-grid" data-service-list="featured">
+          <article class="service-card"><span class="service-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></span><h3 data-en="General Consultation" data-ar="استشارة عامة">General Consultation</h3><p data-en="Discuss your health concerns and care options with the doctor." data-ar="ناقش مخاوفك الصحية وخيارات الرعاية مع الطبيب.">Discuss your health concerns and care options with the doctor.</p></article>
+          <article class="service-card"><span class="service-icon"><i class="fa-solid fa-flask" aria-hidden="true"></i></span><h3 data-en="Diagnostic Testing" data-ar="الفحوصات التشخيصية">Diagnostic Testing</h3><p data-en="Ask the clinic about available tests and preparation instructions." data-ar="استفسر من العيادة عن الفحوصات المتاحة وتعليمات التحضير.">Ask the clinic about available tests and preparation instructions.</p></article>
+          <article class="service-card"><span class="service-icon"><i class="fa-solid fa-video" aria-hidden="true"></i></span><h3 data-en="Telemedicine" data-ar="الاستشارات عن بُعد">Telemedicine</h3><p data-en="Remote appointments may be available for suitable concerns." data-ar="قد تتوفر مواعيد عن بُعد لبعض الحالات المناسبة.">Remote appointments may be available for suitable concerns.</p></article>
+        </div>
+        <p class="text-center" style="margin-top:24px"><a class="button button-secondary" href="services.html" data-en="View all services" data-ar="عرض جميع الخدمات">View all services</a></p>
+      </div>
+    </section>
+    <section class="section" data-shop-section>
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow" data-en="Clinic recommendations" data-ar="منتجات العيادة">Clinic recommendations</p><h2 data-en="Recommended Products" data-ar="المنتجات الموصى بها">Recommended Products</h2><p data-en="Product information is illustrative. Consult a qualified healthcare professional before using any medicine or supplement." data-ar="معلومات المنتجات توضيحية. استشر مختصاً صحياً مؤهلاً قبل استخدام أي دواء أو مكمل غذائي.">Product information is illustrative. Consult a qualified healthcare professional before using any medicine or supplement.</p></div>
+        <div class="product-grid" data-product-list="featured"></div>
+      </div>
+    </section>
+    <section class="section section-muted">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow" data-en="Patient experiences" data-ar="تجارب المرضى">Patient experiences</p><h2 data-en="Patient Testimonials" data-ar="آراء المرضى">Patient Testimonials</h2><p data-en="Genuine testimonials are shared only with patient consent and clinic approval." data-ar="لا تُنشر آراء المرضى إلا بموافقتهم واعتماد العيادة.">Genuine testimonials are shared only with patient consent and clinic approval.</p></div>
+        <div class="testimonial-grid" data-testimonial-list>
+        </div>
+      </div>
+    </section>
+    <section class="cta-band"><div class="container"><h2 data-en="Ready to Book Your Appointment?" data-ar="هل أنت مستعد لحجز موعدك؟">Ready to Book Your Appointment?</h2><p data-en="Contact the clinic to ask about appointment availability." data-ar="تواصل مع العيادة للاستفسار عن المواعيد المتاحة.">Contact the clinic to ask about appointment availability.</p><a class="button button-light" href="appointment.html" data-en="Book Now" data-ar="احجز الآن">Book Now</a></div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><div class="footer-grid">
+    <div><h2 data-en="Clinic" data-ar="العيادة">Clinic</h2><p>[Full clinic address, Kuwait]</p><p><strong data-en="Hours" data-ar="ساعات العمل">Hours</strong><br>Sun–Thu: 8 AM–8 PM<br>Fri–Sat: Closed</p></div>
+    <div><h3 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h3><ul><li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li><li><a href="about.html" data-en="About" data-ar="عن الطبيب">About</a></li><li><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a></li><li><a href="shop.html" data-en="Shop" data-ar="المتجر">Shop</a></li><li><a href="appointment.html" data-en="Appointment" data-ar="المواعيد">Appointment</a></li><li><a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a></li></ul></div>
+    <div><h3 data-en="Contact" data-ar="اتصل بنا">Contact</h3><p><i class="fa-solid fa-phone" aria-hidden="true"></i> +965 [PHONE]</p><p><i class="fa-solid fa-envelope" aria-hidden="true"></i> info@drname.kw</p><div class="social-links"><a href="#" aria-label="Instagram profile to configure"><i class="fa-brands fa-instagram"></i></a><a href="#" aria-label="Facebook profile to configure"><i class="fa-brands fa-facebook"></i></a><a href="#" aria-label="LinkedIn profile to configure"><i class="fa-brands fa-linkedin"></i></a></div></div>
+  </div><div class="footer-bottom"><p>© <span data-year></span> Dr. [Name]. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p></div></div></footer>
+  <noscript><p class="no-script">JavaScript is required for product listings and the language selector.</p></noscript>
+  <script src="js/data.js" defer></script><script src="js/main.js" defer></script>
+</body>
+</html>

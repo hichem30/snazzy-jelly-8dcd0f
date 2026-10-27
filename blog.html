@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Health articles and clinic updates from Dr. [Name]'s clinic in Kuwait.">
+  <meta name="robots" content="noindex,follow">
+  <title>Clinic Blog | Dr. [Name] Clinic</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Noto+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">+</span><span>Dr. [Name] Clinic</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="menu-close" type="button" aria-label="Close menu"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="about.html" data-en="About" data-ar="عن الطبيب">About</a>
+        <a href="services.html" data-en="Services" data-ar="الخدمات">Services</a>
+        <a href="shop.html" data-en="Shop" data-ar="المتجر">Shop</a>
+        <a href="appointment.html" data-en="Appointment" data-ar="المواعيد">Appointment</a>
+        <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+        <a href="faq.html" data-en="FAQ & Reviews" data-ar="الأسئلة الشائعة وآراء المرضى" data-hi="अक्सर पूछे जाने वाले प्रश्न और समीक्षाएँ">FAQ &amp; Reviews</a>
+        <div class="language-switch" aria-label="Language"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="ar" aria-pressed="false">عربي</button><button type="button" data-language="hi" aria-pressed="false">हिन्दी</button></div>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow" data-en="Health information" data-ar="معلومات صحية">Health information</p>
+        <h1 data-en="Clinic Blog" data-ar="مدونة العيادة">Clinic Blog</h1>
+        <p data-en="Clinic-approved articles and updates." data-ar="مقالات وتحديثات معتمدة من العيادة.">Clinic-approved articles and updates.</p>
+      </div>
+    </section>
+    <section class="section" data-blog-content hidden aria-labelledby="blog-list-heading">
+      <div class="container">
+        <h2 id="blog-list-heading" class="visually-hidden" data-en="Latest articles" data-ar="أحدث المقالات">Latest articles</h2>
+        <div class="blog-filters" data-blog-filters>
+          <label><span data-en="Search articles" data-ar="ابحث في المقالات" data-hi="लेख खोजें">Search articles</span><input type="search" data-blog-search autocomplete="off"></label>
+          <label><span data-en="Filter by category" data-ar="تصفية حسب الفئة" data-hi="श्रेणी के अनुसार फ़िल्टर करें">Filter by category</span><select data-blog-category><option value="all" data-en="All categories" data-ar="جميع الفئات" data-hi="सभी श्रेणियाँ">All categories</option></select></label>
+        </div>
+        <div class="blog-list" data-blog-list></div>
+        <p class="blog-empty" data-blog-empty hidden data-en="There are no published articles yet." data-ar="لا توجد مقالات منشورة حالياً.">There are no published articles yet.</p>
+        <p class="blog-disclaimer" data-en="Articles are for general information only and are not a substitute for individual medical advice. For urgent concerns, contact emergency services." data-ar="المقالات للتوعية العامة فقط ولا تغني عن الاستشارة الطبية الشخصية. في الحالات الطارئة، اتصل بخدمات الطوارئ.">Articles are for general information only and are not a substitute for individual medical advice. For urgent concerns, contact emergency services.</p>
+      </div>
+    </section>
+    <section class="section" data-blog-disabled>
+      <div class="container">
+        <div class="info-card blog-disabled-message" role="status">
+          <p data-en="The clinic blog is currently unavailable." data-ar="مدونة العيادة غير متاحة حالياً.">The clinic blog is currently unavailable.</p>
+          <a href="index.html" data-en="Return to the clinic website" data-ar="العودة إلى موقع العيادة">Return to the clinic website</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom"><p>© <span data-year></span> Dr. [Name]. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p></div>
+    </div>
+  </footer>
+  <script src="js/data.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
