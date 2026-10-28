@@ -1,0 +1,267 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
+
+collections:
+  - name: "site"
+    label: "Clinic website"
+    files:
+      - name: "settings"
+        label: "Clinic and shop settings"
+        file: "js/site-config.json"
+        format: "json"
+        fields:
+          - label: "Shop"
+            name: "shopEnabled"
+            widget: "boolean"
+            default: true
+            hint: "Turn the shop off across the whole website without removing its products."
+          - label: "Blog"
+            name: "blogEnabled"
+            widget: "boolean"
+            default: true
+            hint: "Enable the blog page and its navigation links. Only posts marked Published are displayed."
+          - label: "Blog posts"
+            name: "blogPosts"
+            widget: "list"
+            required: false
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - { label: "Title (English)", name: "title", widget: "string" }
+              - { label: "Title (Arabic)", name: "titleAr", widget: "string" }
+              - { label: "Title (Hindi)", name: "titleHi", widget: "string", required: false }
+              - { label: "Short summary (English)", name: "excerpt", widget: "text" }
+              - { label: "Short summary (Arabic)", name: "excerptAr", widget: "text" }
+              - { label: "Short summary (Hindi)", name: "excerptHi", widget: "text", required: false }
+              - { label: "Article (English)", name: "body", widget: "text" }
+              - { label: "Article (Arabic)", name: "bodyAr", widget: "text" }
+              - { label: "Article (Hindi)", name: "bodyHi", widget: "text", required: false }
+              - { label: "Publication date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Category (English)", name: "category", widget: "string", required: false }
+              - { label: "Category (Arabic)", name: "categoryAr", widget: "string", required: false }
+              - { label: "Category (Hindi)", name: "categoryHi", widget: "string", required: false }
+              - { label: "Published", name: "published", widget: "boolean", default: false, hint: "Have a clinician review health information before publishing." }
+          - label: "Hosted appointment booking page"
+            name: "bookingUrl"
+            widget: "string"
+            required: false
+            hint: "Paste the clinic's public booking-page URL (HTTPS). This opens the live calendar hosted by the booking provider."
+          - label: "myFatoorah payment links"
+            name: "paymentLinks"
+            widget: "object"
+            fields:
+              - { label: "Show configured payment links", name: "enabled", widget: "boolean", default: false, hint: "Only enable after testing links in the clinic's merchant account. Payment is handled by myFatoorah, not by this site." }
+          - label: "Cloudflare Web Analytics site token"
+            name: "cloudflareWebAnalyticsToken"
+            widget: "string"
+            required: false
+            hint: "Optional public site token from Cloudflare Web Analytics. This is not an API key or payment secret."
+          - label: "Clinic introduction video URL"
+            name: "introVideoUrl"
+            widget: "string"
+            required: false
+            hint: "Optional YouTube video URL. The video section stays hidden until a valid YouTube URL is provided."
+          - label: "Emergency information"
+            name: "emergencyInfo"
+            widget: "object"
+            fields:
+              - { label: "Emergency number", name: "emergencyNumber", widget: "string", hint: "Confirm this number is correct and available in the clinic's location before publishing." }
+              - { label: "Emergency number (Arabic)", name: "emergencyNumberAr", widget: "string" }
+              - { label: "Emergency message (English)", name: "emergencyMessage", widget: "text", hint: "Keep this brief and direct people with emergencies to emergency services, not the website." }
+              - { label: "Emergency message (Arabic)", name: "emergencyMessageAr", widget: "text" }
+              - { label: "Emergency message (Hindi)", name: "emergencyMessageHi", widget: "text", required: false }
+          - label: "First aid guide"
+            name: "firstAidSections"
+            widget: "list"
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Heading (English)", name: "title", widget: "string" }
+              - { label: "Heading (Arabic)", name: "titleAr", widget: "string" }
+              - { label: "Guidance (English)", name: "body", widget: "text" }
+              - { label: "Guidance (Arabic)", name: "bodyAr", widget: "text" }
+              - { label: "Show on site", name: "enabled", widget: "boolean", default: false, hint: "Publish only after clinician review in both languages." }
+          - label: "Procedure preparation guides"
+            name: "preparationGuides"
+            widget: "list"
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title (English)", name: "title", widget: "string" }
+              - { label: "Title (Arabic)", name: "titleAr", widget: "string" }
+              - { label: "Instructions (English)", name: "body", widget: "text" }
+              - { label: "Instructions (Arabic)", name: "bodyAr", widget: "text" }
+              - { label: "Published", name: "published", widget: "boolean", default: false, hint: "Publish only after the clinic verifies the procedure-specific instructions and translation." }
+          - label: "Vaccination schedule information"
+            name: "vaccinationSchedule"
+            widget: "list"
+            required: false
+            summary: "{{fields.ageGroup}} — {{fields.vaccine}}"
+            fields:
+              - { label: "Age group", name: "ageGroup", widget: "string" }
+              - { label: "Age group (Hindi)", name: "ageGroupHi", widget: "string", required: false }
+              - { label: "Vaccine or schedule item (English)", name: "vaccine", widget: "string" }
+              - { label: "Vaccine or schedule item (Arabic)", name: "vaccineAr", widget: "string" }
+              - { label: "Vaccine or schedule item (Hindi)", name: "vaccineHi", widget: "string", required: false }
+              - { label: "Details (English)", name: "details", widget: "text" }
+              - { label: "Details (Arabic)", name: "detailsAr", widget: "text" }
+              - { label: "Details (Hindi)", name: "detailsHi", widget: "text", required: false }
+              - { label: "Publish", name: "published", widget: "boolean", default: false, hint: "Only publish a current schedule checked against an official Kuwait MOH source and clinician review." }
+          - label: "Prayer times"
+            name: "prayerTimes"
+            widget: "list"
+            required: false
+            summary: "{{fields.date}}"
+            fields:
+              - { label: "Date", name: "date", widget: "string", hint: "Use YYYY-MM-DD. The page shows entries for today only; verify times and timezone for the clinic's location." }
+              - { label: "Fajr", name: "fajr", widget: "string" }
+              - { label: "Dhuhr", name: "dhuhr", widget: "string" }
+              - { label: "Asr", name: "asr", widget: "string" }
+              - { label: "Maghrib", name: "maghrib", widget: "string" }
+              - { label: "Isha", name: "isha", widget: "string" }
+              - { label: "Verified source", name: "source", widget: "string", hint: "Add the official source used to verify this local schedule." }
+              - { label: "Verified source (Hindi)", name: "sourceHi", widget: "string", required: false }
+              - { label: "Publish", name: "published", widget: "boolean", default: false }
+          - label: "Ramadan guidance"
+            name: "ramadanGuidance"
+            widget: "list"
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title (English)", name: "title", widget: "string" }
+              - { label: "Title (Arabic)", name: "titleAr", widget: "string" }
+              - { label: "Title (Hindi)", name: "titleHi", widget: "string", required: false }
+              - { label: "Guidance (English)", name: "body", widget: "text" }
+              - { label: "Guidance (Arabic)", name: "bodyAr", widget: "text" }
+              - { label: "Guidance (Hindi)", name: "bodyHi", widget: "text", required: false }
+              - { label: "Publish", name: "published", widget: "boolean", default: false, hint: "Clinician review required in both languages; avoid individualized fasting or medication advice." }
+          - label: "Seasonal health alerts"
+            name: "seasonalHealthAlerts"
+            widget: "list"
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title (English)", name: "title", widget: "string" }
+              - { label: "Title (Arabic)", name: "titleAr", widget: "string" }
+              - { label: "Title (Hindi)", name: "titleHi", widget: "string", required: false }
+              - { label: "Message (English)", name: "body", widget: "text" }
+              - { label: "Message (Arabic)", name: "bodyAr", widget: "text" }
+              - { label: "Message (Hindi)", name: "bodyHi", widget: "text", required: false }
+              - { label: "Start date (optional)", name: "startDate", widget: "string", required: false }
+              - { label: "End date (optional)", name: "endDate", widget: "string", required: false }
+              - { label: "Publish", name: "published", widget: "boolean", default: false, hint: "Use current, verified sources and clinician-reviewed translations. This is not an emergency alert service." }
+          - label: "Clinic details"
+            name: "doctorInfo"
+            widget: "object"
+            fields:
+              - { label: "Doctor or clinic name", name: "name", widget: "string" }
+              - { label: "Specialty", name: "specialty", widget: "string" }
+              - { label: "Specialty (Hindi)", name: "specialtyHi", widget: "string", required: false }
+              - { label: "Biography (English)", name: "bio", widget: "text", required: false, hint: "Use only clinic-approved, verified information and credentials." }
+              - { label: "Biography (Arabic)", name: "bioAr", widget: "text", required: false, hint: "Use a clinic-approved Arabic translation of the verified biography." }
+              - { label: "Biography (Hindi)", name: "bioHi", widget: "text", required: false, hint: "Use a clinic-approved Hindi translation of the verified biography." }
+              - { label: "Phone number with country code", name: "phone", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "WhatsApp number with country code", name: "whatsapp", widget: "string" }
+              - { label: "Clinic address", name: "address", widget: "string" }
+              - { label: "Google Maps embed URL", name: "googleMapsEmbed", widget: "string" }
+              - { label: "Directions URL override", name: "directionsUrl", widget: "string", required: false, hint: "Optional. When blank, the website generates a free Waze route from the clinic address." }
+              - { label: "Parking details (English)", name: "parking", widget: "text", required: false }
+              - { label: "Parking details (Arabic)", name: "parkingAr", widget: "text", required: false }
+              - { label: "Parking details (Hindi)", name: "parkingHi", widget: "text", required: false }
+              - { label: "Accessibility details (English)", name: "accessibility", widget: "text", required: false }
+              - { label: "Accessibility details (Arabic)", name: "accessibilityAr", widget: "text", required: false }
+              - { label: "Accessibility details (Hindi)", name: "accessibilityHi", widget: "text", required: false }
+              - { label: "Verified Google Business Profile URL", name: "googleBusinessProfile", widget: "string", required: false }
+              - label: "Social profile links"
+                name: "socialProfiles"
+                widget: "object"
+                fields:
+                  - { label: "Instagram", name: "instagram", widget: "string", required: false }
+                  - { label: "Facebook", name: "facebook", widget: "string", required: false }
+                  - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+          - label: "Opening hours"
+            name: "hours"
+            widget: "list"
+            summary: "{{fields.day}} — {{fields.hours}}"
+            fields:
+              - { label: "Day (English)", name: "day", widget: "string" }
+              - { label: "Day (Arabic)", name: "dayAr", widget: "string" }
+              - { label: "Day (Hindi)", name: "dayHi", widget: "string", required: false }
+              - { label: "Hours (English)", name: "hours", widget: "string" }
+              - { label: "Hours (Arabic)", name: "hoursAr", widget: "string" }
+              - { label: "Hours (Hindi)", name: "hoursHi", widget: "string", required: false }
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name (English)", name: "name", widget: "string" }
+              - { label: "Name (Arabic)", name: "nameAr", widget: "string" }
+              - { label: "Name (Hindi)", name: "nameHi", widget: "string", required: false }
+              - { label: "Description (English)", name: "description", widget: "text" }
+              - { label: "Description (Arabic)", name: "descriptionAr", widget: "text" }
+              - { label: "Description (Hindi)", name: "descriptionHi", widget: "text", required: false }
+              - { label: "Typical duration (English)", name: "duration", widget: "string", required: false }
+              - { label: "Typical duration (Arabic)", name: "durationAr", widget: "string", required: false }
+              - { label: "Typical duration (Hindi)", name: "durationHi", widget: "string", required: false }
+              - { label: "Fee text (English)", name: "fee", widget: "string", required: false, hint: "Use 'Confirm with clinic' unless the price is confirmed." }
+              - { label: "Fee text (Arabic)", name: "feeAr", widget: "string", required: false }
+              - { label: "Fee text (Hindi)", name: "feeHi", widget: "string", required: false }
+              - { label: "Details (English)", name: "details", widget: "list", field: { label: "Detail", name: "detail", widget: "string" }, required: false }
+              - { label: "Details (Arabic)", name: "detailsAr", widget: "list", field: { label: "Detail", name: "detail", widget: "string" }, required: false }
+              - { label: "Details (Hindi)", name: "detailsHi", widget: "list", field: { label: "Detail", name: "detail", widget: "string" }, required: false }
+              - { label: "Font Awesome icon name", name: "icon", widget: "string", default: "fa-stethoscope" }
+              - { label: "myFatoorah payment link (optional)", name: "paymentLink", widget: "string", required: false, hint: "HTTPS myFatoorah-hosted payment URL. Leave blank to omit online payment for this service." }
+              - { label: "Visible on site", name: "enabled", widget: "boolean", default: true }
+          - label: "FAQs"
+            name: "faqs"
+            widget: "list"
+            summary: "{{fields.question}}"
+            fields:
+              - { label: "Category (English)", name: "category", widget: "string" }
+              - { label: "Category (Arabic)", name: "categoryAr", widget: "string" }
+              - { label: "Category (Hindi)", name: "categoryHi", widget: "string", required: false }
+              - { label: "Question (English)", name: "question", widget: "string" }
+              - { label: "Question (Arabic)", name: "questionAr", widget: "string" }
+              - { label: "Question (Hindi)", name: "questionHi", widget: "string", required: false }
+              - { label: "Answer (English)", name: "answer", widget: "text" }
+              - { label: "Answer (Arabic)", name: "answerAr", widget: "text" }
+              - { label: "Answer (Hindi)", name: "answerHi", widget: "text", required: false }
+              - { label: "Visible on site", name: "enabled", widget: "boolean", default: true }
+          - label: "Patient testimonials"
+            name: "testimonials"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Patient display name", name: "name", widget: "string", hint: "Use an approved anonymous label if preferred." }
+              - { label: "Testimonial (English)", name: "quote", widget: "text" }
+              - { label: "Testimonial (Arabic)", name: "quoteAr", widget: "text", required: false }
+              - { label: "Testimonial (Hindi)", name: "quoteHi", widget: "text", required: false }
+              - { label: "Patient photo (optional)", name: "image", widget: "string", required: false }
+              - { label: "Patient consent confirmed", name: "consentConfirmed", widget: "boolean", default: false }
+              - { label: "Approved by clinic", name: "approved", widget: "boolean", default: false }
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.price}} KWD"
+            fields:
+              - { label: "Product name", name: "name", widget: "string" }
+              - { label: "Product name (Hindi)", name: "nameHi", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Description (Hindi)", name: "descriptionHi", widget: "text", required: false }
+              - { label: "Price (KWD)", name: "price", widget: "number", value_type: "float", min: 0 }
+              - label: "Product image path"
+                name: "image"
+                widget: "string"
+                hint: "Use an existing image path such as img/products/glucosamine.svg, or upload an image to img/uploads and enter its path."
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["Medicines", "Supplements", "Medical Devices"]
+              - { label: "Show on home page", name: "featured", widget: "boolean", default: false }
+              - { label: "In stock", name: "inStock", widget: "boolean", default: true }
+              - { label: "myFatoorah payment link (optional)", name: "paymentLink", widget: "string", required: false, hint: "HTTPS myFatoorah-hosted payment URL. Leave blank to continue using WhatsApp orders for this product." }

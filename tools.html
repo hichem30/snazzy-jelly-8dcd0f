@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Use educational health estimates and date-format tools from Dr. [Name] Clinic.">
+  <title>Health Tools | Dr. [Name] Clinic</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Noto+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-en="Skip to content" data-ar="انتقل إلى المحتوى">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">+</span><span>Dr. [Name] Clinic</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="menu-close" type="button" aria-label="Close menu"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="about.html" data-en="About" data-ar="عن الطبيب">About</a>
+        <a href="services.html" data-en="Services" data-ar="الخدمات">Services</a>
+        <a href="shop.html" data-en="Shop" data-ar="المتجر">Shop</a>
+        <a href="appointment.html" data-en="Appointment" data-ar="المواعيد">Appointment</a>
+        <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+        
+        <a href="faq.html" data-en="FAQ &amp; Reviews" data-ar="الأسئلة الشائعة وآراء المرضى" data-hi="अक्सर पूछे जाने वाले प्रश्न और समीक्षाएँ">FAQ &amp; Reviews</a>
+        <div class="language-switch" aria-label="Language"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="ar" aria-pressed="false">عربي</button></div>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow" data-en="Self-service" data-ar="خدمات ذاتية">Self-service</p>
+        <h1 data-en="Health Tools" data-ar="الأدوات الصحية">Health Tools</h1>
+        <p data-en="Simple estimates and personal tools. These tools do not diagnose, prescribe, or replace advice from a qualified healthcare professional." data-ar="تقديرات وأدوات شخصية بسيطة. لا تشخّص هذه الأدوات الأمراض أو تصف العلاج ولا تغني عن استشارة مختص صحي مؤهل.">Simple estimates and personal tools. These tools do not diagnose, prescribe, or replace advice from a qualified healthcare professional.</p>
+      </div>
+    </section>
+    <section class="section section-muted">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-en="Estimates only" data-ar="تقديرات فقط">Estimates only</p>
+          <h2 data-en="Health Calculators" data-ar="الحاسبات الصحية">Health Calculators</h2>
+          <p data-en="Calculations happen in this browser and are not sent to the clinic." data-ar="تُجرى الحسابات في هذا المتصفح ولا تُرسل إلى العيادة.">Calculations happen in this browser and are not sent to the clinic.</p>
+        </div>
+        <div class="tool-grid">
+          <section class="tool-card" aria-labelledby="bmi-heading">
+            <h3 id="bmi-heading" data-en="Adult BMI estimate" data-ar="تقدير مؤشر كتلة الجسم للبالغين">Adult BMI estimate</h3>
+            <p data-en="For adults only. BMI is a screening measure, not a diagnosis." data-ar="للبالغين فقط. مؤشر كتلة الجسم أداة فحص وليس تشخيصاً.">For adults only. BMI is a screening measure, not a diagnosis.</p>
+            <form data-bmi-form>
+              <label for="bmi-weight"><span data-en="Weight (kg)" data-ar="الوزن (كجم)">Weight (kg)</span><input id="bmi-weight" name="weight" type="number" min="20" max="500" step="0.1" inputmode="decimal" required></label>
+              <label for="bmi-height"><span data-en="Height (cm)" data-ar="الطول (سم)">Height (cm)</span><input id="bmi-height" name="height" type="number" min="100" max="250" step="0.1" inputmode="decimal" required></label>
+              <button class="button button-primary" type="submit" data-en="Calculate BMI" data-ar="احسب مؤشر كتلة الجسم">Calculate BMI</button>
+            </form>
+            <p class="tool-result" data-bmi-result role="status" aria-live="polite"></p>
+          </section>
+          <section class="tool-card" aria-labelledby="due-date-heading">
+            <h3 id="due-date-heading" data-en="Estimated due date" data-ar="تقدير موعد الولادة">Estimated due date</h3>
+            <p data-en="Based on the first day of the last menstrual period and a typical 28-day cycle. A clinician should confirm pregnancy dating." data-ar="يُحسب بناءً على أول يوم من آخر دورة شهرية ودورة نموذجية مدتها ٢٨ يوماً. ينبغي للمختص تأكيد عمر الحمل وموعد الولادة.">Based on the first day of the last menstrual period and a typical 28-day cycle. A clinician should confirm pregnancy dating.</p>
+            <form data-due-date-form>
+              <label for="due-date-lmp"><span data-en="First day of last menstrual period" data-ar="أول يوم من آخر دورة شهرية">First day of last menstrual period</span><input id="due-date-lmp" name="lmp" type="date" required></label>
+              <button class="button button-primary" type="submit" data-en="Estimate due date" data-ar="قدّر موعد الولادة">Estimate due date</button>
+            </form>
+            <p class="tool-result" data-due-date-result role="status" aria-live="polite"></p>
+          </section>
+        </div>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="date-format-heading">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-en="Local device conversion" data-ar="تحويل محلي على الجهاز">Local device conversion</p>
+          <h2 id="date-format-heading" data-en="Date format converter" data-ar="تحويل التاريخ" data-hi="तारीख प्रारूप कनवर्टर">Date format converter</h2>
+          <p data-en="Convert a Gregorian date to a Hijri display. Hijri dates may vary by local moon-sighting practice." data-ar="حوّل التاريخ الميلادي إلى عرض هجري. قد يختلف التاريخ الهجري حسب رؤية الهلال المحلية.">Convert a Gregorian date to a Hijri display. Hijri dates may vary by local moon-sighting practice.</p>
+        </div>
+        <div class="tool-grid">
+          <section class="tool-card">
+            <h3 data-en="Gregorian and Hijri date" data-ar="التاريخ الميلادي والهجري">Gregorian and Hijri date</h3>
+            <form data-date-converter>
+              <label for="converter-date"><span data-en="Gregorian date" data-ar="التاريخ الميلادي">Gregorian date</span><input id="converter-date" name="date" type="date" required></label>
+              <button class="button button-primary" type="submit" data-en="Convert date" data-ar="حوّل التاريخ">Convert date</button>
+            </form>
+            <p class="tool-result" data-date-result role="status" aria-live="polite"></p>
+          </section>
+        </div>
+      </div>
+    </section>
+    <section class="section section-muted" data-vaccination-section hidden>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-en="Clinic-maintained information" data-ar="معلومات تديرها العيادة">Clinic-maintained information</p>
+          <h2 data-en="Vaccination schedule information" data-ar="معلومات جدول التطعيمات">Vaccination schedule information</h2>
+          <p data-en="This is informational only. Confirm the current Kuwait Ministry of Health schedule and individual eligibility with a clinician." data-ar="هذه معلومات للتوعية فقط. تحقق من جدول وزارة الصحة الكويتية الحالي وأهلية كل حالة مع مختص صحي.">This is informational only. Confirm the current Kuwait Ministry of Health schedule and individual eligibility with a clinician.</p>
+        </div>
+        <label class="tool-filter-label" for="vaccination-age-filter" data-en="Filter by age group" data-ar="تصفية حسب الفئة العمرية">Filter by age group</label>
+        <select id="vaccination-age-filter" data-vaccination-filter aria-controls="vaccination-list"><option value="all" data-en="All age groups" data-ar="جميع الفئات العمرية">All age groups</option></select>
+        <div class="information-grid" id="vaccination-list" data-vaccination-list></div>
+        <p class="tool-result" data-vaccination-empty role="status" hidden data-en="No schedule has been published by the clinic." data-ar="لم تنشر العيادة جدولاً بعد.">No schedule has been published by the clinic.</p>
+        <button class="button button-secondary" type="button" data-print-vaccinations data-en="Print schedule" data-ar="اطبع الجدول">Print schedule</button>
+      </div>
+    </section>
+    <section class="section" data-prayer-section hidden>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-en="Locally verified times" data-ar="مواقيت محلية موثقة">Locally verified times</p>
+          <h2 data-en="Prayer times" data-ar="مواقيت الصلاة">Prayer times</h2>
+          <p data-en="Times are published by the clinic and may vary by location and calculation method. Verify today's times with a trusted local source." data-ar="تنشر العيادة هذه المواقيت وقد تختلف حسب الموقع وطريقة الحساب. تحقق من مواقيت اليوم من مصدر محلي موثوق.">Times are published by the clinic and may vary by location and calculation method. Verify today's times with a trusted local source.</p>
+        </div>
+        <div class="information-grid" data-prayer-list></div>
+      </div>
+    </section>
+    <section class="section section-muted" data-ramadan-section hidden>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-en="Seasonal information" data-ar="معلومات موسمية">Seasonal information</p>
+          <h2 data-en="Ramadan guidance" data-ar="إرشادات رمضان">Ramadan guidance</h2>
+          <p data-en="General clinic-reviewed information only. For advice about fasting or medicines, speak with your clinician." data-ar="معلومات عامة راجعتها العيادة فقط. استشر طبيبك بشأن الصيام أو الأدوية.">General clinic-reviewed information only. For advice about fasting or medicines, speak with your clinician.</p>
+        </div>
+        <div class="information-grid" data-ramadan-list></div>
+      </div>
+    </section>
+    <section class="section" data-seasonal-alerts-section hidden>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-en="Current information" data-ar="معلومات حالية">Current information</p>
+          <h2 data-en="Seasonal health information" data-ar="معلومات صحية موسمية">Seasonal health information</h2>
+          <p data-en="These clinic-published notes are informational and are not an emergency alert service." data-ar="هذه ملاحظات توعوية تنشرها العيادة وليست خدمة تنبيهات طوارئ.">These clinic-published notes are informational and are not an emergency alert service.</p>
+        </div>
+        <div class="information-grid" data-seasonal-alerts-list></div>
+      </div>
+    </section>
+    <section class="section" data-advanced-tools-note>
+      <div class="container">
+        <div class="safety-note" data-en="Medication-dose, infusion-rate, pediatric percentile, and disease-risk calculators are not provided. They require clinician-approved formulas, inputs, interpretation, and Arabic wording before publication." data-ar="لا تتوفر حاسبات جرعات الأدوية أو معدلات التسريب أو النسب المئوية للأطفال أو مخاطر الأمراض. تتطلب هذه الأدوات معادلات ومدخلات وتفسيراً وصياغة عربية معتمدة من مختص قبل النشر.">Medication-dose, infusion-rate, pediatric percentile, and disease-risk calculators are not provided. They require clinician-approved formulas, inputs, interpretation, and Arabic wording before publication.</div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h2 data-en="Clinic" data-ar="العيادة">Clinic</h2><p>[Full clinic address, Kuwait]</p></div>
+        <div><h3 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h3><ul><li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li><li><a href="about.html" data-en="About" data-ar="عن الطبيب">About</a></li><li><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a></li><li><a href="shop.html" data-en="Shop" data-ar="المتجر">Shop</a></li><li><a href="appointment.html" data-en="Appointment" data-ar="المواعيد">Appointment</a></li><li><a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a></li></ul></div>
+        <div><h3 data-en="Contact" data-ar="اتصل بنا">Contact</h3><p>+965 [PHONE]</p><p>info@drname.kw</p></div>
+      </div>
+      <div class="footer-bottom"><p>© <span data-year></span> Dr. [Name]. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p></div>
+    </div>
+  </footer>
+  <noscript><p class="no-script" data-en="JavaScript is required to calculate estimates and convert dates." data-ar="يلزم تفعيل جافاسكريبت لحساب التقديرات وتحويل التاريخ." data-hi="अनुमान लगाने और तारीख बदलने के लिए JavaScript आवश्यक है।">JavaScript is required to calculate estimates and convert dates.</p></noscript>
+  <script src="js/data.js" defer></script>
+  <script src="js/calculators.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

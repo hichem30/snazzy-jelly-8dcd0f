@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" role="img" aria-labelledby="title">
+  <title id="title">Doctor portrait placeholder — replace with the clinic-approved portrait</title>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0b2032"/>
+      <stop offset="1" stop-color="#176078"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#ccecf0"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#49dbe8" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#49dbe8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0v42" fill="none" stroke="#a9f8f3" stroke-opacity=".08"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="900" fill="url(#background)"/>
+  <rect width="800" height="900" fill="url(#grid)"/>
+  <circle cx="408" cy="365" r="326" fill="url(#halo)"/>
+  <circle cx="408" cy="365" r="276" fill="none" stroke="#91f3f0" stroke-opacity=".17" stroke-width="2"/>
+  <circle cx="408" cy="365" r="228" fill="none" stroke="#91f3f0" stroke-opacity=".13" stroke-width="2" stroke-dasharray="4 14"/>
+  <path d="M90 704h166l45-34h97" fill="none" stroke="#82f4e4" stroke-opacity=".42" stroke-width="3"/>
+  <circle cx="398" cy="670" r="7" fill="#d4ff6b"/>
+  <circle cx="678" cy="194" r="55" fill="#153b51" stroke="#8af1ff" stroke-opacity=".6" stroke-width="2"/>
+  <path d="M678 168v52m-26-26h52" stroke="#d4ff6b" stroke-linecap="round" stroke-width="8"/>
+  <ellipse cx="405" cy="817" rx="258" ry="33" fill="#041321" fill-opacity=".38"/>
+  <path d="M158 900c20-235 103-369 247-369s227 134 247 369" fill="url(#coat)"/>
+  <path d="M327 533h156l-24 94H351z" fill="#e5b99f"/>
+  <path d="M315 574c24 46 56 68 90 68s66-22 90-68l-35-28h-110z" fill="#102b3e"/>
+  <path d="M287 625l118 100 118-100 49 40-78 235H316l-78-235z" fill="#f8ffff"/>
+  <path d="M405 725l-45 175h90z" fill="#27bfd4"/>
+  <rect x="482" y="703" width="79" height="111" rx="12" fill="#dff8f5" stroke="#159bb1" stroke-width="4"/>
+  <path d="M502 732h39m-39 20h31" stroke="#0d6b80" stroke-linecap="round" stroke-width="6"/>
+  <path d="M333 253c18-111 99-157 184-133 89 25 124 93 101 203-11 54-20 89-43 118l-168-3c-67-49-92-112-74-185z" fill="#12293b"/>
+  <ellipse cx="408" cy="328" rx="112" ry="145" fill="#f1c9ad"/>
+  <path d="M301 295c15-121 85-177 174-155 68 17 105 67 105 139-45-6-75-31-91-68-43 53-101 79-188 84z" fill="#102538"/>
+  <path d="M356 342h23m65 0h23" stroke="#233547" stroke-linecap="round" stroke-width="7"/>
+  <path d="M392 410c13 11 29 11 42 0" fill="none" stroke="#a76154" stroke-linecap="round" stroke-width="5"/>
+  <path d="M356 319c11-9 24-10 36-4m43 0c13-7 27-6 38 4" fill="none" stroke="#203446" stroke-linecap="round" stroke-width="6"/>
+</svg>

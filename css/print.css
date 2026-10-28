@@ -1,0 +1,55 @@
+@media print {
+  *,
+  *::before,
+  *::after {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    margin: 0;
+    font: 12pt/1.45 Georgia, "Times New Roman", serif;
+  }
+
+  .site-header,
+  .site-footer,
+  .mobile-dock,
+  .primary-nav,
+  .menu-toggle,
+  .menu-close,
+  .language-switch,
+  .accessibility-toolbar,
+  .whatsapp-contact-float,
+  .button,
+  form,
+  iframe,
+  video {
+    display: none !important;
+  }
+
+  main,
+  .container {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  h1, h2, h3, p, li, table {
+    break-inside: avoid;
+  }
+
+  a,
+  a:visited {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    overflow-wrap: anywhere;
+  }
+}
