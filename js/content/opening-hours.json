@@ -1,0 +1,46 @@
+{
+  "hours": [
+    {
+      "day": "Sunday",
+      "dayAr": "الأحد",
+      "hours": "8 AM–8 PM",
+      "hoursAr": "٨ صباحاً–٨ مساءً"
+    },
+    {
+      "day": "Monday",
+      "dayAr": "الاثنين",
+      "hours": "8 AM–8 PM",
+      "hoursAr": "٨ صباحاً–٨ مساءً"
+    },
+    {
+      "day": "Tuesday",
+      "dayAr": "الثلاثاء",
+      "hours": "8 AM–8 PM",
+      "hoursAr": "٨ صباحاً–٨ مساءً"
+    },
+    {
+      "day": "Wednesday",
+      "dayAr": "الأربعاء",
+      "hours": "8 AM–8 PM",
+      "hoursAr": "٨ صباحاً–٨ مساءً"
+    },
+    {
+      "day": "Thursday",
+      "dayAr": "الخميس",
+      "hours": "8 AM–8 PM",
+      "hoursAr": "٨ صباحاً–٨ مساءً"
+    },
+    {
+      "day": "Friday",
+      "dayAr": "الجمعة",
+      "hours": "Closed",
+      "hoursAr": "مغلق"
+    },
+    {
+      "day": "Saturday",
+      "dayAr": "السبت",
+      "hours": "Closed",
+      "hoursAr": "مغلق"
+    }
+  ]
+}

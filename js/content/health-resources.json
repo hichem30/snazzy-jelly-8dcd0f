@@ -1,0 +1,36 @@
+{
+  "emergencyInfo": {
+    "emergencyNumber": "112",
+    "emergencyNumberAr": "112",
+    "emergencyMessage": "For a suspected emergency, call 112 now or go to the nearest emergency department. Do not wait for a website reply.",
+    "emergencyMessageAr": "عند الاشتباه بوجود حالة طارئة، اتصل على 112 فوراً أو توجه إلى أقرب قسم طوارئ. لا تنتظر الرد عبر الموقع."
+  },
+  "firstAidSections": [
+    {
+      "title": "Get emergency help",
+      "titleAr": "اطلب المساعدة الطارئة",
+      "body": "Make sure the area is safe. Call the local emergency number for serious injury, breathing difficulty, unconsciousness, severe bleeding, or sudden severe symptoms. Follow the emergency operator's instructions.",
+      "bodyAr": "تأكد من سلامة المكان. اتصل برقم الطوارئ المحلي عند الإصابة الخطيرة أو صعوبة التنفس أو فقدان الوعي أو النزيف الشديد أو الأعراض المفاجئة الخطيرة. اتبع تعليمات موظف الطوارئ.",
+      "enabled": false
+    },
+    {
+      "title": "While waiting for help",
+      "titleAr": "أثناء انتظار المساعدة",
+      "body": "Stay with the person if it is safe, keep them as comfortable as possible, and do not move them if a serious injury is possible unless staying there presents immediate danger. Do not give food, drink, or medicine unless an emergency professional advises it.",
+      "bodyAr": "ابقَ مع المصاب إذا كان المكان آمناً، وساعده على البقاء مرتاحاً قدر الإمكان. لا تحركه عند احتمال وجود إصابة خطيرة إلا إذا كان بقاؤه في المكان يشكل خطراً فورياً. لا تقدم طعاماً أو شراباً أو دواءً إلا بتوجيه من مختص طوارئ.",
+      "enabled": false
+    },
+    {
+      "title": "Severe bleeding",
+      "titleAr": "النزيف الشديد",
+      "body": "Call emergency services for severe or uncontrolled bleeding. If it is safe to do so, apply steady, firm pressure directly to the wound with clean cloth or gauze while waiting for help.",
+      "bodyAr": "اتصل بخدمات الطوارئ عند النزيف الشديد أو الذي لا يتوقف. إذا كان ذلك آمناً، اضغط بثبات وبقوة مباشرة على الجرح بقطعة قماش أو شاش نظيف أثناء انتظار المساعدة.",
+      "enabled": false
+    }
+  ],
+  "preparationGuides": [],
+  "vaccinationSchedule": [],
+  "prayerTimes": [],
+  "ramadanGuidance": [],
+  "seasonalHealthAlerts": []
+}

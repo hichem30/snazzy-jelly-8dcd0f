@@ -1,0 +1,10 @@
+{
+  "shopEnabled": true,
+  "blogEnabled": true,
+  "bookingUrl": "",
+  "paymentLinks": {
+    "enabled": false
+  },
+  "cloudflareWebAnalyticsToken": "",
+  "introVideoUrl": ""
+}

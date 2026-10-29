@@ -13,7 +13,7 @@ css/ar.css          Right-to-left and Arabic typography styles
 css/accessibility.css, css/print.css  Accessibility preferences and print layout
 js/main.js          Navigation, accessibility controls, forms, product discovery, cart, sharing, and WhatsApp/payment links
 js/data.js          English/Arabic/Hindi interface copy and site configuration loading/validation
-js/site-config.json Admin-editable clinic details, hours, services, FAQs, testimonials, optional blog, shop availability, payment links, and product catalog
+js/content/*.json   Organized CMS data for clinic profile, hours, settings, services, shop, blog, FAQs/reviews, and patient resources
 service-worker.js   Offline cache for the public site shell
 img/                Replaceable SVG portrait, testimonial, favicon, and product placeholders
 admin/              Decap CMS dashboard for managing clinic content and products
@@ -21,19 +21,19 @@ admin/              Decap CMS dashboard for managing clinic content and products
 
 ## Customize before publishing
 
-1. In the admin at `/admin/`, edit the doctor's name, specialty, bilingual biography, phone/WhatsApp number (country code, digits only), email, address, and map embed URL. These settings are stored in `js/site-config.json`.
+1. In the admin at `/admin/`, use the sidebar sections for clinic profile, opening hours, website settings, services, shop products, blog articles, FAQs/reviews, and patient resources. Clinic details are stored in the matching JSON files under `js/content/`.
 2. Update the page copy, prices, services, hours, and contact information to verified clinic details. Do not publish unverified credentials, patient quotes, or health claims.
-3. Replace `img/doctor.svg`, `img/patient1.svg`, `img/patient2.svg`, and the SVGs in `img/products/` with clinic-approved images. Update the corresponding paths in the HTML or `js/site-config.json` if you use different filenames. Obtain consent before publishing identifiable patient photographs or testimonials.
-4. Manage services, opening hours, FAQs and testimonials in the admin. Hindi fields are optional but should be completed and reviewed for each clinic-managed entry; testimonials appear publicly only when both patient consent and clinic approval are checked.
+3. Replace `img/doctor.svg`, `img/patient1.svg`, `img/patient2.svg`, and the SVGs in `img/products/` with clinic-approved images. Update the corresponding paths in the HTML or the relevant JSON file under `js/content/` if you use different filenames. Obtain consent before publishing identifiable patient photographs or testimonials.
+4. Manage services, opening hours, FAQs and testimonials in their matching admin sections. Translation fields are intentionally not exposed to the editor; existing Arabic and Hindi website content is retained. Testimonials appear publicly only when both patient consent and clinic approval are checked.
 5. Manage products in the admin: add, edit, or remove products; set their price, image path, category, featured status, and availability. The shop supports text search, category filtering and an in-stock-only filter. Categories must match `Medicines`, `Supplements`, or `Medical Devices`.
 6. To close or reopen the shop across the site, change the Shop setting in the admin. Each saved change is committed to the connected Git repository and published through a Netlify deploy; it is not an instant switch.
 7. The cart is stored in the visitor's browser and can add, remove, and change quantities. It does not reserve stock. WhatsApp orders include product quantities and an estimated total; the clinic confirms stock and collection/delivery details. Optional myFatoorah-hosted payment links can be enabled in the admin; the website does not process payments or receive payment confirmation.
-8. Set verified directions and Google Business Profile URLs, and add accurate parking/accessibility instructions in both languages. Do not publish guessed addresses, hours, fees, or credentials.
+8. Set verified directions and Google Business Profile URLs, and add accurate parking/accessibility instructions. Do not publish guessed addresses, hours, fees, or credentials.
 9. If the clinic uses a hosted booking calendar, enter its public HTTPS booking-page URL in the admin. The appointment page then offers a direct link to live availability; the existing request form remains available. Calendar accounts, availability, confirmations, cancellations, and any calendar-side payment settings are managed by the booking provider and clinic, not by this static site.
 10. To enable free Cloudflare Web Analytics, add the clinic website in Cloudflare's Web Analytics dashboard, then copy its public site token into the admin. This is a site identifier, not a secret API key. Analytics remains disabled when the field is blank. Before enabling analytics, the clinic should review its privacy notice and applicable privacy requirements.
 11. The Contact page generates a Waze directions link from the clinic address when the owner has entered a real address. This uses Waze's public URL format and does not require an API key. A custom directions URL in the admin overrides it. Verify that the address resolves to the correct clinic entrance before launch.
 12. The About page's approved introduction video is optional. Add a YouTube URL in the admin to show it; unsupported or blank URLs leave the section hidden.
-13. The blog is enabled by default. Published posts support search, category filtering, expandable reading, and native sharing with a copy-link fallback. Posts have optional Hindi fields in addition to English and Arabic; a clinician should review health information and translations before publication. Changes deploy with the normal CMS deployment.
+13. The blog is enabled by default. Published posts support search, category filtering, expandable reading, and native sharing with a copy-link fallback. Existing translated article content remains on the site, but editors only manage the English fields; a clinician should review health information before publication. Changes deploy with the normal CMS deployment.
 14. On mobile, the bottom navigation dock links to Home, Services, Shop, Booking, and Contact. The slide-out menu can be closed using its close button, the backdrop, Escape, or a navigation link.
 15. Service booking links preselect the requested service on the appointment form. Appointment requests are not confirmed bookings; the clinic must contact the visitor to confirm a time unless a hosted scheduler is configured and its booking rules say otherwise.
 16. Verify appointment requests, contact messages, and all contact links after deployment. Both forms are processed by Netlify Forms and require a Netlify deployment; they do not work when opening the HTML directly from disk.
@@ -49,7 +49,7 @@ admin/              Decap CMS dashboard for managing clinic content and products
 
 ## Run locally
 
-Open the folder in VS Code and use a static file server (for example, the Live Server extension), or serve it with any local static HTTP server. External fonts and Font Awesome require an internet connection. The language selector switches supported English, Arabic, and Hindi copy; Arabic uses RTL and Hindi remains LTR. Translate and review CMS-managed content in the admin for full localization.
+Open the folder in VS Code and use a static file server (for example, the Live Server extension), or serve it with any local static HTTP server. External fonts and Font Awesome require an internet connection. The language selector switches supported English, Arabic, and Hindi copy; Arabic uses RTL and Hindi remains LTR. CMS-managed translated content is maintained separately from the English editor fields.
 
 ## Deploy
 

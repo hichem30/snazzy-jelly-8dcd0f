@@ -1,0 +1,166 @@
+{
+  "services": [
+    {
+      "name": "General Consultation",
+      "nameAr": "استشارة عامة",
+      "nameHi": "सामान्य परामर्श",
+      "description": "Discuss health concerns and care options with the doctor.",
+      "descriptionAr": "ناقش المخاوف الصحية وخيارات الرعاية مع الطبيب.",
+      "descriptionHi": "स्वास्थ्य संबंधी चिंताओं और देखभाल के विकल्पों पर डॉक्टर से चर्चा करें।",
+      "duration": "30–60 min",
+      "durationAr": "٣٠–٦٠ دقيقة",
+      "durationHi": "30–60 मिनट",
+      "fee": "Confirm with clinic",
+      "feeAr": "يرجى التأكد من العيادة",
+      "details": [
+        "Discuss symptoms and medical history",
+        "Personalized care recommendations"
+      ],
+      "detailsAr": [
+        "مناقشة الأعراض والتاريخ الطبي",
+        "توصيات رعاية شخصية"
+      ],
+      "detailsHi": [
+        "लक्षणों और चिकित्सा इतिहास पर चर्चा",
+        "व्यक्तिगत देखभाल संबंधी सुझाव"
+      ],
+      "icon": "fa-stethoscope",
+      "enabled": true
+    },
+    {
+      "name": "Blood Tests",
+      "nameAr": "فحوصات الدم",
+      "nameHi": "रक्त जाँच",
+      "description": "Ask about available tests and any preparation instructions.",
+      "descriptionAr": "استفسر عن الفحوصات المتاحة وتعليمات التحضير.",
+      "descriptionHi": "उपलब्ध जाँचों और तैयारी के निर्देशों के बारे में पूछें।",
+      "duration": "15 min",
+      "durationAr": "١٥ دقيقة",
+      "durationHi": "15 मिनट",
+      "fee": "Confirm with clinic",
+      "feeAr": "يرجى التأكد من العيادة",
+      "details": [
+        "Confirm which tests are available",
+        "Ask whether fasting is required"
+      ],
+      "detailsAr": [
+        "تأكد من الفحوصات المتاحة",
+        "استفسر عن الحاجة إلى الصيام"
+      ],
+      "detailsHi": [
+        "उपलब्ध जाँचों की पुष्टि करें",
+        "पूछें कि क्या उपवास आवश्यक है"
+      ],
+      "icon": "fa-vials",
+      "enabled": true
+    },
+    {
+      "name": "ECG",
+      "nameAr": "تخطيط القلب",
+      "nameHi": "ईसीजी",
+      "description": "Contact the clinic to confirm appointment availability.",
+      "descriptionAr": "تواصل مع العيادة للتأكد من توفر المواعيد.",
+      "descriptionHi": "अपॉइंटमेंट की उपलब्धता की पुष्टि के लिए क्लिनिक से संपर्क करें।",
+      "duration": "20–45 min",
+      "durationAr": "٢٠–٤٥ دقيقة",
+      "durationHi": "20–45 मिनट",
+      "fee": "Confirm with clinic",
+      "feeAr": "يرجى التأكد من العيادة",
+      "details": [
+        "Appointment-based assessment",
+        "Results reviewed by a clinician"
+      ],
+      "detailsAr": [
+        "الفحص يتطلب موعداً",
+        "يراجع الطبيب النتائج"
+      ],
+      "detailsHi": [
+        "जाँच के लिए अपॉइंटमेंट आवश्यक है",
+        "चिकित्सक परिणामों की समीक्षा करेंगे"
+      ],
+      "icon": "fa-heart-pulse",
+      "enabled": true
+    },
+    {
+      "name": "Vaccinations",
+      "nameAr": "التطعيمات",
+      "nameHi": "टीकाकरण",
+      "description": "Confirm vaccine availability, eligibility and price in advance.",
+      "descriptionAr": "تأكد مسبقاً من توفر اللقاح والأهلية والسعر.",
+      "descriptionHi": "टीके की उपलब्धता, पात्रता और कीमत की पहले पुष्टि करें।",
+      "duration": "5–10 min",
+      "durationAr": "٥–١٠ دقائق",
+      "durationHi": "5–10 मिनट",
+      "fee": "Confirm with clinic",
+      "feeAr": "يرجى التأكد من العيادة",
+      "details": [
+        "Availability depends on stock",
+        "Bring relevant vaccination records"
+      ],
+      "detailsAr": [
+        "يعتمد التوفر على المخزون",
+        "أحضر سجلات التطعيم ذات الصلة"
+      ],
+      "detailsHi": [
+        "उपलब्धता स्टॉक पर निर्भर करती है",
+        "संबंधित टीकाकरण रिकॉर्ड लाएँ"
+      ],
+      "icon": "fa-syringe",
+      "enabled": true
+    },
+    {
+      "name": "Telemedicine",
+      "nameAr": "الاستشارات عن بُعد",
+      "nameHi": "टेलीमेडिसिन",
+      "description": "Remote appointments may be available for suitable concerns.",
+      "descriptionAr": "قد تتوفر مواعيد عن بُعد لبعض الحالات المناسبة.",
+      "descriptionHi": "उपयुक्त स्वास्थ्य समस्याओं के लिए दूरस्थ परामर्श उपलब्ध हो सकता है।",
+      "duration": "20–30 min",
+      "durationAr": "٢٠–٣٠ دقيقة",
+      "durationHi": "20–30 मिनट",
+      "fee": "Confirm with clinic",
+      "feeAr": "يرجى التأكد من العيادة",
+      "details": [
+        "Confirm suitability with the clinic",
+        "Some concerns require in-person review"
+      ],
+      "detailsAr": [
+        "تأكد من ملاءمة الخدمة مع العيادة",
+        "قد تتطلب بعض الحالات زيارة حضورية"
+      ],
+      "detailsHi": [
+        "क्लिनिक से पूछें कि यह सेवा आपके लिए उपयुक्त है या नहीं",
+        "कुछ समस्याओं में व्यक्तिगत जाँच आवश्यक हो सकती है"
+      ],
+      "icon": "fa-video",
+      "enabled": true
+    },
+    {
+      "name": "Pre-Employment Checkup",
+      "nameAr": "فحص ما قبل التوظيف",
+      "nameHi": "रोज़गार-पूर्व स्वास्थ्य जाँच",
+      "description": "Confirm employer requirements and documents before booking.",
+      "descriptionAr": "تأكد من متطلبات جهة العمل والمستندات قبل الحجز.",
+      "descriptionHi": "बुकिंग से पहले नियोक्ता की आवश्यकताओं और दस्तावेज़ों की पुष्टि करें।",
+      "duration": "45–60 min",
+      "durationAr": "٤٥–٦٠ دقيقة",
+      "durationHi": "45–60 मिनट",
+      "fee": "Confirm with clinic",
+      "feeAr": "يرجى التأكد من العيادة",
+      "details": [
+        "Confirm the requested assessment",
+        "Ask which documents to bring"
+      ],
+      "detailsAr": [
+        "تأكد من الفحوصات المطلوبة",
+        "استفسر عن المستندات اللازمة"
+      ],
+      "detailsHi": [
+        "आवश्यक जाँच की पुष्टि करें",
+        "लाने वाले दस्तावेज़ों के बारे में पूछें"
+      ],
+      "icon": "fa-briefcase-medical",
+      "enabled": true
+    }
+  ]
+}

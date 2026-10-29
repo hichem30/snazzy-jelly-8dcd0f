@@ -1,4 +1,4 @@
-const CACHE_NAME = "clinic-site-shell-v3";
+const CACHE_NAME = "clinic-site-shell-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -18,7 +18,14 @@ const APP_SHELL = [
   "./js/main.js",
   "./js/calculators.js",
   "./js/ics-generator.js",
-  "./js/site-config.json",
+  "./js/content/clinic-profile.json",
+  "./js/content/opening-hours.json",
+  "./js/content/site-settings.json",
+  "./js/content/services.json",
+  "./js/content/shop.json",
+  "./js/content/blog.json",
+  "./js/content/patient-info.json",
+  "./js/content/health-resources.json",
   "./img/favicon.svg"
 ];
 
@@ -43,7 +50,7 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || url.origin !== self.location.origin ||
     url.pathname === "/admin" || url.pathname.startsWith("/admin/")) return;
 
-  if (url.pathname.endsWith("/js/site-config.json")) {
+  if (url.pathname.startsWith("/js/content/")) {
     event.respondWith(fetch(request).then(async (response) => {
       if (response.ok) {
         await (await caches.open(CACHE_NAME)).put(request, response.clone());
@@ -52,7 +59,7 @@ self.addEventListener("fetch", (event) => {
     }).catch(async () => {
       const cached = await caches.match(request);
       if (cached) return cached;
-      return new Response("Clinic settings are unavailable offline.", {
+      return new Response("Clinic content is unavailable offline.", {
         status: 503,
         headers: { "Content-Type": "text/plain; charset=utf-8" }
       });

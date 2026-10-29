@@ -1,9 +1,21 @@
-window.siteDataReady = fetch("js/site-config.json", { cache: "no-store" })
-  .then((response) => {
-    if (!response.ok) throw new Error(`Site settings request failed (${response.status}).`);
-    return response.json();
-  })
-  .then((config) => {
+const siteContentFiles = [
+  "clinic-profile.json",
+  "opening-hours.json",
+  "site-settings.json",
+  "services.json",
+  "shop.json",
+  "blog.json",
+  "patient-info.json",
+  "health-resources.json"
+];
+
+window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
+  const response = await fetch(`js/content/${file}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Site content request failed for ${file} (${response.status}).`);
+  return response.json();
+}))
+  .then((content) => {
+    const config = Object.assign({}, ...content);
     config.bookingUrl ??= "";
     config.paymentLinks ??= { enabled: false };
     config.emergencyInfo ??= {};

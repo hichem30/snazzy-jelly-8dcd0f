@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "name": "Glucosamine 1500mg",
+      "description": "Joint health supplement. Please consult your clinician before use.",
+      "price": 15,
+      "image": "img/products/glucosamine.svg",
+      "category": "Supplements",
+      "featured": true,
+      "inStock": true
+    },
+    {
+      "name": "Omega-3 Fish Oil",
+      "description": "Fish oil supplement. Please consult your clinician before use.",
+      "price": 20,
+      "image": "img/products/omega3.svg",
+      "category": "Supplements",
+      "featured": true,
+      "inStock": true
+    },
+    {
+      "name": "Blood Pressure Monitor",
+      "description": "Automatic digital blood pressure monitor.",
+      "price": 80,
+      "image": "img/products/bp-monitor.svg",
+      "category": "Medical Devices",
+      "featured": true,
+      "inStock": true
+    },
+    {
+      "name": "Vitamin D3 1000 IU",
+      "description": "Vitamin D supplement. Please consult your clinician before use.",
+      "price": 10,
+      "image": "img/products/vitamin-d.svg",
+      "category": "Supplements",
+      "featured": false,
+      "inStock": true
+    },
+    {
+      "name": "Glucometer Kit",
+      "description": "Home blood glucose monitoring kit.",
+      "price": 45,
+      "image": "img/products/glucometer.svg",
+      "category": "Medical Devices",
+      "featured": false,
+      "inStock": true
+    },
+    {
+      "name": "Probiotic Complex",
+      "description": "Probiotic supplement. Please consult your clinician before use.",
+      "price": 25,
+      "image": "img/products/probiotic.svg",
+      "category": "Supplements",
+      "featured": false,
+      "inStock": false
+    }
+  ]
+}
