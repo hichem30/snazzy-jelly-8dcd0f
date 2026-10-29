@@ -1,6 +1,6 @@
 # Dr. [Name] Clinic Website
 
-A responsive HTML/CSS/JavaScript website for a private clinic in Kuwait. The public site is static; the optional admin uses Netlify Identity and Git Gateway to publish changes through the connected Git repository. The small shop has a browser-persisted cart; orders can continue through WhatsApp, and optional myFatoorah-hosted payment links are available when enabled and configured by the clinic. Appointment requests and contact messages use Netlify Forms when deployed on Netlify. The site has English, Arabic, and Hindi language options; CMS-managed content should be entered and reviewed in each supported language.
+A responsive HTML/CSS/JavaScript website for a private clinic in Kuwait. The public site is static; the optional admin uses Decap CMS with Decap Turbo to publish changes through the connected GitHub repository. The small shop has a browser-persisted cart; orders can continue through WhatsApp, and optional myFatoorah-hosted payment links are available when enabled and configured by the clinic. Appointment requests and contact messages use Netlify Forms when deployed on Netlify. The site has English, Arabic, and Hindi language options; CMS-managed content should be entered and reviewed in each supported language.
 
 ## Project structure
 
@@ -60,21 +60,19 @@ Open the folder in VS Code and use a static file server (for example, the Live S
 
 Hosting providers' free tiers, limits, availability, and terms may change. A custom domain may cost money.
 
-## Admin dashboard setup (Netlify)
+## Admin dashboard setup (Netlify + Decap Turbo)
 
-The dashboard at `/admin/` is configured for Decap CMS with Netlify Identity and Git Gateway. To enable secure, site-wide editing:
+The dashboard at `/admin/` uses Decap CMS with the hosted Decap Turbo backend. Website content remains in the connected GitHub repository and Netlify continues to deploy the `main` branch; editors sign in to Turbo, not GitHub or Netlify. Before enabling the dashboard:
 
-1. Deploy this folder to Netlify from a connected Git repository. In `admin/config.yml`, set `backend.branch` to the branch Netlify deploys.
-2. In Netlify, enable Identity and Git Gateway for the site. Keep registration invite-only and invite the clinic owner/admin.
-3. Open `/admin/` on the deployed domain and sign in. Saving clinic settings or products commits the changes to Git and triggers the normal site deployment.
+1. Create a Decap Turbo account and organization at [turbo.decapcms.org](https://turbo.decapcms.org/). The Free plan currently includes one site and one user seat.
+2. In Turbo, connect GitHub and install the Decap Turbo GitHub App on `hichem30/snazzy-jelly-8dcd0f`, granting access to this repository.
+3. Create a Turbo site for `hichem30/snazzy-jelly-8dcd0f`, branch `main`, and config path `admin/config.yml`. Add `https://snazzy-jelly-8dcd0f.netlify.app/admin/` as the admin interface URL, then copy the site ID from its Overview page.
+4. Put the copied site ID in `admin/config.yml` as `backend.turbo_site_id` and deploy the change to Netlify.
+5. Add the clinic owner as a member of that Turbo site. They can then open `/admin/`, choose **Login with Turbo**, and edit the available CMS fields. Saving changes commits to GitHub and triggers the usual Netlify production deployment.
 
-The dashboard is not authenticated or functional when opened directly from disk. On localhost, `/admin/` clearly links to the live admin because a static local server cannot provide Netlify Identity; public-page footers also include an Admin link. Global edits require the Git-backed Netlify setup. On the deployed `/admin/`, Decap CMS loads its standard editor and Identity login flow; after login, the page reloads so the editor initializes with the authenticated session. An existing Identity session resumes automatically in that browser. Netlify Identity keeps its session in browser storage, so it normally survives closing or restarting the computer. Logging out, clearing browser storage, using private browsing, or Netlify revoking/expiring the session will require signing in again. Page layout, general page copy, clinic policies, and other markup still require editing the corresponding HTML files.
+On localhost, `/admin/` links to the live admin because authentication and content publishing require the deployed site. The Turbo login session normally refreshes in the background; signing out, clearing browser storage, or a revoked session may require signing in again. The owner does not need to use the GitHub or Netlify dashboards for routine CMS edits, but an administrator may still need to maintain the Turbo/GitHub connection or troubleshoot failed deployments. Page layout, general page copy, clinic policies, and other markup still require editing the corresponding HTML files.
 
-If login reports an incorrect email or password, verify the account exists under this exact Netlify site's Identity → Users and that email confirmation is complete; Identity accounts are site-specific, not the visitor's Netlify dashboard or GitHub credentials. Use the Identity password recovery flow if necessary. If the editor never appears or Identity cannot load, verify that site-wide Visitor Access/password protection is disabled, the production deploy is published, Identity and Git Gateway are enabled, and `admin/config.yml` points at the connected repository's deployed branch (`main` here). Keep registration invite-only and limit Git Gateway roles to authorized editors.
-
-The Netlify `_headers` file scopes `'unsafe-eval'` to `/admin` because Decap CMS evaluates its configuration at runtime. Public pages keep a separate Content Security Policy without `'unsafe-eval'`; do not move that permission into the global `/*` rule.
-
-Identity's default confirmation and invitation emails return to the site root with an auth token. After confirming an address, visit `/admin/` and sign in; the admin page redirects to itself after login so Decap can load the authenticated session. If the Netlify plan supports custom Identity email templates and you want confirmation/invitation links to open the dashboard directly, use `{{ .SiteURL }}/admin/#confirmation_token={{ .Token }}` in the confirmation template and `{{ .SiteURL }}/admin/#invite_token={{ .Token }}` in the invitation template. Keep Identity registration invite-only; do not make public CMS registration available.
+The Turbo Free plan is limited to one site and one seat, so it fits only if one person needs an account. Invite only authorized editors. Netlify's `_headers` file scopes `'unsafe-eval'` to `/admin` because Decap CMS evaluates its configuration at runtime; it also permits the Turbo control plane and Supabase endpoints used by the hosted backend. Public pages keep a separate Content Security Policy without `'unsafe-eval'`.
 
 ## Appearance
 
