@@ -3,137 +3,61 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex">
-    <meta name="theme-color" content="#2e86ab">
-    <title>Clinic Website Dashboard</title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#f5f8fa">
+    <title>Clinic dashboard</title>
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/css/admin-style.css">
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <script src="/js/admin-dashboard.js" defer></script>
   </head>
-  <body class="owner-dashboard-body">
-    <header class="owner-header">
-      <a class="owner-brand" href="/admin/" aria-label="Clinic website dashboard">
-        <img src="/img/admin-logo.svg" alt="" width="42" height="42">
-        <span><strong>Clinic Website</strong><small>Owner dashboard</small></span>
+  <body>
+    <header class="dashboard-header">
+      <a class="brand" href="/admin/" aria-label="Clinic dashboard home">
+        <img src="/img/admin-logo.svg" width="40" height="40" alt="">
+        <span><strong>Clinic</strong><small>Website dashboard</small></span>
       </a>
-      <nav class="owner-header-actions" aria-label="Dashboard actions">
-        <a class="owner-button owner-button-quiet" href="https://snazzy-jelly-8dcd0f.netlify.app/" target="_blank" rel="noopener noreferrer">
-          <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-          View website
-        </a>
-        <a class="owner-button owner-button-primary" href="/admin/editor.html#/collections/homepage/entries/homepage">
-          <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
-          Edit website
-        </a>
-      </nav>
+      <div class="header-actions">
+        <a class="button button-light" href="/" target="_blank" rel="noopener noreferrer">View website</a>
+        <button class="button button-light" id="logout-button" type="button" hidden>Sign out</button>
+      </div>
     </header>
 
-    <main class="owner-dashboard">
-      <section class="owner-welcome">
-        <div>
-          <p class="owner-eyebrow">CLINIC WEBSITE</p>
-          <h1>What would you like to update?</h1>
-          <p>Choose an area below to manage the information patients see on your website.</p>
-        </div>
-        <a class="owner-button owner-button-primary owner-welcome-button" href="/admin/editor.html#/collections/homepage/entries/homepage">
-          Open website editor
-          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-        </a>
+    <main class="page-shell">
+      <section class="login-panel" id="login-panel" aria-labelledby="login-title" hidden>
+        <div class="login-mark" aria-hidden="true">+</div>
+        <p class="eyebrow">PRIVATE CLINIC DASHBOARD</p>
+        <h1 id="login-title">Sign in</h1>
+        <p>Manage the clinic’s day-to-day website updates.</p>
+        <form id="login-form">
+          <label for="admin-password">Dashboard password</label>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+          <button class="button button-primary button-wide" type="submit">Continue</button>
+        </form>
+        <p class="message" id="login-message" role="status" aria-live="polite"></p>
       </section>
 
-      <section class="owner-section" aria-labelledby="clinic-details-heading">
-        <div class="owner-section-heading">
+      <section id="dashboard" hidden>
+        <div class="page-heading">
           <div>
-            <h2 id="clinic-details-heading">Clinic and patient information</h2>
-            <p>Keep essential details accurate and make it easy for patients to get help.</p>
+            <p class="eyebrow">CLINIC OPERATIONS</p>
+            <h1>Website updates</h1>
+            <p>Update the items that change during normal clinic operations.</p>
           </div>
+          <p class="publish-note">Saving publishes the update through the website deployment.</p>
         </div>
-        <div class="owner-card-grid">
-          <a class="owner-card" href="/admin/editor.html#/collections/clinic-profile/entries/profile">
-            <span class="owner-card-icon"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Clinic profile &amp; contact</strong><small>Doctor details, address, phone, directions and social links</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/opening-hours/entries/hours">
-            <span class="owner-card-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Opening hours</strong><small>Update the weekly schedule shown across the website</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/services/entries/services">
-            <span class="owner-card-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Services</strong><small>Manage service descriptions, fees and visibility</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/appointments/entries/appointments">
-            <span class="owner-card-icon"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Appointments</strong><small>Booking link, WhatsApp request form and patient instructions</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/patient-info/entries/faqs-reviews">
-            <span class="owner-card-icon"><i class="fa-regular fa-circle-question" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>FAQs &amp; reviews</strong><small>Answer common questions and manage approved reviews</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/health-resources/entries/resources">
-            <span class="owner-card-icon"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Health information</strong><small>Manage clinic-reviewed guidance and optional schedules</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-        </div>
-      </section>
 
-      <section class="owner-section" aria-labelledby="website-content-heading">
-        <div class="owner-section-heading">
-          <div>
-            <h2 id="website-content-heading">Website and shop</h2>
-            <p>Manage the pages and features patients can browse.</p>
-          </div>
+        <div class="workspace">
+          <nav class="section-nav" id="section-nav" aria-label="Dashboard sections" role="tablist"></nav>
+          <section class="editor-panel" aria-live="polite">
+            <div id="section-content"></div>
+            <div class="save-bar">
+              <p class="save-message" id="save-message" role="status" aria-live="polite">Changes are published when saved.</p>
+              <button class="button button-primary" id="save-button" type="button">Save changes</button>
+            </div>
+          </section>
         </div>
-        <div class="owner-card-grid">
-          <a class="owner-card" href="/admin/editor.html#/collections/homepage/entries/homepage">
-            <span class="owner-card-icon"><i class="fa-solid fa-house-medical" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Home page</strong><small>Update the welcome message and choose which sections appear</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/shop/entries/products">
-            <span class="owner-card-icon"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Shop &amp; products</strong><small>Turn the shop on or off and manage products, prices and stock</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/blog/entries/articles">
-            <span class="owner-card-icon"><i class="fa-regular fa-newspaper" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Blog articles</strong><small>Write articles, choose dates and control publication</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-          <a class="owner-card" href="/admin/editor.html#/collections/site-settings/entries/settings">
-            <span class="owner-card-icon"><i class="fa-solid fa-sliders" aria-hidden="true"></i></span>
-            <span class="owner-card-copy"><strong>Website &amp; payment settings</strong><small>Enable myFatoorah links and manage shared website features and analytics</small></span>
-            <i class="fa-solid fa-chevron-right owner-card-arrow" aria-hidden="true"></i>
-          </a>
-        </div>
+        <p class="privacy-note">Do not add patient medical records or other sensitive health information here.</p>
       </section>
-
-      <aside class="owner-publishing-note" aria-labelledby="publishing-heading">
-        <span class="owner-note-icon"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></span>
-        <div>
-          <h2 id="publishing-heading">How website updates work</h2>
-          <p>Choose a section, make your change, then use the editor’s save or publish action. The update is sent through the clinic’s connected publishing service; it may take a short time to appear on the live website.</p>
-          <p class="owner-note-caution">Appointment requests are not confirmed bookings. Health information should be checked by the clinic before it is published.</p>
-        </div>
-      </aside>
     </main>
-    <script>
-      (() => {
-        const editorLink = document.querySelectorAll('a[href^="/admin/editor.html"]');
-        const isLocal = ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
-        const liveBase = "https://snazzy-jelly-8dcd0f.netlify.app";
-        if (!isLocal) return;
-        editorLink.forEach((link) => {
-          link.href = `${liveBase}${link.getAttribute("href")}`;
-          link.title = "Open the live editor; local preview cannot save website changes.";
-        });
-        const websiteLink = document.querySelector(".owner-header-actions a[href^='https://']");
-        websiteLink.href = liveBase;
-      })();
-    </script>
   </body>
 </html>
