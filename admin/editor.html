@@ -8,6 +8,7 @@
     <title>Clinic Admin Editor</title>
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/css/admin-style.css">
+    <script src="/js/admin-editor.js" defer></script>
     <style>
       :root {
         color-scheme: light;
@@ -234,7 +235,9 @@
           };
           const installEditorLayout = () => {
             const editor = adminRoot.querySelector('div[class*="EditorContainer"]');
-            if (!editor || editor.dataset.clinicPreviewDefaulted) return;
+            if (!editor) return;
+            window.installClinicAdminWorkspace?.(adminRoot);
+            if (editor.dataset.clinicPreviewDefaulted) return;
             const previewToggle = editor.querySelector('button[title="Toggle preview"]');
             const previewFrame = editor.querySelector('iframe[class*="PreviewPaneFrame"]');
             if (!previewToggle || !previewFrame) return;

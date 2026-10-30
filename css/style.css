@@ -849,9 +849,9 @@ body { color: #142a3a; background: #f6f9fb; }
   .service-meta { color: #273b40 !important; font-weight: 700; }
   .faq-category + .faq-category { margin-top: 30px; }
   .faq-category h2 { margin-bottom: 14px; }
-  .field-error, .form-error-summary { color: #8a1720; font-weight: 700; }
+  .field-error, .form-error-summary, .appointment-whatsapp-error { color: #8a1720; font-weight: 700; }
   .field-error { margin-top: -8px; font-size: .9rem; }
-  .form-error-summary { padding: 12px 14px; border: 2px solid currentColor; border-radius: 10px; background: #fff5f5; }
+  .form-error-summary, .appointment-whatsapp-error { padding: 12px 14px; border: 2px solid currentColor; border-radius: 10px; background: #fff5f5; }
   .contact-form [aria-invalid="true"] { border-color: #a61d24; }
   .contact-form [aria-invalid="true"]:focus-visible { outline-color: #a61d24; }
   [data-location-note] { margin-top: 12px; }

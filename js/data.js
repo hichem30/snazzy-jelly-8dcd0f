@@ -20,8 +20,7 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
     const config = Object.assign({}, ...content);
     config.bookingUrl ??= "";
     config.appointmentRequestEnabled ??= true;
-    config.appointmentIntro ??= "Tell us what time works for you. This is a request, not a confirmed booking; the clinic will contact you to confirm availability.";
-    config.appointmentSuccessMessage ??= "Your request was sent to the clinic. The appointment is not confirmed until the clinic contacts you.";
+    config.appointmentIntro ??= "Complete the form to open WhatsApp. Review the message and tap Send to submit your request. The appointment is not confirmed until the clinic contacts you.";
     config.appointmentSubmitLabel ??= "Send Appointment Request";
     config.showPreferredDate ??= true;
     config.showPreferredTime ??= true;
@@ -65,21 +64,57 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
     ["emergencyNumber", "emergencyNumberAr", "emergencyMessage", "emergencyMessageAr", "emergencyMessageHi"]
       .forEach((field) => { config.emergencyInfo[field] ??= ""; });
     config.firstAidSections ??= [];
+    config.firstAidSections.forEach((section) => {
+      section.titleAr ||= section.title;
+      section.bodyAr ||= section.body;
+    });
     config.preparationGuides ??= [];
+    config.preparationGuides.forEach((guide) => {
+      guide.titleAr ||= guide.title;
+      guide.bodyAr ||= guide.body;
+    });
     config.vaccinationSchedule ??= [];
+    config.vaccinationSchedule.forEach((entry) => {
+      entry.ageGroupHi ??= entry.ageGroup;
+      entry.vaccineAr ||= entry.vaccine;
+      entry.vaccineHi ||= entry.vaccine;
+      entry.detailsAr ||= entry.details;
+      entry.detailsHi ||= entry.details;
+    });
     config.prayerTimes ??= [];
     config.ramadanGuidance ??= [];
+    config.ramadanGuidance.forEach((entry) => {
+      entry.titleAr ??= entry.title;
+      entry.titleHi ??= entry.title;
+      entry.bodyAr ??= entry.body;
+      entry.bodyHi ??= entry.body;
+    });
     config.seasonalHealthAlerts ??= [];
     config.seasonalHealthAlerts.forEach((alert) => {
       alert.startDate ??= "";
       alert.endDate ??= "";
+      alert.titleAr ||= alert.title;
+      alert.titleHi ||= alert.title;
+      alert.bodyAr ||= alert.body;
+      alert.bodyHi ||= alert.body;
+    });
+    config.hours ??= [];
+    config.hours.forEach((row) => {
+      row.dayAr ||= row.day;
+      row.hoursAr ||= row.hours;
     });
     config.blogEnabled ??= true;
     config.blogPosts ??= [];
     config.blogPosts.forEach((post) => {
-      post.category ??= "";
-      post.categoryAr ??= "";
-      ["titleHi", "excerptHi", "bodyHi", "categoryHi"].forEach((field) => { post[field] ??= ""; });
+      post.category ??= "General";
+      post.titleAr ||= post.title;
+      post.excerptAr ||= post.excerpt;
+      post.bodyAr ||= post.body;
+      post.categoryAr ||= post.category;
+      ["titleHi", "excerptHi", "bodyHi", "categoryHi"].forEach((field) => {
+        const englishField = field.replace(/Hi$/, "");
+        post[field] ??= post[englishField];
+      });
     });
     config.cloudflareWebAnalyticsToken ??= "";
     config.introVideoUrl ??= "";
@@ -94,9 +129,11 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
         .forEach((field) => { config.doctorInfo.socialProfiles[field] ??= ""; });
     }
     config?.services?.forEach((service) => {
+      service.nameAr ||= service.name;
+      service.descriptionAr ||= service.description;
       service.details ??= [];
-      service.detailsAr ??= [];
-      service.detailsHi ??= [];
+      service.detailsAr ??= [...service.details];
+      service.detailsHi ??= [...service.details];
       service.paymentLink ??= "";
       ["nameHi", "descriptionHi", "durationHi", "feeHi"]
         .forEach((field) => { service[field] ??= ""; });
@@ -109,7 +146,13 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
       testimonial.image ??= "";
     });
     config?.faqs?.forEach((faq) => {
-      ["categoryHi", "questionHi", "answerHi"].forEach((field) => { faq[field] ??= ""; });
+      faq.categoryAr ||= faq.category;
+      faq.questionAr ||= faq.question;
+      faq.answerAr ||= faq.answer;
+      ["categoryHi", "questionHi", "answerHi"].forEach((field) => {
+        const englishField = field.replace(/Hi$/, "");
+        faq[field] ??= faq[englishField];
+      });
     });
     const validCategories = new Set(["Medicines", "Supplements", "Medical Devices"]);
     const doctorFields = [
@@ -188,7 +231,6 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
       typeof config.bookingUrl !== "string" ||
       typeof config.appointmentRequestEnabled !== "boolean" ||
       typeof config.appointmentIntro !== "string" ||
-      typeof config.appointmentSuccessMessage !== "string" ||
       typeof config.appointmentSubmitLabel !== "string" ||
       typeof config.showPreferredDate !== "boolean" ||
       typeof config.showPreferredTime !== "boolean" ||

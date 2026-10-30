@@ -523,6 +523,10 @@ body.clinic-admin-editor-active #nc-root {
   background: transparent;
 }
 
+#nc-root div[class*="-Editor "][hidden] {
+  display: none !important;
+}
+
 #nc-root div[class*="NoPreviewContainer"],
 #nc-root div[class*="PreviewPaneContainer"],
 #nc-root div[class*="ControlPaneContainer"] {
@@ -636,6 +640,389 @@ body.clinic-admin-editor-active #nc-root {
   height: auto !important;
   flex: none !important;
   overflow: visible !important;
+}
+
+#nc-root .clinic-admin-workspace {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 248px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  padding: 8px 0 32px;
+}
+
+#nc-root .clinic-workspace-nav {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  min-width: 0;
+  max-height: calc(100vh - 112px);
+  flex-direction: column;
+  gap: 22px;
+  overflow: auto;
+  padding: 16px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--admin-shadow);
+}
+
+#nc-root .clinic-workspace-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 5px 15px;
+  border-bottom: 1px solid var(--admin-border);
+  color: var(--admin-dark);
+  text-decoration: none;
+}
+
+#nc-root .clinic-workspace-brand img {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  object-position: left center;
+}
+
+#nc-root .clinic-workspace-brand span {
+  display: grid;
+  gap: 2px;
+}
+
+#nc-root .clinic-workspace-brand strong {
+  font-family: "Poppins", sans-serif;
+  font-size: .9rem;
+}
+
+#nc-root .clinic-workspace-brand small {
+  color: var(--admin-gray);
+  font-size: .75rem;
+}
+
+#nc-root .clinic-workspace-group {
+  display: grid;
+  gap: 4px;
+}
+
+#nc-root .clinic-workspace-group-label {
+  margin: 0 8px 5px;
+  color: var(--admin-gray);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+#nc-root .clinic-workspace-link,
+#nc-root .clinic-workspace-nav-footer a {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  color: var(--admin-dark);
+  font-size: .86rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+#nc-root .clinic-workspace-link i,
+#nc-root .clinic-workspace-nav-footer i {
+  width: 18px;
+  color: var(--admin-primary);
+  text-align: center;
+}
+
+#nc-root .clinic-workspace-link:hover,
+#nc-root .clinic-workspace-nav-footer a:hover {
+  background: #edf6f9;
+}
+
+#nc-root .clinic-workspace-link.is-active {
+  color: #fff;
+  background: var(--admin-primary);
+}
+
+#nc-root .clinic-workspace-link.is-active i {
+  color: #fff;
+}
+
+#nc-root .clinic-workspace-nav-footer {
+  display: grid;
+  gap: 3px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--admin-border);
+}
+
+#nc-root .clinic-workspace-content {
+  min-width: 0;
+  padding: clamp(8px, 2vw, 22px) 0;
+}
+
+#nc-root .clinic-workspace-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+#nc-root .clinic-workspace-eyebrow {
+  margin: 0 0 6px;
+  color: var(--admin-primary-dark);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+#nc-root .clinic-workspace-title {
+  margin: 0;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.2;
+}
+
+#nc-root .clinic-workspace-description {
+  margin: 7px 0 12px;
+  color: var(--admin-gray);
+  line-height: 1.55;
+}
+
+#nc-root .clinic-workspace-status {
+  margin: 0 0 20px;
+  color: var(--admin-success);
+  font-size: .83rem;
+  font-weight: 700;
+}
+
+#nc-root .clinic-workspace-status.has-unsaved-changes {
+  color: #9a5a00;
+}
+
+#nc-root .clinic-workspace-status.has-error {
+  color: #b42318;
+}
+
+#nc-root .clinic-workspace-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+#nc-root .clinic-workspace-fieldset,
+#nc-root .clinic-workspace-list {
+  min-width: 0;
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 9px rgba(20, 54, 72, .05);
+}
+
+#nc-root .clinic-workspace-fieldset legend {
+  padding: 0 7px;
+  color: var(--admin-primary-dark);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#nc-root .clinic-workspace-fieldset > .clinic-workspace-control {
+  margin: 10px 0 14px;
+}
+
+#nc-root .clinic-workspace-control {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 7px;
+}
+
+#nc-root .clinic-workspace-control > label,
+#nc-root .clinic-workspace-item .clinic-workspace-control > label {
+  color: var(--admin-dark);
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+#nc-root .clinic-workspace-control input:not([type="checkbox"]),
+#nc-root .clinic-workspace-control select,
+#nc-root .clinic-workspace-control textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  color: var(--admin-dark);
+  background: #fff;
+  font: inherit;
+}
+
+#nc-root .clinic-workspace-image-preview {
+  display: block;
+  width: min(100%, 220px);
+  max-height: 160px;
+  margin-top: 10px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+#nc-root .clinic-workspace-upload {
+  min-height: 38px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  color: var(--admin-primary-dark);
+  background: #fff;
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#nc-root .clinic-workspace-upload:hover {
+  border-color: var(--admin-primary);
+  background: #f2f9fb;
+}
+
+#nc-root .clinic-workspace-control textarea {
+  min-height: 104px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+#nc-root .clinic-workspace-control input:focus,
+#nc-root .clinic-workspace-control select:focus,
+#nc-root .clinic-workspace-control textarea:focus {
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 3px rgba(46, 134, 171, .14);
+}
+
+#nc-root .clinic-workspace-hint,
+#nc-root .clinic-workspace-empty,
+#nc-root .clinic-workspace-loading {
+  margin: 0;
+  color: var(--admin-gray);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+#nc-root .clinic-workspace-list-heading,
+#nc-root .clinic-workspace-item-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#nc-root .clinic-workspace-list-heading h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+#nc-root .clinic-workspace-item {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 15px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-light);
+}
+
+#nc-root .clinic-workspace-item-heading {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+#nc-root .clinic-workspace-item-heading h3 {
+  margin: 0;
+  font-size: .92rem;
+}
+
+#nc-root .clinic-workspace-add,
+#nc-root .clinic-workspace-remove {
+  min-height: 38px;
+  padding: 7px 12px;
+  border: 1px solid var(--admin-primary);
+  border-radius: 8px;
+  color: #fff;
+  background: var(--admin-primary);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#nc-root .clinic-workspace-remove {
+  border-color: var(--admin-border);
+  color: #a3312a;
+  background: #fff;
+}
+
+#nc-root .clinic-workspace-control-toggle > label {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 9px;
+  background: #fff;
+  cursor: pointer;
+}
+
+#nc-root .clinic-workspace-control-toggle input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+#nc-root .clinic-workspace-switch {
+  position: relative;
+  width: 38px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 99px;
+  background: #a9b5b9;
+  transition: background-color .18s ease;
+}
+
+#nc-root .clinic-workspace-switch::after {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  content: "";
+  transition: transform .18s ease;
+}
+
+#nc-root .clinic-workspace-control-toggle input:checked + .clinic-workspace-switch {
+  background: var(--admin-success);
+}
+
+#nc-root .clinic-workspace-control-toggle input:checked + .clinic-workspace-switch::after {
+  transform: translateX(16px);
+}
+
+#nc-root .clinic-workspace-control-toggle input:focus-visible + .clinic-workspace-switch {
+  outline: 3px solid var(--admin-accent);
+  outline-offset: 3px;
+}
+
+#nc-root .clinic-workspace-menu {
+  display: none;
 }
 
 #nc-root header[class*="AppHeader"] nav:not(.clinic-admin-header-actions) {
@@ -1020,6 +1407,11 @@ body.clinic-admin-editor-active #nc-root {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  #nc-root .clinic-admin-workspace {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 16px;
+  }
+
   #nc-root div[class*="ToolbarContainer"] a[class*="AppHeaderSiteLink"] {
     display: none;
   }
@@ -1030,6 +1422,55 @@ body.clinic-admin-editor-active #nc-root {
   }
 }
 
+@media (max-width: 767px) {
+  #nc-root .clinic-admin-workspace {
+    display: block;
+    padding-top: 0;
+  }
+
+  #nc-root .clinic-workspace-nav {
+    position: fixed;
+    z-index: 1800;
+    top: 76px;
+    bottom: 12px;
+    left: 12px;
+    width: min(300px, calc(100vw - 24px));
+    max-height: none;
+    transform: translateX(calc(-100% - 24px));
+    transition: transform .2s ease;
+  }
+
+  #nc-root .clinic-workspace-menu-open .clinic-workspace-nav {
+    transform: translateX(0);
+  }
+
+  #nc-root .clinic-workspace-menu-open::before {
+    position: fixed;
+    z-index: 1799;
+    inset: 64px 0 0;
+    background: rgba(20, 41, 52, .48);
+    content: "";
+  }
+
+  #nc-root .clinic-workspace-content {
+    padding-top: 12px;
+  }
+
+  #nc-root .clinic-workspace-menu {
+    display: inline-grid;
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--admin-border);
+    border-radius: 9px;
+    color: var(--admin-primary-dark);
+    background: #fff;
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 480px) {
   #nc-root div[class*="ToolbarContainer"] {
     gap: 6px;
@@ -1037,6 +1478,16 @@ body.clinic-admin-editor-active #nc-root {
 
   #nc-root div[class*="BackCollection"] {
     flex-basis: 100%;
+  }
+
+  #nc-root .clinic-workspace-form,
+  #nc-root .clinic-workspace-fieldset {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #nc-root .clinic-workspace-fieldset,
+  #nc-root .clinic-workspace-list {
+    padding: 14px;
   }
 }
 
@@ -1057,6 +1508,48 @@ body.clinic-admin-editor-active #nc-root {
   }
 
   #nc-root div[class*="EditorContainer"] button[title="Toggle preview"] {
+    border-color: var(--admin-border);
+    color: var(--admin-dark);
+    background: #1e2a30;
+  }
+
+  #nc-root .clinic-workspace-nav,
+  #nc-root .clinic-workspace-fieldset,
+  #nc-root .clinic-workspace-list,
+  #nc-root .clinic-workspace-control-toggle > label {
+    border-color: var(--admin-border);
+    color: var(--admin-dark);
+    background: #1e2a30;
+  }
+
+  #nc-root .clinic-workspace-brand,
+  #nc-root .clinic-workspace-link,
+  #nc-root .clinic-workspace-item-heading h3,
+  #nc-root .clinic-workspace-title,
+  #nc-root .clinic-workspace-control > label {
+    color: var(--admin-dark);
+  }
+
+  #nc-root .clinic-workspace-item {
+    border-color: var(--admin-border);
+    background: #172126;
+  }
+
+  #nc-root .clinic-workspace-control input:not([type="checkbox"]),
+  #nc-root .clinic-workspace-control select,
+  #nc-root .clinic-workspace-control textarea {
+    border-color: var(--admin-border);
+    color: var(--admin-dark);
+    background: #172126;
+  }
+
+  #nc-root .clinic-workspace-remove {
+    border-color: var(--admin-border);
+    color: #ffc1ba;
+    background: #263b43;
+  }
+
+  #nc-root .clinic-workspace-menu {
     border-color: var(--admin-border);
     color: var(--admin-dark);
     background: #1e2a30;

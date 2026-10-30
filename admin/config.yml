@@ -134,7 +134,6 @@ collections:
           - { label: "Hosted appointment booking page", name: "bookingUrl", widget: "string", required: false, hint: "Optional public HTTPS booking page. Leave blank to use the request form." }
           - { label: "Show appointment request form", name: "appointmentRequestEnabled", widget: "boolean", default: true, hint: "Turn off the request form if patients should use only the hosted booking page or contact the clinic." }
           - { label: "Request form introduction", name: "appointmentIntro", widget: "text", required: false }
-          - { label: "Request received message", name: "appointmentSuccessMessage", widget: "text", required: false }
           - { label: "Request form submit button", name: "appointmentSubmitLabel", widget: "string", required: false }
           - { label: "Ask for preferred date", name: "showPreferredDate", widget: "boolean", default: true }
           - { label: "Ask for preferred time", name: "showPreferredTime", widget: "boolean", default: true }
@@ -222,7 +221,7 @@ collections:
               - { name: "bodyAr", widget: "hidden" }
               - { name: "bodyHi", widget: "hidden" }
               - { label: "Publication date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-              - { label: "Category", name: "category", widget: "string", required: false }
+              - { label: "Category", name: "category", widget: "string", default: "General" }
               - { name: "categoryAr", widget: "hidden" }
               - { name: "categoryHi", widget: "hidden" }
               - { label: "Published", name: "published", widget: "boolean", default: false, hint: "Have a clinician review health information before publishing." }

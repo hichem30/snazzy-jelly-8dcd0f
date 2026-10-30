@@ -10,7 +10,7 @@ const initialTheme = savedTheme === "light" || savedTheme === "dark"
   : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 document.documentElement.dataset.theme = initialTheme;
 
-window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours, faqs, testimonials, blogEnabled, blogPosts, bookingUrl, appointmentRequestEnabled, appointmentIntro, appointmentSuccessMessage, appointmentSubmitLabel, showPreferredDate, showPreferredTime, showAppointmentNotes, calendarReminderEnabled, contactFormEnabled, contactSuccessMessage, showContactPhone, showContactService, homePage, cloudflareWebAnalyticsToken, introVideoUrl, emergencyInfo, firstAidSections, preparationGuides, vaccinationSchedule, prayerTimes, ramadanGuidance, seasonalHealthAlerts, paymentLinks }) => {
+window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours, faqs, testimonials, blogEnabled, blogPosts, bookingUrl, appointmentRequestEnabled, appointmentIntro, appointmentSubmitLabel, showPreferredDate, showPreferredTime, showAppointmentNotes, calendarReminderEnabled, contactFormEnabled, contactSuccessMessage, showContactPhone, showContactService, homePage, cloudflareWebAnalyticsToken, introVideoUrl, emergencyInfo, firstAidSections, preparationGuides, vaccinationSchedule, prayerTimes, ramadanGuidance, seasonalHealthAlerts, paymentLinks }) => {
   for (const stylesheet of ["css/accessibility.css", "css/print.css"]) {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -482,10 +482,6 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
   appointmentRequestElements.forEach((element) => {
     element.hidden = !appointmentRequestEnabled;
   });
-  const appointmentSuccessCopy = document.querySelector("[data-appointment-form]")?.parentElement?.querySelector("[data-form-success] p");
-  if (appointmentSuccessCopy && appointmentSuccessMessage.trim()) {
-    appointmentSuccessCopy.dataset.en = appointmentSuccessMessage;
-  }
   const contactForm = document.querySelector("#contact-form");
   if (contactForm) {
     contactForm.hidden = !contactFormEnabled;
@@ -1698,6 +1694,36 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
   const appointmentForm = document.querySelector("[data-appointment-form]");
   const appointmentService = document.querySelector("#appointment-service");
   const requestedService = query.get("service");
+  const enabledServices = services.filter((service) => service.enabled);
+  if (enabledServices.length) {
+    document.querySelectorAll("#appointment-service, #service").forEach((select) => {
+      const placeholder = new Option("Select a service", "");
+      placeholder.dataset.en = "Select a service";
+      placeholder.dataset.ar = "اختر خدمة";
+      placeholder.dataset.hi = "सेवा चुनें";
+      const options = [placeholder];
+      enabledServices.forEach((service) => {
+        const option = new Option(service.name, service.name);
+        option.dataset.en = service.name;
+        option.dataset.ar = service.nameAr || arabicTranslations[service.name] || service.name;
+        option.dataset.hi = service.nameHi || service.name;
+        options.push(option);
+      });
+      const otherOption = new Option("Other", "Other");
+      otherOption.dataset.en = "Other";
+      otherOption.dataset.ar = "أخرى";
+      otherOption.dataset.hi = "अन्य";
+      options.push(otherOption);
+      options.forEach((option) => {
+        option.textContent = document.documentElement.lang === "ar"
+          ? option.dataset.ar
+          : document.documentElement.lang === "hi"
+            ? option.dataset.hi || t(option.dataset.en)
+            : option.dataset.en;
+      });
+      select.replaceChildren(...options);
+    });
+  }
   if (appointmentForm && appointmentService && requestedService) {
     const translatedRequest = arabicTranslations[requestedService];
     const matchingOption = [...appointmentService.options].find((option) =>
@@ -1708,11 +1734,92 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     if (matchingOption) appointmentService.value = matchingOption.value;
   }
 
-  if (query.get("submitted") === "true") {
-    document.querySelectorAll("[data-form-success]").forEach((message) => {
-      message.hidden = false;
+  const appointmentHandoff = appointmentForm?.parentElement?.querySelector("[data-appointment-handoff]");
+  if (appointmentForm && appointmentHandoff) {
+    const localizeHandoff = (node) => {
+      if (!node) return;
+      node.textContent = document.documentElement.lang === "ar"
+        ? node.dataset.ar || node.dataset.en
+        : document.documentElement.lang === "hi"
+          ? node.dataset.hi || t(node.dataset.en)
+          : node.dataset.en;
+    };
+    const handoffHeading = appointmentHandoff.querySelector("h3");
+    const handoffCopy = appointmentHandoff.querySelector("p:not([data-requested-appointment])");
+    if (handoffHeading) {
+      handoffHeading.dataset.en = "Continue in WhatsApp";
+      handoffHeading.dataset.ar = "تابع عبر واتساب";
+      localizeHandoff(handoffHeading);
+    }
+    if (handoffCopy) {
+      handoffCopy.dataset.en = "WhatsApp should open with your request. Review the message and tap Send to submit it. Your appointment is not confirmed until the clinic contacts you.";
+      handoffCopy.dataset.ar = "سيفتح واتساب مع طلبك. راجع الرسالة واضغط إرسال لتقديمها. لا يتأكد الموعد حتى تتواصل معك العيادة.";
+      localizeHandoff(handoffCopy);
+    }
+    const whatsappRequestLink = document.createElement("a");
+    whatsappRequestLink.className = "button button-primary";
+    whatsappRequestLink.href = "#";
+    whatsappRequestLink.target = "_blank";
+    whatsappRequestLink.rel = "noopener noreferrer";
+    whatsappRequestLink.dataset.whatsappRequestLink = "";
+    whatsappRequestLink.dataset.en = "Open WhatsApp to send request";
+    whatsappRequestLink.dataset.ar = "افتح واتساب لإرسال الطلب";
+    localizeHandoff(whatsappRequestLink);
+    const calendarButton = appointmentHandoff.querySelector("[data-calendar-download]");
+    appointmentHandoff.insertBefore(whatsappRequestLink, calendarButton || null);
+    appointmentHandoff.querySelector("[data-print-request]")?.remove();
+
+    const whatsappError = document.createElement("p");
+    whatsappError.className = "appointment-whatsapp-error";
+    whatsappError.setAttribute("role", "alert");
+    whatsappError.dataset.en = "The clinic's WhatsApp number is not configured. Please call the clinic instead.";
+    whatsappError.dataset.ar = "رقم واتساب العيادة غير مضبوط. يرجى الاتصال بالعيادة بدلاً من ذلك.";
+    whatsappError.hidden = true;
+    localizeHandoff(whatsappError);
+    appointmentForm.after(whatsappError);
+
+    appointmentForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const digits = doctorInfo.whatsapp.replace(/\D/g, "");
+      if (!/^\d{6,15}$/.test(digits)) {
+        localizeHandoff(whatsappError);
+        whatsappError.hidden = false;
+        return;
+      }
+
+      const values = new FormData(appointmentForm);
+      const date = String(values.get("preferred-date") || "");
+      const time = String(values.get("preferred-time") || "");
+      const message = [
+        `Hello ${doctorInfo.name}, I would like to request an appointment.`,
+        `Name: ${String(values.get("name") || "")}`,
+        `Email: ${String(values.get("email") || "")}`,
+        `Phone: ${String(values.get("phone") || "")}`,
+        `Service: ${String(values.get("service") || "")}`,
+        ...(date ? [`Preferred date: ${date}`] : []),
+        ...(time ? [`Preferred time: ${time}`] : []),
+        ...(String(values.get("message") || "").trim()
+          ? [`Notes: ${String(values.get("message")).trim()}`]
+          : []),
+        "Please do not include urgent or sensitive medical information. This is a request, not a confirmed appointment."
+      ].join("\n");
+      const whatsappUrl = `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+      whatsappRequestLink.href = whatsappUrl;
+      whatsappError.hidden = true;
+      appointmentHandoff.hidden = false;
+
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      document.dispatchEvent(new CustomEvent("appointment:whatsapp-handoff", {
+        detail: { date, time }
+      }));
+      whatsappRequestLink.focus();
     });
-    document.querySelectorAll("#contact-form, [data-appointment-form]").forEach((form) => {
+  }
+
+  if (query.get("submitted") === "true") {
+    const contactSuccess = document.querySelector("#contact-form")?.parentElement?.querySelector("[data-form-success]");
+    if (contactSuccess) contactSuccess.hidden = false;
+    document.querySelectorAll("#contact-form").forEach((form) => {
       form.hidden = true;
     });
   }
