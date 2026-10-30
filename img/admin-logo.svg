@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="56" viewBox="0 0 220 56" role="img" aria-labelledby="title">
+  <title id="title">Clinic Admin</title>
+  <defs>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#4ec2c2"/>
+      <stop offset="1" stop-color="#2e86ab"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="48" height="48" rx="14" fill="url(#brand)"/>
+  <path d="M25 14h6v10h10v6H31v10h-6V30H15v-6h10z" fill="#fff"/>
+  <text x="64" y="36" fill="#1d5b6f" font-family="Poppins, Arial, sans-serif" font-size="21" font-weight="700">Clinic Admin</text>
+</svg>

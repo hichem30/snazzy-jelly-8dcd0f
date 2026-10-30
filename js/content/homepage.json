@@ -1,0 +1,23 @@
+{
+  "homePage": {
+    "heroEyebrow": "Care you can count on",
+    "heroTitle": "Dr. [Name], [Specialty] Specialist",
+    "heroIntro": "Learn about our clinic, explore services and contact us to ask about care.",
+    "heroAppointmentButton": "Book an Appointment",
+    "sections": {
+      "showServices": true,
+      "servicesHeading": "Our Services",
+      "servicesIntro": "A selection of clinic services. Confirm availability and fees with the clinic.",
+      "showProducts": true,
+      "productsHeading": "Recommended Products",
+      "productsIntro": "Product information is illustrative. Consult a qualified healthcare professional before using any medicine or supplement.",
+      "showReviews": true,
+      "reviewsHeading": "Patient Testimonials",
+      "reviewsIntro": "Genuine testimonials are shared only with patient consent and clinic approval.",
+      "showCallToAction": true,
+      "callToActionHeading": "Ready to Book Your Appointment?",
+      "callToActionText": "Contact the clinic to ask about appointment availability.",
+      "callToActionButton": "Book Now"
+    }
+  }
+}

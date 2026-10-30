@@ -1,0 +1,11 @@
+{
+  "bookingUrl": "",
+  "appointmentRequestEnabled": true,
+  "appointmentIntro": "Tell us what time works for you. This is a request, not a confirmed booking; the clinic will contact you to confirm availability.",
+  "appointmentSuccessMessage": "Your request was sent to the clinic. The appointment is not confirmed until the clinic contacts you.",
+  "appointmentSubmitLabel": "Send Appointment Request",
+  "showPreferredDate": true,
+  "showPreferredTime": true,
+  "showAppointmentNotes": true,
+  "calendarReminderEnabled": true
+}

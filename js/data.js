@@ -2,6 +2,8 @@ const siteContentFiles = [
   "clinic-profile.json",
   "opening-hours.json",
   "site-settings.json",
+  "appointments.json",
+  "homepage.json",
   "services.json",
   "shop.json",
   "blog.json",
@@ -17,7 +19,48 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
   .then((content) => {
     const config = Object.assign({}, ...content);
     config.bookingUrl ??= "";
+    config.appointmentRequestEnabled ??= true;
+    config.appointmentIntro ??= "Tell us what time works for you. This is a request, not a confirmed booking; the clinic will contact you to confirm availability.";
+    config.appointmentSuccessMessage ??= "Your request was sent to the clinic. The appointment is not confirmed until the clinic contacts you.";
+    config.appointmentSubmitLabel ??= "Send Appointment Request";
+    config.showPreferredDate ??= true;
+    config.showPreferredTime ??= true;
+    config.showAppointmentNotes ??= true;
+    config.calendarReminderEnabled ??= true;
+    config.homePage ??= {};
+    config.homePage.sections ??= {};
+    const homePageDefaults = {
+      heroEyebrow: "Care you can count on",
+      heroTitle: "Dr. [Name], [Specialty] Specialist",
+      heroIntro: "Learn about our clinic, explore services and contact us to ask about care.",
+      heroAppointmentButton: "Book an Appointment"
+    };
+    Object.entries(homePageDefaults).forEach(([field, value]) => {
+      config.homePage[field] ??= value;
+    });
+    const homeSectionDefaults = {
+      showServices: true,
+      servicesHeading: "Our Services",
+      servicesIntro: "A selection of clinic services. Confirm availability and fees with the clinic.",
+      showProducts: true,
+      productsHeading: "Recommended Products",
+      productsIntro: "Product information is illustrative. Consult a qualified healthcare professional before using any medicine or supplement.",
+      showReviews: true,
+      reviewsHeading: "Patient Testimonials",
+      reviewsIntro: "Genuine testimonials are shared only with patient consent and clinic approval.",
+      showCallToAction: true,
+      callToActionHeading: "Ready to Book Your Appointment?",
+      callToActionText: "Contact the clinic to ask about appointment availability.",
+      callToActionButton: "Book Now"
+    };
+    Object.entries(homeSectionDefaults).forEach(([field, value]) => {
+      config.homePage.sections[field] ??= value;
+    });
     config.paymentLinks ??= { enabled: false };
+    config.contactFormEnabled ??= true;
+    config.contactSuccessMessage ??= "Your message was sent to the clinic. For urgent needs, call the clinic directly or emergency services.";
+    config.showContactPhone ??= true;
+    config.showContactService ??= true;
     config.emergencyInfo ??= {};
     ["emergencyNumber", "emergencyNumberAr", "emergencyMessage", "emergencyMessageAr", "emergencyMessageHi"]
       .forEach((field) => { config.emergencyInfo[field] ??= ""; });
@@ -43,6 +86,7 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
     if (config?.doctorInfo) {
       config.doctorInfo.bio ??= "";
       config.doctorInfo.bioAr ??= "";
+      config.doctorInfo.portrait ??= "img/doctor.svg";
       ["specialtyHi", "bioHi", "directionsUrl", "parking", "parkingAr", "parkingHi", "accessibility", "accessibilityAr", "accessibilityHi", "googleBusinessProfile"]
         .forEach((field) => { config.doctorInfo[field] ??= ""; });
       config.doctorInfo.socialProfiles ??= {};
@@ -69,7 +113,7 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
     });
     const validCategories = new Set(["Medicines", "Supplements", "Medical Devices"]);
     const doctorFields = [
-      "name", "specialty", "bio", "bioAr", "phone", "email", "whatsapp", "address", "googleMapsEmbed",
+      "name", "specialty", "portrait", "bio", "bioAr", "phone", "email", "whatsapp", "address", "googleMapsEmbed",
       "directionsUrl", "parking", "parkingAr", "accessibility", "accessibilityAr", "googleBusinessProfile"
     ];
     const bilingualRecord = (record, fields) => fields.every((field) =>
@@ -142,6 +186,25 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
         typeof post.published === "boolean"
       ) ||
       typeof config.bookingUrl !== "string" ||
+      typeof config.appointmentRequestEnabled !== "boolean" ||
+      typeof config.appointmentIntro !== "string" ||
+      typeof config.appointmentSuccessMessage !== "string" ||
+      typeof config.appointmentSubmitLabel !== "string" ||
+      typeof config.showPreferredDate !== "boolean" ||
+      typeof config.showPreferredTime !== "boolean" ||
+      typeof config.showAppointmentNotes !== "boolean" ||
+      typeof config.calendarReminderEnabled !== "boolean" ||
+      typeof config.contactFormEnabled !== "boolean" ||
+      typeof config.contactSuccessMessage !== "string" ||
+      typeof config.showContactPhone !== "boolean" ||
+      typeof config.showContactService !== "boolean" ||
+      !config.homePage ||
+      !["heroEyebrow", "heroTitle", "heroIntro", "heroAppointmentButton"]
+        .every((field) => typeof config.homePage[field] === "string") ||
+      !config.homePage.sections ||
+      !Object.entries(homeSectionDefaults).every(([field, defaultValue]) =>
+        typeof config.homePage.sections[field] === typeof defaultValue
+      ) ||
       !config.paymentLinks || typeof config.paymentLinks.enabled !== "boolean" ||
       typeof config.cloudflareWebAnalyticsToken !== "string" ||
       typeof config.introVideoUrl !== "string" ||
@@ -753,6 +816,3 @@ const hindiTranslations = {
   "JavaScript is required to calculate estimates and convert dates and times.": "अनुमान लगाने और तारीख बदलने के लिए JavaScript आवश्यक है।",
   "For a suspected emergency, call 112 now or go to the nearest emergency department. Do not wait for a website reply.": "आपात स्थिति की आशंका होने पर तुरंत 112 पर कॉल करें या निकटतम आपातकालीन विभाग जाएँ। वेबसाइट के उत्तर की प्रतीक्षा न करें।"
 };
-
-// Set to false to hide shop links and product listings site-wide on the next deployment.
-const shopEnabled = true;

@@ -3,10 +3,50 @@ backend:
   turbo_site_id: 6d6f71a4-8bce-407f-9b96-e06050276cdd
   branch: main
 
+site_url: https://snazzy-jelly-8dcd0f.netlify.app
+display_url: https://snazzy-jelly-8dcd0f.netlify.app
+logo:
+  src: /img/admin-logo.svg
+  show_in_header: true
+
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
 
 collections:
+  - name: "homepage"
+    label: "Home page"
+    files:
+      - name: "homepage"
+        label: "Home page sections"
+        file: "js/content/homepage.json"
+        format: "json"
+        fields:
+          - label: "Welcome area"
+            name: "homePage"
+            widget: "object"
+            fields:
+              - { label: "Welcome line", name: "heroEyebrow", widget: "string" }
+              - { label: "Main heading", name: "heroTitle", widget: "string", hint: "Use [Name] and [Specialty] where you want the clinic profile details to appear." }
+              - { label: "Introduction", name: "heroIntro", widget: "text" }
+              - { label: "Appointment button text", name: "heroAppointmentButton", widget: "string" }
+          - label: "Home page sections"
+            name: "sections"
+            widget: "object"
+            fields:
+              - { label: "Show services", name: "showServices", widget: "boolean", default: true }
+              - { label: "Services heading", name: "servicesHeading", widget: "string" }
+              - { label: "Services introduction", name: "servicesIntro", widget: "text" }
+              - { label: "Show featured products", name: "showProducts", widget: "boolean", default: true }
+              - { label: "Products heading", name: "productsHeading", widget: "string" }
+              - { label: "Products introduction", name: "productsIntro", widget: "text" }
+              - { label: "Show patient reviews", name: "showReviews", widget: "boolean", default: true }
+              - { label: "Reviews heading", name: "reviewsHeading", widget: "string" }
+              - { label: "Reviews introduction", name: "reviewsIntro", widget: "text" }
+              - { label: "Show closing appointment message", name: "showCallToAction", widget: "boolean", default: true }
+              - { label: "Closing heading", name: "callToActionHeading", widget: "string" }
+              - { label: "Closing message", name: "callToActionText", widget: "text" }
+              - { label: "Closing button text", name: "callToActionButton", widget: "string" }
+
   - name: "clinic-profile"
     label: "Clinic profile"
     files:
@@ -21,6 +61,7 @@ collections:
             fields:
               - { label: "Doctor or clinic name", name: "name", widget: "string" }
               - { label: "Specialty", name: "specialty", widget: "string" }
+              - { label: "Doctor portrait", name: "portrait", widget: "image", choose_url: false }
               - { name: "specialtyHi", widget: "hidden" }
               - { label: "Biography", name: "bio", widget: "text", required: false, hint: "Use clinic-approved, verified details and credentials." }
               - { name: "bioAr", widget: "hidden" }
@@ -70,16 +111,35 @@ collections:
     label: "Website settings"
     files:
       - name: "settings"
-        label: "Features, booking and payments"
+        label: "Shared website options"
         file: "js/content/site-settings.json"
         format: "json"
         fields:
-          - { label: "Enable online shop", name: "shopEnabled", widget: "boolean", default: true, hint: "Turn off the shop without deleting its products." }
-          - { label: "Enable blog", name: "blogEnabled", widget: "boolean", default: true, hint: "Turn off the blog page and its navigation links." }
-          - { label: "Hosted appointment booking page", name: "bookingUrl", widget: "string", required: false, hint: "Paste the clinic's public booking page URL. Leave blank to use the existing appointment form." }
           - { label: "Clinic introduction video URL", name: "introVideoUrl", widget: "string", required: false, hint: "Optional YouTube URL. The video section is hidden if this is blank." }
+          - { label: "Enable contact form", name: "contactFormEnabled", widget: "boolean", default: true, hint: "Turn off the form if patients should contact the clinic by phone or WhatsApp." }
+          - { label: "Contact form success message", name: "contactSuccessMessage", widget: "text", required: false }
+          - { label: "Show phone field on contact form", name: "showContactPhone", widget: "boolean", default: true }
+          - { label: "Show service field on contact form", name: "showContactService", widget: "boolean", default: true }
           - { label: "Enable myFatoorah payment links", name: "paymentLinks", widget: "object", fields: [{ label: "Enable configured links", name: "enabled", widget: "boolean", default: false, hint: "Only enable after testing the clinic's merchant account. Payment is handled by myFatoorah." }] }
           - { label: "Cloudflare Web Analytics site token", name: "cloudflareWebAnalyticsToken", widget: "string", required: false, hint: "Optional public site token. Do not enter an API key or secret." }
+
+  - name: "appointments"
+    label: "Appointments"
+    files:
+      - name: "appointments"
+        label: "Booking and appointment requests"
+        file: "js/content/appointments.json"
+        format: "json"
+        fields:
+          - { label: "Hosted appointment booking page", name: "bookingUrl", widget: "string", required: false, hint: "Optional public HTTPS booking page. Leave blank to use the request form." }
+          - { label: "Show appointment request form", name: "appointmentRequestEnabled", widget: "boolean", default: true, hint: "Turn off the request form if patients should use only the hosted booking page or contact the clinic." }
+          - { label: "Request form introduction", name: "appointmentIntro", widget: "text", required: false }
+          - { label: "Request received message", name: "appointmentSuccessMessage", widget: "text", required: false }
+          - { label: "Request form submit button", name: "appointmentSubmitLabel", widget: "string", required: false }
+          - { label: "Ask for preferred date", name: "showPreferredDate", widget: "boolean", default: true }
+          - { label: "Ask for preferred time", name: "showPreferredTime", widget: "boolean", default: true }
+          - { label: "Show notes field", name: "showAppointmentNotes", widget: "boolean", default: true }
+          - { label: "Offer calendar reminder download", name: "calendarReminderEnabled", widget: "boolean", default: true, hint: "This adds a reminder of the requested time; it does not confirm an appointment." }
 
   - name: "services"
     label: "Services"
@@ -121,6 +181,7 @@ collections:
         file: "js/content/shop.json"
         format: "json"
         fields:
+          - { label: "Enable online shop", name: "shopEnabled", widget: "boolean", default: true, hint: "Turn off the shop without deleting products or cart settings." }
           - label: "Products"
             name: "products"
             widget: "list"
@@ -131,7 +192,7 @@ collections:
               - { label: "Description", name: "description", widget: "text" }
               - { name: "descriptionHi", widget: "hidden" }
               - { label: "Price (KWD)", name: "price", widget: "number", value_type: "float", min: 0 }
-              - { label: "Product image path", name: "image", widget: "string", hint: "Use an existing path such as img/products/glucosamine.svg, or upload an image and use its path." }
+              - { label: "Product image", name: "image", widget: "image", choose_url: false }
               - { label: "Category", name: "category", widget: "select", options: ["Medicines", "Supplements", "Medical Devices"] }
               - { label: "Show on home page", name: "featured", widget: "boolean", default: false }
               - { label: "In stock", name: "inStock", widget: "boolean", default: true }
@@ -145,6 +206,7 @@ collections:
         file: "js/content/blog.json"
         format: "json"
         fields:
+          - { label: "Enable blog", name: "blogEnabled", widget: "boolean", default: true, hint: "Turn off the blog page and its navigation links without deleting articles." }
           - label: "Articles"
             name: "blogPosts"
             widget: "list"
@@ -166,7 +228,7 @@ collections:
               - { label: "Published", name: "published", widget: "boolean", default: false, hint: "Have a clinician review health information before publishing." }
 
   - name: "patient-info"
-    label: "FAQs and reviews"
+    label: "FAQs & reviews"
     files:
       - name: "faqs-reviews"
         label: "Frequently asked questions and testimonials"
@@ -202,7 +264,7 @@ collections:
               - { label: "Approved by clinic", name: "approved", widget: "boolean", default: false }
 
   - name: "health-resources"
-    label: "Patient resources"
+    label: "Health information"
     files:
       - name: "resources"
         label: "Health information and alerts"

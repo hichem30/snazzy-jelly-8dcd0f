@@ -2,6 +2,7 @@
   "doctorInfo": {
     "name": "Dr. [Name]",
     "specialty": "[Specialty]",
+    "portrait": "img/doctor.svg",
     "bio": "",
     "bioAr": "",
     "phone": "965[PHONE]",

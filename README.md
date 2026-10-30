@@ -1,6 +1,6 @@
 # Dr. [Name] Clinic Website
 
-A responsive HTML/CSS/JavaScript website for a private clinic in Kuwait. The public site is static; the optional admin uses Decap CMS with Decap Turbo to publish changes through the connected GitHub repository. The small shop has a browser-persisted cart; orders can continue through WhatsApp, and optional myFatoorah-hosted payment links are available when enabled and configured by the clinic. Appointment requests and contact messages use Netlify Forms when deployed on Netlify. The site has English, Arabic, and Hindi language options; CMS-managed content should be entered and reviewed in each supported language.
+A responsive HTML/CSS/JavaScript website for a private clinic in Kuwait. The public site is static; the clinic-owner dashboard at `/admin/` links into Decap CMS with Decap Turbo to publish changes through the connected GitHub repository. The small shop has a browser-persisted cart; orders can continue through WhatsApp, and optional myFatoorah-hosted payment links are available when enabled and configured by the clinic. Appointment requests and contact messages use Netlify Forms when deployed on Netlify. The site supports English, Arabic, and Hindi; admin editing fields are English-only and preserve the existing translated content.
 
 ## Project structure
 
@@ -13,19 +13,19 @@ css/ar.css          Right-to-left and Arabic typography styles
 css/accessibility.css, css/print.css  Accessibility preferences and print layout
 js/main.js          Navigation, accessibility controls, forms, product discovery, cart, sharing, and WhatsApp/payment links
 js/data.js          English/Arabic/Hindi interface copy and site configuration loading/validation
-js/content/*.json   Organized CMS data for clinic profile, hours, settings, services, shop, blog, FAQs/reviews, and patient resources
+js/content/*.json   CMS data for the home page, clinic profile, hours, appointments, services, shop, blog, FAQs/reviews, and health information
 service-worker.js   Offline cache for the public site shell
 img/                Replaceable SVG portrait, testimonial, favicon, and product placeholders
-admin/              Decap CMS dashboard for managing clinic content and products
+admin/              Clinic-owner dashboard and Decap CMS editor
 ```
 
 ## Customize before publishing
 
-1. In the admin at `/admin/`, use the sidebar sections for clinic profile, opening hours, website settings, services, shop products, blog articles, FAQs/reviews, and patient resources. Clinic details are stored in the matching JSON files under `js/content/`.
+1. In the owner dashboard at `/admin/`, choose a clinic-specific area. The **Edit website** links open Decap CMS; its save and publish actions continue to use Decap Turbo.
 2. Update the page copy, prices, services, hours, and contact information to verified clinic details. Do not publish unverified credentials, patient quotes, or health claims.
-3. Replace `img/doctor.svg`, `img/patient1.svg`, `img/patient2.svg`, and the SVGs in `img/products/` with clinic-approved images. Update the corresponding paths in the HTML or the relevant JSON file under `js/content/` if you use different filenames. Obtain consent before publishing identifiable patient photographs or testimonials.
+3. Use **Clinic profile & contact** to upload the doctor's portrait, or **Shop & products** to upload product images. Obtain consent before publishing identifiable patient photographs or testimonials.
 4. Manage services, opening hours, FAQs and testimonials in their matching admin sections. Translation fields are intentionally not exposed to the editor; existing Arabic and Hindi website content is retained. Testimonials appear publicly only when both patient consent and clinic approval are checked.
-5. Manage products in the admin: add, edit, or remove products; set their price, image path, category, featured status, and availability. The shop supports text search, category filtering and an in-stock-only filter. Categories must match `Medicines`, `Supplements`, or `Medical Devices`.
+5. Manage products in the admin: add, edit, or remove products; set their price, image, category, featured status, and availability. The shop supports text search, category filtering and an in-stock-only filter. Categories must match `Medicines`, `Supplements`, or `Medical Devices`.
 6. To close or reopen the shop across the site, change the Shop setting in the admin. Each saved change is committed to the connected Git repository and published through a Netlify deploy; it is not an instant switch.
 7. The cart is stored in the visitor's browser and can add, remove, and change quantities. It does not reserve stock. WhatsApp orders include product quantities and an estimated total; the clinic confirms stock and collection/delivery details. Optional myFatoorah-hosted payment links can be enabled in the admin; the website does not process payments or receive payment confirmation.
 8. Set verified directions and Google Business Profile URLs, and add accurate parking/accessibility instructions. Do not publish guessed addresses, hours, fees, or credentials.
@@ -44,7 +44,7 @@ admin/              Decap CMS dashboard for managing clinic content and products
 21. The Accessibility control supports text scaling, a readable font, underlined links, high contrast, increased text spacing, reduced motion, and resetting preferences. Preferences are stored in the visitor's browser. Print styles hide navigation and forms while preserving page content.
 22. On mobile, the bottom navigation dock links to Home, Services, Shop, Booking, and Contact. On desktop these quick links are in the header, and the menu includes Health Tools and the combined FAQ & Reviews page.
 23. The Contact page offers a downloadable vCard when clinic contact details are configured. The home page emits MedicalClinic structured data only after the name and address are replaced with real clinic details.
-24. The About page displays doctor social icons only for valid HTTPS profiles entered by the admin under Clinic Details → Social profile links. Blank or invalid profiles remain hidden.
+24. The About page displays doctor social icons only for valid HTTPS profiles entered under **Clinic profile & contact → Social media links**. Blank or invalid profiles remain hidden.
 25. The chatbot, symptom/service decision flows, medication tracker, accepted-insurance listing, Patient Information page, and separate Seasonal Tips page are not included in the public site. FAQ and consent-approved reviews share one page. Energy estimates and the 12/24-hour converter were removed at the clinic's request.
 
 ## Run locally
@@ -62,17 +62,38 @@ Hosting providers' free tiers, limits, availability, and terms may change. A cus
 
 ## Admin dashboard setup (Netlify + Decap Turbo)
 
-The dashboard at `/admin/` uses Decap CMS with the hosted Decap Turbo backend. Website content remains in the connected GitHub repository and Netlify continues to deploy the `main` branch; editors sign in to Turbo, not GitHub or Netlify. Before enabling the dashboard:
+The owner dashboard at `/admin/` links into Decap CMS at `/admin/editor.html`, which uses the hosted Decap Turbo backend. Website content remains in the connected GitHub repository and Netlify continues to deploy the `main` branch; editors sign in to Turbo, not GitHub or Netlify. Before enabling the dashboard:
 
 1. Create a Decap Turbo account and organization at [turbo.decapcms.org](https://turbo.decapcms.org/). The Free plan currently includes one site and one user seat.
 2. In Turbo, connect GitHub and install the Decap Turbo GitHub App on `hichem30/snazzy-jelly-8dcd0f`, granting access to this repository.
-3. Create a Turbo site for `hichem30/snazzy-jelly-8dcd0f`, branch `main`, and config path `admin/config.yml`. Add `https://snazzy-jelly-8dcd0f.netlify.app/admin/` as the admin interface URL, then copy the site ID from its Overview page.
+3. Create a Turbo site for `hichem30/snazzy-jelly-8dcd0f`, branch `main`, and config path `admin/config.yml`. Add `https://snazzy-jelly-8dcd0f.netlify.app/admin/editor.html` as the admin interface URL, then copy the site ID from its Overview page.
 4. Put the copied site ID in `admin/config.yml` as `backend.turbo_site_id` and deploy the change to Netlify.
-5. Add the clinic owner as a member of that Turbo site. They can then open `/admin/`, choose **Login with Turbo**, and edit the available CMS fields. Saving changes commits to GitHub and triggers the usual Netlify production deployment.
+5. Add the clinic owner as a member of that Turbo site. They can then open `/admin/`, choose **Edit website**, sign in to Turbo, and edit the clinic-specific sections. Saving changes commits to GitHub and triggers the usual Netlify production deployment.
 
-On localhost, `/admin/` links to the live admin because authentication and content publishing require the deployed site. The Turbo login session normally refreshes in the background; signing out, clearing browser storage, or a revoked session may require signing in again. The owner does not need to use the GitHub or Netlify dashboards for routine CMS edits, but an administrator may still need to maintain the Turbo/GitHub connection or troubleshoot failed deployments. Page layout, general page copy, clinic policies, and other markup still require editing the corresponding HTML files.
+The owner dashboard at `/admin/` is the clinic-specific home screen. Each task card opens its corresponding collection in `/admin/editor.html`; the editor retains Decap Turbo's authentication and save/publish controls. The owner does not need to use the GitHub or Netlify dashboards for routine CMS edits, but an administrator may still need to maintain the Turbo/GitHub connection or troubleshoot failed deployments. On localhost, dashboard links open the live editor because local preview cannot authenticate or publish.
 
 The Turbo Free plan is limited to one site and one seat, so it fits only if one person needs an account. Invite only authorized editors. Netlify's `_headers` file scopes `'unsafe-eval'` to `/admin` because Decap CMS evaluates its configuration at runtime; it also permits the Turbo control plane and Supabase endpoints used by the hosted backend. Public pages keep a separate Content Security Policy without `'unsafe-eval'`.
+
+### Admin dashboard design and extension
+
+The owner dashboard uses clinic-specific task cards, not CMS terminology. In the editor, the top-level generic navigation is hidden; uploaded images are selected from the relevant doctor or product setting. Native save/publish and Turbo authentication remain in place, so the owner-facing interface does not create a second publishing system. `css/admin-style.css` contains both the dashboard design and the editor's clinic-colored, responsive layout.
+
+The dashboard links to clinic profile, opening hours, home-page sections, appointments, services, shop and products, blog articles, FAQs and reviews, health information, and website settings. English editor fields are visible; hidden translated values remain in the JSON so existing Arabic and Hindi copy is preserved. The home-page editor controls its hero copy and which sections display. Appointment settings control the hosted booking URL, request form, preferred date/time and notes fields, confirmation copy, and optional calendar reminder.
+
+```text
+┌──────────────────────────────────────────────────────┐
+│ Clinic Website Dashboard     View website  Edit site │
+├──────────────────────────────────────────────────────┤
+│ What would you like to update?                       │
+│ Clinic profile | Opening hours | Home page           │
+│ Appointments    | Services       | Shop & products    │
+│ Blog articles   | FAQs & reviews| Health information │
+│ Website settings                                   │
+│ How updates work and important publishing reminders │
+└──────────────────────────────────────────────────────┘
+```
+
+To add a CMS section, add the JSON file under `js/content/`, include it in `js/data.js` and `service-worker.js`, add its Decap collection to `admin/config.yml`, then add a clinic-specific task card to `admin/index.html`. Keep translated keys hidden in the CMS schema. Do not expose chatbot, medication-tracker, symptom/service decision-flow, accepted-insurance, separate Patient Information, or Seasonal Tips controls; those features were removed.
 
 ## Appearance
 

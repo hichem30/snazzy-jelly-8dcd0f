@@ -1,7 +1,8 @@
 {
-  "shopEnabled": true,
-  "blogEnabled": true,
-  "bookingUrl": "",
+  "contactFormEnabled": true,
+  "contactSuccessMessage": "Your message was sent to the clinic. For urgent needs, call the clinic directly or emergency services.",
+  "showContactPhone": true,
+  "showContactService": true,
   "paymentLinks": {
     "enabled": false
   },

@@ -56,36 +56,41 @@
     requestedAppointment.hidden = false;
   }
   if (!downloadButton) return;
-  downloadButton.hidden = false;
-  downloadButton.addEventListener("click", () => {
-    const compactDate = eventData.date.replaceAll("-", "");
-    const compactTime = `${eventData.time.replace(":", "")}00`;
-    const [year, month, day] = eventData.date.split("-").map(Number);
-    const [hour, minute] = eventData.time.split(":").map(Number);
-    const end = new Date(year, month - 1, day, hour, minute + 30);
-    const endDate = `${end.getFullYear()}${String(end.getMonth() + 1).padStart(2, "0")}${String(end.getDate()).padStart(2, "0")}T${String(end.getHours()).padStart(2, "0")}${String(end.getMinutes()).padStart(2, "0")}00`;
-    const uid = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const content = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Clinic Website//Appointment Request Reminder//EN",
-      "CALSCALE:GREGORIAN",
-      "BEGIN:VEVENT",
-      `UID:${uid}@clinic-website`,
-      `DTSTAMP:${new Date().toISOString().replaceAll("-", "").replaceAll(":", "").replace(/\.\d{3}/, "")}`,
-      `DTSTART:${compactDate}T${compactTime}`,
-      `DTEND:${endDate}`,
-      "SUMMARY:Requested appointment time - NOT CONFIRMED",
-      "DESCRIPTION:This is a reminder of the time requested in your appointment form. It is not a confirmed appointment. Contact the clinic to confirm.",
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ].join("\r\n");
-    const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "clinic-appointment-request.ics";
-    link.click();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  window.siteDataReady.then(({ calendarReminderEnabled }) => {
+    if (!calendarReminderEnabled) return;
+    downloadButton.hidden = false;
+    downloadButton.addEventListener("click", () => {
+      const compactDate = eventData.date.replaceAll("-", "");
+      const compactTime = `${eventData.time.replace(":", "")}00`;
+      const [year, month, day] = eventData.date.split("-").map(Number);
+      const [hour, minute] = eventData.time.split(":").map(Number);
+      const end = new Date(year, month - 1, day, hour, minute + 30);
+      const endDate = `${end.getFullYear()}${String(end.getMonth() + 1).padStart(2, "0")}${String(end.getDate()).padStart(2, "0")}T${String(end.getHours()).padStart(2, "0")}${String(end.getMinutes()).padStart(2, "0")}00`;
+      const uid = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const content = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Clinic Website//Appointment Request Reminder//EN",
+        "CALSCALE:GREGORIAN",
+        "BEGIN:VEVENT",
+        `UID:${uid}@clinic-website`,
+        `DTSTAMP:${new Date().toISOString().replaceAll("-", "").replaceAll(":", "").replace(/\.\d{3}/, "")}`,
+        `DTSTART:${compactDate}T${compactTime}`,
+        `DTEND:${endDate}`,
+        "SUMMARY:Requested appointment time - NOT CONFIRMED",
+        "DESCRIPTION:This is a reminder of the time requested in your appointment form. It is not a confirmed appointment. Contact the clinic to confirm.",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+      const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "clinic-appointment-request.ics";
+      link.click();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  }).catch((error) => {
+    console.error("Could not load appointment reminder settings.", error);
   });
 })();

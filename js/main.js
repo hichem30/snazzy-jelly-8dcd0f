@@ -10,7 +10,7 @@ const initialTheme = savedTheme === "light" || savedTheme === "dark"
   : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 document.documentElement.dataset.theme = initialTheme;
 
-window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours, faqs, testimonials, blogEnabled, blogPosts, bookingUrl, cloudflareWebAnalyticsToken, introVideoUrl, emergencyInfo, firstAidSections, preparationGuides, vaccinationSchedule, prayerTimes, ramadanGuidance, seasonalHealthAlerts, paymentLinks }) => {
+window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours, faqs, testimonials, blogEnabled, blogPosts, bookingUrl, appointmentRequestEnabled, appointmentIntro, appointmentSuccessMessage, appointmentSubmitLabel, showPreferredDate, showPreferredTime, showAppointmentNotes, calendarReminderEnabled, contactFormEnabled, contactSuccessMessage, showContactPhone, showContactService, homePage, cloudflareWebAnalyticsToken, introVideoUrl, emergencyInfo, firstAidSections, preparationGuides, vaccinationSchedule, prayerTimes, ramadanGuidance, seasonalHealthAlerts, paymentLinks }) => {
   for (const stylesheet of ["css/accessibility.css", "css/print.css"]) {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -451,6 +451,76 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
   });
 
   const languageButtons = document.querySelectorAll("[data-language]");
+  const homepageCopy = {
+    ...homePage,
+    ...homePage.sections
+  };
+  document.querySelectorAll("[data-home-copy]").forEach((element) => {
+    const value = homepageCopy[element.dataset.homeCopy];
+    if (typeof value === "string" && value.trim()) element.dataset.en = value;
+  });
+  document.querySelectorAll("[data-home-section]").forEach((section) => {
+    const sectionSetting = {
+      services: "showServices",
+      products: "showProducts",
+      reviews: "showReviews",
+      callToAction: "showCallToAction"
+    }[section.dataset.homeSection];
+    if (sectionSetting) section.hidden = !homePage.sections[sectionSetting];
+  });
+  if (doctorInfo.portrait && /^(?:\/)?img\/[A-Za-z0-9._/-]+$/.test(doctorInfo.portrait) &&
+    !doctorInfo.portrait.split("/").includes("..")) {
+    document.querySelectorAll("[data-doctor-portrait]").forEach((image) => {
+      image.src = doctorInfo.portrait;
+      image.alt = `Portrait of ${doctorInfo.name}`;
+    });
+  }
+  document.querySelectorAll("[data-appointment-intro]").forEach((element) => {
+    if (appointmentIntro.trim()) element.dataset.en = appointmentIntro;
+  });
+  const appointmentRequestElements = document.querySelectorAll("[data-appointment-request]");
+  appointmentRequestElements.forEach((element) => {
+    element.hidden = !appointmentRequestEnabled;
+  });
+  const appointmentSuccessCopy = document.querySelector("[data-appointment-form]")?.parentElement?.querySelector("[data-form-success] p");
+  if (appointmentSuccessCopy && appointmentSuccessMessage.trim()) {
+    appointmentSuccessCopy.dataset.en = appointmentSuccessMessage;
+  }
+  const contactForm = document.querySelector("#contact-form");
+  if (contactForm) {
+    contactForm.hidden = !contactFormEnabled;
+    const contactSuccessCopy = contactForm.parentElement?.querySelector("[data-form-success] p");
+    if (contactSuccessCopy && contactSuccessMessage.trim()) {
+      contactSuccessCopy.textContent = contactSuccessMessage;
+    }
+    for (const [id, enabled] of [["phone", showContactPhone], ["service", showContactService]]) {
+      const field = contactForm.querySelector(`#${id}`);
+      if (!field) continue;
+      const label = field.closest("label");
+      if (label) label.hidden = !enabled;
+      field.disabled = !enabled;
+    }
+  }
+  const appointmentFieldVisibility = {
+    "appointment-date": showPreferredDate,
+    "appointment-time": showPreferredTime,
+    "appointment-message": showAppointmentNotes
+  };
+  Object.entries(appointmentFieldVisibility).forEach(([id, enabled]) => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    const label = field.closest("label");
+    if (label) label.hidden = !enabled;
+    field.disabled = !enabled;
+  });
+  document.querySelectorAll("[data-appointment-form] button[type='submit']").forEach((button) => {
+    if (appointmentSubmitLabel.trim()) {
+      button.dataset.en = appointmentSubmitLabel;
+      button.dataset.ar = "إرسال طلب موعد";
+    }
+  });
+  const calendarReminderButton = document.querySelector("[data-calendar-download]");
+  if (calendarReminderButton && !calendarReminderEnabled) calendarReminderButton.hidden = true;
 
   function setLanguage(language) {
     if (!["en", "ar", "hi"].includes(language)) language = "en";
@@ -657,7 +727,10 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
       }).join("");
       const section = container.closest("section");
       if (container.closest("main")?.querySelector(".hero")) {
-        if (section) section.hidden = approved.length === 0;
+        if (section) {
+          section.hidden = approved.length === 0 ||
+            (section.dataset.homeSection === "reviews" && !homePage.sections.showReviews);
+        }
       } else {
         const emptyMessage = document.querySelector("[data-testimonial-empty]");
         if (emptyMessage) emptyMessage.hidden = approved.length > 0;
@@ -1339,7 +1412,8 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     }
   });
   document.querySelectorAll("[data-shop-section]").forEach((section) => {
-    section.hidden = !shopEnabled;
+    section.hidden = !shopEnabled ||
+      (section.dataset.homeSection === "products" && !homePage.sections.showProducts);
   });
   document.querySelectorAll("[data-shop-disabled]").forEach((section) => {
     section.hidden = shopEnabled;
