@@ -152,6 +152,7 @@
         const cmsScript = document.createElement("script");
         cmsScript.src = "https://unpkg.com/decap-cms@3.17.0/dist/decap-cms.js";
         cmsScript.onload = () => {
+          document.body.classList.add("clinic-admin-editor-active");
           loadingCard.hidden = true;
           const adminRoot = document.getElementById("nc-root");
           const backdrop = document.createElement("button");
@@ -231,10 +232,20 @@
                 !document.body.classList.contains("clinic-admin-menu-open");
             }
           };
+          const installEditorLayout = () => {
+            const editor = adminRoot.querySelector('div[class*="EditorContainer"]');
+            if (!editor || editor.dataset.clinicPreviewDefaulted) return;
+            const previewToggle = editor.querySelector('button[title="Toggle preview"]');
+            const previewFrame = editor.querySelector('iframe[class*="PreviewPaneFrame"]');
+            if (!previewToggle || !previewFrame) return;
+            editor.dataset.clinicPreviewDefaulted = "true";
+            previewToggle.click();
+          };
           const installEnhancements = () => {
             installDashboardLinks();
             installMobileMenu();
             installNavigationLabel();
+            installEditorLayout();
           };
           new MutationObserver(installEnhancements).observe(adminRoot, { childList: true, subtree: true });
           adminRoot.addEventListener("click", (event) => {

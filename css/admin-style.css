@@ -452,6 +452,192 @@ body {
   }
 }
 
+body.clinic-admin-editor-active {
+  display: block;
+  padding: 0;
+  place-items: initial;
+  background: var(--admin-light);
+}
+
+body.clinic-admin-editor-active #nc-root {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+#nc-root div[class*="EditorContainer"] {
+  position: relative !important;
+  inset: auto !important;
+  width: min(100%, 1280px) !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: calc(100vh - 64px) !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+  padding: 16px clamp(16px, 3vw, 32px) 48px !important;
+  background: transparent !important;
+}
+
+#nc-root div[class*="ToolbarContainer"] {
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0 16px;
+  border-bottom: 1px solid var(--admin-border);
+  background: transparent;
+}
+
+#nc-root div[class*="BackCollection"] {
+  min-width: 0;
+  flex: 1 1 180px;
+}
+
+#nc-root div[class*="ToolbarSection"] {
+  min-width: 0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#nc-root div[class*="ToolbarSectionMeta"] {
+  flex: 0 1 auto;
+}
+
+#nc-root div[class*="ToolbarContainer"] a[class*="AppHeaderSiteLink"] {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#nc-root div[class*="-Editor "] {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  background: transparent;
+}
+
+#nc-root div[class*="NoPreviewContainer"],
+#nc-root div[class*="PreviewPaneContainer"],
+#nc-root div[class*="ControlPaneContainer"] {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+#nc-root div[class*="ControlContainer"] {
+  margin-bottom: 20px;
+}
+
+#nc-root div[class*="ControlTopbar"] {
+  margin-bottom: 7px;
+}
+
+#nc-root label[class*="FieldLabel"] {
+  color: var(--admin-dark);
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+#nc-root div[class*="ListItem-listControlItem"] {
+  margin: 10px 0;
+  overflow: hidden;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(20, 54, 72, .05);
+  transition: box-shadow .18s ease, border-color .18s ease;
+}
+
+#nc-root div[class*="ListItem-listControlItem"]:hover {
+  border-color: #b7d5df;
+  box-shadow: var(--admin-shadow);
+}
+
+#nc-root div[class*="ListItemTopBar"] {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  border-bottom: 1px solid var(--admin-border);
+  background: #f3f8fa;
+}
+
+#nc-root div[class*="NestedObjectLabel"] {
+  padding: 12px 14px;
+  color: var(--admin-dark);
+  background: #f8fafb;
+  font-weight: 600;
+}
+
+#nc-root button[class*="AddButton"] {
+  min-height: 40px;
+  border: 1px solid var(--admin-primary);
+  border-radius: 8px;
+  color: #fff;
+  background: var(--admin-primary);
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+
+#nc-root button[class*="AddButton"]:hover {
+  background: var(--admin-primary-dark);
+}
+
+#nc-root div[class*="ListItem-listControlItem"] button {
+  min-height: 36px;
+  border-radius: 7px;
+}
+
+#nc-root div[class*="EditorContainer"] button[title="Toggle preview"] {
+  position: sticky;
+  z-index: 3;
+  top: 76px;
+  margin-left: auto;
+  border: 1px solid var(--admin-border);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--admin-shadow);
+}
+
+#nc-root div[class*="PreviewPaneContainer"] iframe {
+  width: 100%;
+  min-height: 60vh;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+#nc-root div.SplitPane {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+  gap: 20px;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+#nc-root div.SplitPane > .Resizer {
+  display: none !important;
+}
+
+#nc-root div.SplitPane > .Pane {
+  position: relative !important;
+  left: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  flex: none !important;
+  overflow: visible !important;
+}
+
 #nc-root header[class*="AppHeader"] nav:not(.clinic-admin-header-actions) {
   display: none !important;
 }
@@ -826,5 +1012,53 @@ body {
   .owner-publishing-note p,
   .owner-publishing-note .owner-note-caution {
     color: var(--admin-gray);
+  }
+}
+
+@media (max-width: 860px) {
+  #nc-root div.SplitPane {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #nc-root div[class*="ToolbarContainer"] a[class*="AppHeaderSiteLink"] {
+    display: none;
+  }
+
+  #nc-root div[class*="EditorContainer"] {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #nc-root div[class*="ToolbarContainer"] {
+    gap: 6px;
+  }
+
+  #nc-root div[class*="BackCollection"] {
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #nc-root div[class*="ListItem-listControlItem"] {
+    border-color: var(--admin-border);
+    background: #1e2a30;
+  }
+
+  #nc-root div[class*="ListItemTopBar"] {
+    border-color: var(--admin-border);
+    background: #263b43;
+  }
+
+  #nc-root div[class*="NestedObjectLabel"] {
+    color: var(--admin-dark);
+    background: #1e2a30;
+  }
+
+  #nc-root div[class*="EditorContainer"] button[title="Toggle preview"] {
+    border-color: var(--admin-border);
+    color: var(--admin-dark);
+    background: #1e2a30;
   }
 }
