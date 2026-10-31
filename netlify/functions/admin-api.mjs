@@ -2,7 +2,7 @@ import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 
 const COOKIE_NAME = "clinic_admin";
 const SECURE_COOKIE_NAME = "__Host-clinic_admin";
-const SESSION_TTL_SECONDS = 8 * 60 * 60;
+const SESSION_TTL_SECONDS = 2 * 60 * 60;
 const MAX_BODY_BYTES = 1_500_000;
 const MAX_UPLOAD_BYTES = 3 * 1024 * 1024;
 const MAX_UPLOAD_BODY_BYTES = 4_200_000;
@@ -288,7 +288,7 @@ export default async (request) => {
     const name = cookieName(request);
     const secure = name === SECURE_COOKIE_NAME ? " Secure;" : "";
     return jsonResponse(200, { authenticated: true }, {
-      "Set-Cookie": `${name}=${value}; Path=/; HttpOnly;${secure} SameSite=Strict; Max-Age=${SESSION_TTL_SECONDS}`
+      "Set-Cookie": `${name}=${value}; Path=/; HttpOnly;${secure} SameSite=Strict`
     });
   }
 

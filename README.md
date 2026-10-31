@@ -69,13 +69,13 @@ Hosting providers' free tiers, limits, availability, and terms may change. A cus
 The dashboard uses a Netlify Function at `netlify/functions/admin-api.mjs`; it stores no GitHub credentials in the browser. Before the dashboard can sign in or publish, connect the repository to Netlify and set these environment variables in the Netlify site settings:
 
 - `ADMIN_PASSWORD`: a unique password at least 16 characters long. Share it only with the clinic owner.
-- `ADMIN_SESSION_SECRET`: a private random value of at least 32 characters for signing eight-hour secure sessions.
+- `ADMIN_SESSION_SECRET`: a private random value of at least 32 characters for signing admin sessions.
 - `GITHUB_TOKEN`: a fine-grained GitHub token restricted to this repository with **Contents: read and write** permission. Never put it in website files or commit it.
 - `GITHUB_OWNER`, `GITHUB_REPO`, and optionally `GITHUB_BRANCH` (defaults to `main`).
 
-After setting the variables, redeploy the site. The owner signs into `/admin/` with the dashboard password; they do not need a Turbo account or routine access to GitHub or Netlify. Use a unique password and rotate it by updating `ADMIN_PASSWORD` and redeploying; this also invalidates existing sessions. Saved updates are committed directly to the configured branch and appear after Netlify finishes deploying. There is no separate draft or preview-publish step.
+After setting the variables, redeploy the site. The owner signs into `/admin/` with the dashboard password; they do not need a Turbo account or routine access to GitHub or Netlify. Admin sessions use a browser-session cookie and expire after two hours; signing out clears the session. Use a unique password and rotate it by updating `ADMIN_PASSWORD` and redeploying; this also invalidates existing sessions. Saved updates are committed directly to the configured branch and appear after Netlify finishes deploying. There is no separate draft or preview-publish step.
 
-The function accepts writes only for the seven dashboard-managed JSON files, checks the submitted file version to avoid overwriting a newer edit, and keeps its API credentials server-side. The dashboard is intentionally not an offline editor; use the deployed HTTPS site, or run the site with Netlify Dev and its environment variables when developing locally. Do not add clinic profile, branding, homepage copy, or other stable setup information to the dashboard unless owners need to change it routinely.
+The function accepts writes only for the eight dashboard-managed JSON files, checks the submitted file version to avoid overwriting a newer edit, and keeps its API credentials server-side. The dashboard is intentionally not an offline editor; use the deployed HTTPS site, or run the site with Netlify Dev and its environment variables when developing locally. Do not add branding, homepage copy, or other stable setup information to the dashboard unless owners need to change it routinely.
 
 To add an editable section, add its JSON file to the function allowlist and validation in `netlify/functions/admin-api.mjs`, then add its form and navigation entry in `js/admin-dashboard.js`. Preserve existing non-English fields when changing records.
 

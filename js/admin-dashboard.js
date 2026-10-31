@@ -169,6 +169,11 @@
       headers: { "Content-Type": "application/json", ...options.headers }
     });
     const result = await response.json().catch(() => ({}));
+    if (response.status === 401 && !url.includes("action=login")) {
+      states.clear();
+      dirty.clear();
+      showLogin(result.error || "Please sign in again.");
+    }
     if (!response.ok) throw new Error(result.error || "The request could not be completed.");
     return result;
   }
