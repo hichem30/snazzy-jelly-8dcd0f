@@ -14,24 +14,44 @@
     <header class="dashboard-header">
       <a class="brand" href="/admin/" aria-label="Clinic dashboard home">
         <img src="/img/admin-logo.svg" width="40" height="40" alt="">
-        <span><strong>Clinic</strong><small>Website dashboard</small></span>
+        <span><strong>Clinic</strong><small data-i18n="Website dashboard">Website dashboard</small></span>
       </a>
       <div class="header-actions">
-        <a class="button button-light" href="/" target="_blank" rel="noopener noreferrer">View website</a>
-        <button class="button button-light" id="logout-button" type="button" hidden>Sign out</button>
+        <a class="button button-light" href="/" target="_blank" rel="noopener noreferrer" data-i18n="View website">View website</a>
+        <div class="menu-wrap">
+          <button class="button button-light menu-button" id="menu-button" type="button"
+            aria-expanded="false" aria-controls="dashboard-menu">
+            <span class="hamburger-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span data-i18n="Menu">Menu</span>
+          </button>
+          <div class="menu-panel" id="dashboard-menu" hidden>
+            <div class="menu-group">
+              <span class="menu-label" data-i18n="Language">Language</span>
+              <div class="language-switch" role="group" aria-label="Dashboard language">
+                <button class="language-button" type="button" data-language="en" aria-pressed="true">English</button>
+                <button class="language-button" type="button" data-language="ar" aria-pressed="false">العربية</button>
+              </div>
+            </div>
+            <button class="menu-action" id="theme-button" type="button" aria-pressed="false">
+              <span aria-hidden="true" id="theme-icon">☾</span>
+              <span id="theme-label">Use dark mode</span>
+            </button>
+            <button class="menu-action" id="account-action" type="button" data-i18n="Admin sign in">Admin sign in</button>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="page-shell">
       <section class="login-panel" id="login-panel" aria-labelledby="login-title" hidden>
         <div class="login-mark" aria-hidden="true">+</div>
-        <p class="eyebrow">PRIVATE CLINIC DASHBOARD</p>
-        <h1 id="login-title">Sign in</h1>
-        <p>Manage the clinic’s day-to-day website updates.</p>
+        <p class="eyebrow" data-i18n="PRIVATE CLINIC DASHBOARD">PRIVATE CLINIC DASHBOARD</p>
+        <h1 id="login-title" data-i18n="Sign in">Sign in</h1>
+        <p data-i18n="Manage the clinic’s day-to-day website updates.">Manage the clinic’s day-to-day website updates.</p>
         <form id="login-form">
-          <label for="admin-password">Dashboard password</label>
+          <label for="admin-password" data-i18n="Dashboard password">Dashboard password</label>
           <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
-          <button class="button button-primary button-wide" type="submit">Continue</button>
+          <button class="button button-primary button-wide" type="submit" data-i18n="Continue">Continue</button>
         </form>
         <p class="message" id="login-message" role="status" aria-live="polite"></p>
       </section>
@@ -39,11 +59,11 @@
       <section id="dashboard" hidden>
         <div class="page-heading">
           <div>
-            <p class="eyebrow">CLINIC OPERATIONS</p>
-            <h1>Website updates</h1>
-            <p>Update the items that change during normal clinic operations.</p>
+            <p class="eyebrow" data-i18n="CLINIC OPERATIONS">CLINIC OPERATIONS</p>
+            <h1 data-i18n="Website updates">Website updates</h1>
+            <p data-i18n="Update the items that change during normal clinic operations.">Update the items that change during normal clinic operations.</p>
           </div>
-          <p class="publish-note">Saving publishes the update through the website deployment.</p>
+          <p class="publish-note" data-i18n="Saving publishes the update through the website deployment.">Saving publishes the update through the website deployment.</p>
         </div>
 
         <div class="workspace">
@@ -51,12 +71,12 @@
           <section class="editor-panel" aria-live="polite">
             <div id="section-content"></div>
             <div class="save-bar">
-              <p class="save-message" id="save-message" role="status" aria-live="polite">Changes are published when saved.</p>
-              <button class="button button-primary" id="save-button" type="button">Save changes</button>
+              <p class="save-message" id="save-message" role="status" aria-live="polite" data-i18n="Changes are published when saved.">Changes are published when saved.</p>
+              <button class="button button-primary" id="save-button" type="button" data-i18n="Save changes">Save changes</button>
             </div>
           </section>
         </div>
-        <p class="privacy-note">Do not add patient medical records or other sensitive health information here.</p>
+        <p class="privacy-note" data-i18n="Do not add patient medical records or other sensitive health information here.">Do not add patient medical records or other sensitive health information here.</p>
       </section>
     </main>
   </body>

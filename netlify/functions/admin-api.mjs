@@ -1,10 +1,13 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 
 const COOKIE_NAME = "clinic_admin";
 const SECURE_COOKIE_NAME = "__Host-clinic_admin";
 const SESSION_TTL_SECONDS = 8 * 60 * 60;
 const MAX_BODY_BYTES = 1_500_000;
+const MAX_UPLOAD_BYTES = 3 * 1024 * 1024;
+const MAX_UPLOAD_BODY_BYTES = 4_200_000;
 const ALLOWED_FILES = new Set([
+  "js/content/clinic-profile.json",
   "js/content/opening-hours.json",
   "js/content/appointments.json",
   "js/content/services.json",
@@ -84,9 +87,9 @@ function hasSameOrigin(request) {
   }
 }
 
-async function readJson(request) {
+async function readJson(request, maxBytes = MAX_BODY_BYTES) {
   const rawBody = await request.text();
-  if (Buffer.byteLength(rawBody) > MAX_BODY_BYTES) {
+  if (Buffer.byteLength(rawBody) > maxBytes) {
     throw new Error("The submitted content is too large.");
   }
   try {
@@ -145,6 +148,13 @@ function validateData(file, data) {
       return false;
     }
   };
+  if (file === "js/content/clinic-profile.json" &&
+      (!data.doctorInfo || typeof data.doctorInfo !== "object" ||
+       !["name", "specialty", "portrait", "bio", "phone", "email", "whatsapp", "address"]
+         .every((key) => typeof data.doctorInfo[key] === "string") ||
+       !isSafeImagePath(data.doctorInfo.portrait))) {
+    throw new Error("Check the clinic profile details and choose a valid local portrait image.");
+  }
   for (const listName of lists[file] || []) {
     if (!Array.isArray(data[listName])) {
       throw new Error("The submitted content is missing a required list.");
@@ -190,8 +200,13 @@ function validateData(file, data) {
     throw new Error("Check product details, category, price, and payment links.");
   }
 
+  function isSafeImagePath(value) {
+    return typeof value === "string" &&
+      /^(?:\/)?img\/[A-Za-z0-9._/-]+$/.test(value) &&
+      !value.split("/").includes("..");
+  }
   function validProductImage(value) {
-    if (/^(?:\/)?img\/[A-Za-z0-9._/-]+$/.test(value) && !value.split("/").includes("..")) return true;
+    if (isSafeImagePath(value)) return true;
     try {
       return new URL(value).protocol === "https:";
     } catch {
@@ -287,6 +302,48 @@ export default async (request) => {
 
   if (!hasSession(request, settings.sessionKey)) {
     return jsonResponse(401, { error: "Please sign in again." });
+  }
+
+  if (request.method === "POST" && action === "upload") {
+    try {
+      const body = await readJson(request, MAX_UPLOAD_BODY_BYTES);
+      if (typeof body?.name !== "string" || typeof body?.mimeType !== "string" ||
+          typeof body?.content !== "string" || !/^[A-Za-z0-9+/]+={0,2}$/.test(body.content) ||
+          body.content.length % 4 !== 0) {
+        return jsonResponse(400, { error: "Choose a valid PNG, JPEG, or WebP image." });
+      }
+      const image = Buffer.from(body.content, "base64");
+      if (image.toString("base64") !== body.content || image.length === 0 || image.length > MAX_UPLOAD_BYTES) {
+        return jsonResponse(400, { error: "Images must be no larger than 3 MB." });
+      }
+      const typeBySignature = [
+        { mime: "image/png", extension: "png", matches: (bytes) =>
+          bytes.length >= 8 && bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) },
+        { mime: "image/jpeg", extension: "jpg", matches: (bytes) =>
+          bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff },
+        { mime: "image/webp", extension: "webp", matches: (bytes) =>
+          bytes.length >= 12 && bytes.toString("ascii", 0, 4) === "RIFF" &&
+          bytes.toString("ascii", 8, 12) === "WEBP" }
+      ].find((type) => type.mime === body.mimeType && type.matches(image));
+      if (!typeBySignature) {
+        return jsonResponse(400, { error: "The image contents do not match PNG, JPEG, or WebP format." });
+      }
+      const path = `img/uploads/${randomUUID()}.${typeBySignature.extension}`;
+      await githubRequest(settings, githubFileUrl(settings, path), {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: "Add clinic dashboard image",
+          content: image.toString("base64"),
+          branch: settings.branch
+        })
+      });
+      return jsonResponse(201, { path });
+    } catch (error) {
+      return jsonResponse(error.status || (error.message?.includes("too large") ? 413 : 400), {
+        error: error.message || "Could not upload this image."
+      });
+    }
   }
 
   if (request.method === "GET" && action === "content") {
