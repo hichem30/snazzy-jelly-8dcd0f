@@ -106,7 +106,16 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     adminLink.href = ["localhost", "127.0.0.1", "::1"].includes(location.hostname)
       ? "/admin/index.html"
       : "/admin/";
-    adminLink.textContent = "Admin";
+    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    icon.setAttribute("viewBox", "0 0 24 24");
+    icon.setAttribute("aria-hidden", "true");
+    icon.setAttribute("focusable", "false");
+    icon.innerHTML = '<path d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M12 14v3"/>';
+    const label = document.createElement("span");
+    label.dataset.en = "Clinic team sign in";
+    label.dataset.ar = "دخول فريق العيادة";
+    label.textContent = label.dataset.en;
+    adminLink.append(icon, label);
     footerBottom.append(adminLink);
   }
 

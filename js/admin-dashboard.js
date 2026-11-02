@@ -3,7 +3,7 @@
 
   const apiUrl = "/api/admin-api";
   const definitions = [
-    { id: "profile", label: "Doctor profile", icon: "D", file: "clinic-profile.json", title: "Doctor profile", description: "Update the clinic profile and doctor portrait." },
+    { id: "profile", label: "WhatsApp & profile", icon: "W", file: "clinic-profile.json", title: "WhatsApp & clinic profile", description: "Set the WhatsApp number used by appointment requests and website chat buttons, then update clinic details." },
     { id: "hours", label: "Opening hours", icon: "H", file: "opening-hours.json", title: "Opening hours", description: "Keep the weekly schedule patients use to plan visits up to date." },
     { id: "appointments", label: "Appointments", icon: "A", file: "appointments.json", title: "Appointments", description: "Control the booking link and the appointment request form." },
     { id: "services", label: "Services", icon: "S", file: "services.json", title: "Services", description: "Manage the services patients can view and request." },
@@ -22,9 +22,11 @@
     "Saving publishes the update through the website deployment.": "يُنشر التحديث بعد حفظه ونشر الموقع.",
     "Changes are published when saved.": "تُنشر التغييرات عند حفظها.", "Save changes": "حفظ التغييرات",
     "No unsaved changes": "لا توجد تغييرات غير محفوظة", "Do not add patient medical records or other sensitive health information here.": "لا تضف سجلات المرضى أو معلومات صحية حساسة هنا.",
-    "Doctor profile": "ملف الطبيب", "Opening hours": "ساعات العمل", "Appointments": "المواعيد", "Services": "الخدمات",
+    "Doctor profile": "ملف الطبيب", "WhatsApp & profile": "واتساب والملف", "WhatsApp & clinic profile": "واتساب وملف العيادة",
+    "Opening hours": "ساعات العمل", "Appointments": "المواعيد", "Services": "الخدمات",
     "Shop & payments": "المتجر والمدفوعات", "FAQs & reviews": "الأسئلة الشائعة والتقييمات", "Blog articles": "مقالات المدونة",
     "Update the clinic profile and doctor portrait.": "حدّث ملف العيادة وصورة الطبيب.",
+    "Set the WhatsApp number used by appointment requests and website chat buttons, then update clinic details.": "أدخل رقم واتساب المستخدم لطلبات المواعيد وأزرار المحادثة ثم حدّث بيانات العيادة.",
     "Keep the weekly schedule patients use to plan visits up to date.": "حدّث جدول المواعيد الأسبوعي للمرضى.",
     "Control the booking link and the appointment request form.": "تحكّم برابط الحجز ونموذج طلب الموعد.",
     "Manage the services patients can view and request.": "أدر الخدمات التي يمكن للمرضى الاطلاع عليها وطلبها.",
@@ -34,6 +36,9 @@
     "Doctor and clinic details": "بيانات الطبيب والعيادة", "Doctor or clinic name": "اسم الطبيب أو العيادة",
     "Specialty": "التخصص", "Biography": "نبذة تعريفية", "Phone number": "رقم الهاتف", "Email address": "البريد الإلكتروني",
     "WhatsApp number": "رقم واتساب", "Clinic address": "عنوان العيادة", "Doctor portrait": "صورة الطبيب",
+    "WhatsApp contact": "التواصل عبر واتساب", "WhatsApp number (with country code)": "رقم واتساب مع رمز الدولة",
+    "Enter the full international number, including country code (for Kuwait, start with 965). This creates a click-to-chat link; it does not connect or sign in to a WhatsApp account.": "أدخل الرقم الدولي كاملاً مع رمز الدولة (للكويت ابدأ بـ 965). ينشئ ذلك رابط محادثة ولا يربط حساب واتساب أو يسجل الدخول إليه.",
+    "Test WhatsApp chat": "اختبار محادثة واتساب",
     "Visit information": "معلومات الزيارة", "Google Maps embed URL": "رابط تضمين خرائط Google",
     "Directions URL": "رابط الاتجاهات", "Parking information": "معلومات مواقف السيارات",
     "Accessibility information": "معلومات سهولة الوصول", "Google Business Profile URL": "رابط الملف التجاري على Google",
@@ -461,6 +466,21 @@
     const data = state.data;
 
     if (activeSection === "profile") {
+      const whatsapp = card("WhatsApp contact");
+      addFields(whatsapp.grid, [
+        ["WhatsApp number (with country code)", "doctorInfo.whatsapp", { type: "tel", wide: true }]
+      ]);
+      whatsapp.wrapper.append(element("p", "field-hint whatsapp-help",
+        t("Enter the full international number, including country code (for Kuwait, start with 965). This creates a click-to-chat link; it does not connect or sign in to a WhatsApp account.")));
+      const whatsappPreview = element("a", "button button-whatsapp-preview", t("Test WhatsApp chat"));
+      whatsappPreview.href = "#";
+      whatsappPreview.target = "_blank";
+      whatsappPreview.rel = "noopener noreferrer";
+      whatsappPreview.dataset.whatsappPreview = "";
+      whatsappPreview.hidden = true;
+      whatsapp.wrapper.append(whatsappPreview);
+      inner.append(whatsapp.wrapper);
+
       const profile = card("Doctor and clinic details");
       addFields(profile.grid, [
         ["Doctor or clinic name", "doctorInfo.name", { required: true }],
@@ -468,7 +488,6 @@
         ["Biography", "doctorInfo.bio", { type: "textarea", wide: true }],
         ["Phone number", "doctorInfo.phone"],
         ["Email address", "doctorInfo.email", { type: "email" }],
-        ["WhatsApp number", "doctorInfo.whatsapp"],
         ["Clinic address", "doctorInfo.address", { wide: true }]
       ]);
       profile.wrapper.append(imageField("Doctor portrait", "doctorInfo.portrait", data.doctorInfo.portrait));
@@ -616,6 +635,7 @@
     }
 
     content.replaceChildren(inner);
+    updateWhatsAppPreview();
     content.setAttribute("role", "tabpanel");
     content.setAttribute("aria-labelledby", `tab-${activeSection}`);
     content.tabIndex = 0;
@@ -659,7 +679,19 @@
     } else {
       setValue(states.get(sectionId).data, path, value);
       markDirty(sectionId);
+      if (path === "doctorInfo.whatsapp") updateWhatsAppPreview();
       return;
+    }
+
+    function updateWhatsAppPreview() {
+      const numberField = content.querySelector('[data-path="doctorInfo.whatsapp"]');
+      const preview = content.querySelector("[data-whatsapp-preview]");
+      if (!numberField || !preview) return;
+      const digits = numberField.value.replace(/\D/g, "");
+      const valid = /^\d{6,15}$/.test(digits);
+      preview.hidden = !valid;
+      if (valid) preview.href = `https://wa.me/${digits}`;
+      else preview.removeAttribute("href");
     }
     setSaveMessage("Unsaved changes. Save to publish.", "neutral");
     updateSaveButton();
