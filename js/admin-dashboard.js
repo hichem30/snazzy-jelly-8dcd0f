@@ -662,6 +662,17 @@
     saveButton.disabled = loading || !hasCurrentChanges;
   }
 
+  function updateWhatsAppPreview() {
+    const numberField = content.querySelector('[data-path="doctorInfo.whatsapp"]');
+    const preview = content.querySelector("[data-whatsapp-preview]");
+    if (!numberField || !preview) return;
+    const digits = numberField.value.replace(/\D/g, "");
+    const valid = /^\d{6,15}$/.test(digits);
+    preview.hidden = !valid;
+    if (valid) preview.href = `https://wa.me/${digits}`;
+    else preview.removeAttribute("href");
+  }
+
   function onFieldChange(event) {
     if (saving) return;
     const control = event.target.closest("[data-path]");
@@ -683,16 +694,6 @@
       return;
     }
 
-    function updateWhatsAppPreview() {
-      const numberField = content.querySelector('[data-path="doctorInfo.whatsapp"]');
-      const preview = content.querySelector("[data-whatsapp-preview]");
-      if (!numberField || !preview) return;
-      const digits = numberField.value.replace(/\D/g, "");
-      const valid = /^\d{6,15}$/.test(digits);
-      preview.hidden = !valid;
-      if (valid) preview.href = `https://wa.me/${digits}`;
-      else preview.removeAttribute("href");
-    }
     setSaveMessage("Unsaved changes. Save to publish.", "neutral");
     updateSaveButton();
   }
