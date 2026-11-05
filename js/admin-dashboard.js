@@ -83,6 +83,8 @@
     "Could not reach the publishing service. Try again later.": "تعذر الاتصال بخدمة النشر. حاول لاحقاً.",
     "Check product details, category, price, and payment links.": "تحقق من بيانات المنتج والفئة والسعر وروابط الدفع.",
     "Check the clinic profile details and choose a valid local portrait image.": "تحقق من بيانات العيادة واختر صورة محلية صالحة.",
+    "Enter a valid WhatsApp number with country code (6 to 15 digits).": "أدخل رقم واتساب صالحاً مع رمز الدولة (من 6 إلى 15 رقماً).",
+    "The clinic's WhatsApp number is not configured. Update it in the dashboard under WhatsApp & profile.": "رقم واتساب العيادة غير مضبوط. حدّثه من لوحة التحكم ضمن واتساب والملف.",
     "Images must be no larger than 3 MB.": "يجب ألا يتجاوز حجم الصورة 3 ميغابايت.",
     "The image contents do not match PNG, JPEG, or WebP format.": "محتوى الصورة لا يطابق تنسيق PNG أو JPEG أو WebP.",
     "No unsaved changes": "لا توجد تغييرات غير محفوظة", "Menu": "القائمة",

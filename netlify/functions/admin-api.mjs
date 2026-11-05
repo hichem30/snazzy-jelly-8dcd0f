@@ -148,12 +148,24 @@ function validateData(file, data) {
       return false;
     }
   };
+  const validWhatsAppNumber = (value) => {
+    if (typeof value !== "string" || !/^[+\d\s().-]*$/.test(value)) return false;
+    const digits = value.replace(/\D/g, "");
+    return digits.length >= 6 && digits.length <= 15;
+  };
   if (file === "js/content/clinic-profile.json" &&
       (!data.doctorInfo || typeof data.doctorInfo !== "object" ||
        !["name", "specialty", "portrait", "bio", "phone", "email", "whatsapp", "address"]
-         .every((key) => typeof data.doctorInfo[key] === "string") ||
-       !isSafeImagePath(data.doctorInfo.portrait))) {
-    throw new Error("Check the clinic profile details and choose a valid local portrait image.");
+         .every((key) => typeof data.doctorInfo[key] === "string"))) {
+    throw new Error("Check the clinic profile details.");
+  }
+  if (file === "js/content/clinic-profile.json" &&
+      !validWhatsAppNumber(data.doctorInfo.whatsapp)) {
+    throw new Error("Enter a valid WhatsApp number with country code (6 to 15 digits).");
+  }
+  if (file === "js/content/clinic-profile.json" &&
+      !isSafeImagePath(data.doctorInfo.portrait)) {
+    throw new Error("Choose a valid local portrait image.");
   }
   for (const listName of lists[file] || []) {
     if (!Array.isArray(data[listName])) {

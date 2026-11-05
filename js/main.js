@@ -623,7 +623,7 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
       } else {
         link.href = "#";
         link.setAttribute("aria-disabled", "true");
-        link.title = t("Add the clinic's WhatsApp number in js/data.js");
+        link.title = t("The clinic's WhatsApp number is not configured. Update it in the dashboard under WhatsApp & profile.");
       }
     });
     const mapElement = document.querySelector("#map-area");

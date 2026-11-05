@@ -576,7 +576,7 @@ const arabicTranslations = {
   "Instagram profile to configure": "حساب إنستغرام لإضافته",
   "Facebook profile to configure": "حساب فيسبوك لإضافته",
   "LinkedIn profile to configure": "حساب لينكدإن لإضافته",
-  "Add the clinic's WhatsApp number in js/data.js": "أضف رقم واتساب العيادة في js/data.js",
+  "The clinic's WhatsApp number is not configured. Update it in the dashboard under WhatsApp & profile.": "رقم واتساب العيادة غير مضبوط. حدّثه من لوحة التحكم ضمن واتساب والملف.",
   "Map showing the clinic location": "خريطة توضح موقع العيادة",
   "Introduction to Dr. [Name]": "مقدمة عن د. [Name]",
   "About Dr. [Name] | Dr. [Name] Clinic": "عن د. [Name] | عيادة د. [Name]",
