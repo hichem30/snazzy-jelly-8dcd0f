@@ -1,4 +1,4 @@
-const CACHE_NAME = "clinic-site-shell-v6";
+const CACHE_NAME = "clinic-site-shell-v7";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -38,7 +38,7 @@ const APP_SHELL = [
   "./js/content/patient-info.json",
   "./js/content/health-resources.json",
   "./img/favicon.svg",
-  "./img/doctor.svg",
+  "./img/doctor.jpg",
   "./img/doctor.webp",
   "./img/doctor.avif",
   "./img/products/bp-monitor.svg",

@@ -16,7 +16,7 @@ js/main.js          Navigation, accessibility controls, forms, product discovery
 js/data.js          English/Arabic/Hindi interface copy and site configuration loading/validation
 js/content/*.json   Website data for the home page, clinic profile, hours, appointments, services, shop, blog, FAQs/reviews, and health information
 service-worker.js   Offline cache for the public site shell
-img/                Replaceable SVG portrait, testimonial, favicon, and product placeholders
+img/                Replaceable stock doctor portrait, testimonial, favicon, and product placeholders
 admin/              Clinic-owner dashboard
 netlify/functions/  Authenticated, allowlisted content publishing function
 netlify.toml        Netlify function routing and static publishing configuration
@@ -91,3 +91,5 @@ To add an editable section, add its JSON file to the function allowlist and vali
 ## Appearance
 
 Visitors can switch between light and dark themes from the navigation menu. Their choice is saved in the browser; visitors without a saved choice follow their device's color-scheme preference.
+
+The default doctor image is a generic stock portrait from [Unsplash](https://unsplash.com/license) (photo ID `1612349317150-e413f6a5b16d`). Replace it with a clinic-approved portrait before launch.

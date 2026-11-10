@@ -97,6 +97,8 @@ p { margin: 0 0 1rem; }
     top: 0;
     right: 0;
     bottom: 0;
+    height: 100vh;
+    height: 100dvh;
     display: flex;
     width: min(390px, 90vw);
     align-items: stretch;
@@ -537,7 +539,7 @@ body.menu-open .whatsapp-contact-float { visibility: hidden; pointer-events: non
   .hero-copy h1 { font-size: clamp(2.15rem, 10vw, 3.1rem); }
   .page-hero { padding: 48px 0; }
   .page-hero::after { right: -100px; }
-  .primary-nav { z-index: 1201; overflow-y: auto; padding-bottom: max(28px, env(safe-area-inset-bottom)); border-radius: 0 22px 22px 0; box-shadow: 18px 0 50px rgba(8, 35, 38, .22); }
+  .primary-nav { z-index: 1201; height: 100vh; height: 100dvh; overflow-y: auto; padding-bottom: max(28px, env(safe-area-inset-bottom)); border-radius: 0 22px 22px 0; box-shadow: 18px 0 50px rgba(8, 35, 38, .22); }
   .primary-nav.is-open { transform: translateX(0); }
   html[dir="rtl"] .primary-nav { border-radius: 22px 0 0 22px; }
   .primary-nav > a { padding: 15px 0; }
@@ -553,7 +555,7 @@ body.menu-open .whatsapp-contact-float { visibility: hidden; pointer-events: non
 }
 
   .primary-nav > a { display: inline-flex; align-items: center; gap: 8px; border-radius: 10px; transition: color .2s ease, background .2s ease, transform .2s ease; }
-  .nav-link-icon, .nav-current-icon { display: none; }
+  .nav-link-icon, .nav-current-icon { display: inline-grid; }
   .primary-nav > a:hover { transform: translateY(-1px); }
   .language-switch button { min-width: 40px; border-radius: 99px; }
   .page-hero h1 { max-width: 900px; margin-inline: auto; }
@@ -874,8 +876,6 @@ body { color: #142a3a; background: #f6f9fb; }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
   }
-.primary-nav .nav-link-icon,
-.primary-nav .nav-current-icon { display: none; }
 @media (max-width: 767px) {
   .primary-nav > a { display: flex; width: 100%; }
   .primary-nav .nav-link-icon { display: inline-grid; flex: 0 0 34px; width: 34px; height: 34px; place-items: center; font-size: 1.1rem; line-height: 1; }

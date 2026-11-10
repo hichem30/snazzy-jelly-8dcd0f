@@ -481,8 +481,10 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     !doctorInfo.portrait.split("/").includes("..")) {
     document.querySelectorAll("[data-doctor-portrait]").forEach((image) => {
       image.src = doctorInfo.portrait;
-      image.alt = `Portrait of ${doctorInfo.name}`;
-      if (doctorInfo.portrait !== "img/doctor.svg") {
+      image.alt = doctorInfo.portrait === "img/doctor.jpg"
+        ? "Stock portrait of a doctor"
+        : `Portrait of ${doctorInfo.name}`;
+      if (doctorInfo.portrait !== "img/doctor.jpg") {
         image.closest("picture")?.querySelectorAll("[data-default-portrait-source]").forEach((source) => source.remove());
       }
     });

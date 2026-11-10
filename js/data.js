@@ -121,7 +121,7 @@ window.siteDataReady = Promise.all(siteContentFiles.map(async (file) => {
     if (config?.doctorInfo) {
       config.doctorInfo.bio ??= "";
       config.doctorInfo.bioAr ??= "";
-      config.doctorInfo.portrait ??= "img/doctor.svg";
+      config.doctorInfo.portrait ??= "img/doctor.jpg";
       ["specialtyHi", "bioHi", "directionsUrl", "parking", "parkingAr", "parkingHi", "accessibility", "accessibilityAr", "accessibilityHi", "googleBusinessProfile"]
         .forEach((field) => { config.doctorInfo[field] ??= ""; });
       config.doctorInfo.socialProfiles ??= {};
@@ -513,7 +513,6 @@ const arabicTranslations = {
   "Message received": "تم استلام الرسالة",
   "Your message was sent to the clinic. For urgent needs, call the clinic directly or emergency services.": "تم إرسال رسالتك إلى العيادة. للحالات العاجلة، اتصل بالعيادة مباشرة أو بخدمات الطوارئ.",
   "Request an appointment": "اطلب موعداً",
-  "Forms are processed after deployment on Netlify. Avoid sending urgent or sensitive medical information through this website.": "تتم معالجة النماذج بعد نشر الموقع على Netlify. تجنب إرسال معلومات طبية طارئة أو حساسة عبر هذا الموقع.",
   "Helpful information": "معلومات مفيدة",
   "Frequently Asked Questions": "الأسئلة الشائعة",
   "Contact the clinic if your question is not answered here.": "تواصل مع العيادة إذا لم تجد إجابة عن سؤالك هنا.",
