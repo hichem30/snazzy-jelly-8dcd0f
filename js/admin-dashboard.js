@@ -89,7 +89,23 @@
     "The image contents do not match PNG, JPEG, or WebP format.": "محتوى الصورة لا يطابق تنسيق PNG أو JPEG أو WebP.",
     "No unsaved changes": "لا توجد تغييرات غير محفوظة", "Menu": "القائمة",
     "Use dark mode": "استخدم الوضع الداكن", "Use light mode": "استخدم الوضع الفاتح",
-    "Enable configured myFatoorah links": "تفعيل روابط myFatoorah"
+    "Enable configured myFatoorah links": "تفعيل روابط myFatoorah",
+    "Forgot password?": "هل نسيت كلمة المرور؟",
+    "Reset dashboard password": "إعادة تعيين كلمة مرور لوحة التحكم",
+    "A verification code will be sent to the recovery phone configured by the site owner.": "سيتم إرسال رمز تحقق إلى رقم الاسترداد الذي حدده مالك الموقع.",
+    "SMS verification code": "رمز التحقق عبر الرسائل النصية",
+    "New dashboard password": "كلمة مرور جديدة للوحة التحكم",
+    "Update password": "تحديث كلمة المرور",
+    "Back to sign in": "العودة إلى تسجيل الدخول",
+    "Requesting a verification code…": "جارٍ طلب رمز التحقق…",
+    "If recovery is configured, a verification code has been sent to the preset admin phone.": "إذا كانت خدمة الاسترداد مهيأة، فقد تم إرسال رمز تحقق إلى هاتف المسؤول المحدد مسبقاً.",
+    "Enter the verification code and a password between 16 and 128 characters.": "أدخل رمز التحقق وكلمة مرور من 16 إلى 128 حرفاً.",
+    "The verification code was not accepted. Request a new code and try again.": "لم يتم قبول رمز التحقق. اطلب رمزاً جديداً وحاول مرة أخرى.",
+    "Phone-verified password recovery has not been configured.": "لم يتم إعداد استرداد كلمة المرور عبر الهاتف.",
+    "Please wait one minute before requesting another verification code.": "يرجى الانتظار دقيقة قبل طلب رمز تحقق آخر.",
+    "The password recovery service could not complete the request. Try again later.": "تعذر على خدمة استرداد كلمة المرور إكمال الطلب. حاول لاحقاً.",
+    "Password updated. Sign in with your new password.": "تم تحديث كلمة المرور. سجّل الدخول باستخدام كلمة المرور الجديدة.",
+    "Password reset complete. Sign in with your new password.": "اكتملت إعادة تعيين كلمة المرور. سجّل الدخول باستخدام كلمة المرور الجديدة."
   };
   const readPreference = (key, fallback) => {
     try { return localStorage.getItem(key) || fallback; } catch { return fallback; }
@@ -103,6 +119,11 @@
   const loginPanel = document.querySelector("#login-panel");
   const dashboard = document.querySelector("#dashboard");
   const loginForm = document.querySelector("#login-form");
+  const passwordResetStart = document.querySelector("#password-reset-start");
+  const passwordResetPanel = document.querySelector("#password-reset-panel");
+  const passwordResetForm = document.querySelector("#password-reset-form");
+  const passwordResetBack = document.querySelector("#password-reset-back");
+  const passwordResetMessage = document.querySelector("#password-reset-message");
   const loginMessage = document.querySelector("#login-message");
   const passwordInput = document.querySelector("#admin-password");
   const navigation = document.querySelector("#section-nav");
@@ -755,6 +776,58 @@
     } finally {
       button.disabled = false;
     }
+  });
+
+  passwordResetStart.addEventListener("click", async () => {
+    passwordResetPanel.hidden = false;
+    passwordResetMessage.textContent = t("Requesting a verification code…");
+    passwordResetStart.disabled = true;
+    try {
+      const result = await request(`${apiUrl}?action=password-reset-start`, {
+        method: "POST",
+        body: "{}"
+      });
+      passwordResetMessage.textContent = t(result.message);
+      passwordResetForm.hidden = false;
+      document.querySelector("#recovery-code").focus();
+    } catch (error) {
+      passwordResetMessage.textContent = t(error.message);
+    } finally {
+      passwordResetStart.disabled = false;
+    }
+  });
+
+  passwordResetForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = passwordResetForm.querySelector("button[type='submit']");
+    button.disabled = true;
+    passwordResetMessage.textContent = "";
+    try {
+      await request(`${apiUrl}?action=password-reset-complete`, {
+        method: "POST",
+        body: JSON.stringify({
+          code: document.querySelector("#recovery-code").value,
+          newPassword: document.querySelector("#new-admin-password").value
+        })
+      });
+      passwordResetForm.reset();
+      passwordResetForm.hidden = true;
+      passwordResetPanel.hidden = true;
+      loginMessage.textContent = t("Password reset complete. Sign in with your new password.");
+      passwordInput.focus();
+    } catch (error) {
+      passwordResetMessage.textContent = t(error.message);
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  passwordResetBack.addEventListener("click", () => {
+    passwordResetForm.reset();
+    passwordResetForm.hidden = true;
+    passwordResetPanel.hidden = true;
+    passwordResetMessage.textContent = "";
+    passwordResetStart.focus();
   });
 
   async function signOut() {

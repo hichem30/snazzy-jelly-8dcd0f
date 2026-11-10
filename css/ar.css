@@ -7,9 +7,16 @@ html[dir="rtl"] h2,
 html[dir="rtl"] h3,
 html[dir="rtl"] h4,
 html[dir="rtl"] .brand {
-  font-family: "Noto Sans Arabic", sans-serif;
+  font-family: "Noto Sans Arabic", "Open Sans", sans-serif;
 }
 
+html[lang="hi"] body,
+html[lang="hi"] h1,
+html[lang="hi"] h2,
+html[lang="hi"] h3,
+html[lang="hi"] h4 {
+  font-family: "Noto Sans Devanagari", "Open Sans", sans-serif;
+}
 html[dir="rtl"] .hero-grid,
 html[dir="rtl"] .profile-grid,
 html[dir="rtl"] .contact-grid,

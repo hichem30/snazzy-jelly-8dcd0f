@@ -10,6 +10,7 @@ appointment.html, contact.html, faq.html (includes clinic-approved reviews)
 tools.html
 css/style.css       Shared layout and responsive styles
 css/ar.css          Right-to-left and Arabic typography styles
+css/fonts.css       Self-hosted Open Sans and Arabic/Hindi fonts
 css/accessibility.css, css/print.css  Accessibility preferences and print layout
 js/main.js          Navigation, accessibility controls, forms, product discovery, cart, sharing, and WhatsApp/payment links
 js/data.js          English/Arabic/Hindi interface copy and site configuration loading/validation
@@ -19,6 +20,8 @@ img/                Replaceable SVG portrait, testimonial, favicon, and product 
 admin/              Clinic-owner dashboard
 netlify/functions/  Authenticated, allowlisted content publishing function
 netlify.toml        Netlify function routing and static publishing configuration
+scripts/generate-seo.mjs  Build-time sitemap.xml and robots.txt generation
+fonts/              Self-hosted fonts and their licenses
 ```
 
 ## Admin workspace
@@ -55,12 +58,14 @@ The dashboard stays on `/admin/` as a same-page editor. Its hamburger menu conta
 
 ## Run locally
 
-Open the folder in VS Code and use a static file server (for example, the Live Server extension), or serve it with any local static HTTP server. External fonts and Font Awesome require an internet connection. The language selector switches supported English, Arabic, and Hindi copy; Arabic uses RTL and Hindi remains LTR. Existing translations are maintained in the website data files. The admin dashboard requires the Netlify Function and environment variables described below; use Netlify Dev to test authenticated saves locally.
+Open the folder in VS Code and use a static file server (for example, the Live Server extension), or serve it with any local static HTTP server. Fonts and icons are self-hosted. The language selector switches supported English, Arabic, and Hindi copy; Arabic uses RTL and Hindi remains LTR. Existing translations are maintained in the website data files. The admin dashboard requires the Netlify Function and environment variables described below; use Netlify Dev to test authenticated saves locally.
 
 ## Deploy
 
 - **Netlify Git (required for the owner dashboard):** Connect the Git repository and publish from the repository root so Netlify deploys both the static site and `netlify/functions/`.
 - Other static hosting options can serve the public website, but do not provide this dashboard's Netlify Function and therefore cannot sign in or publish admin changes.
+- Netlify automatically provisions and renews its HTTPS certificate for a verified custom domain. Add the custom domain and enable its certificate in Netlify site settings before launch; the repository redirects HTTP to HTTPS and sends HSTS after HTTPS is enabled.
+- Set `SITE_URL` in the Netlify build environment to the canonical HTTPS site URL (for example, the clinic's custom domain). If unset, the build uses Netlify's `URL`. The build fails rather than publishing an incorrect sitemap when neither is available.
 
 Hosting providers' free tiers, limits, availability, and terms may change. A custom domain may cost money.
 
@@ -72,8 +77,12 @@ The dashboard uses a Netlify Function at `netlify/functions/admin-api.mjs`; it s
 - `ADMIN_SESSION_SECRET`: a private random value of at least 32 characters for signing admin sessions.
 - `GITHUB_TOKEN`: a fine-grained GitHub token restricted to this repository with **Contents: read and write** permission. Never put it in website files or commit it.
 - `GITHUB_OWNER`, `GITHUB_REPO`, and optionally `GITHUB_BRANCH` (defaults to `main`).
+- `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `TWILIO_VERIFY_SERVICE_SID` for SMS verification. Create a Twilio Verify service and configure its code length, maximum verification attempts (five recommended), and SMS geographic permissions.
+- `ADMIN_RECOVERY_PHONE`: the private recovery number in E.164 format (for Kuwait, `+965` followed by the number). This is server-side configuration, not the public clinic WhatsApp number; it is never supplied by the reset form or exposed in public website content.
 
-After setting the variables, redeploy the site. The owner signs into `/admin/` with the dashboard password; they do not need a Turbo account or routine access to GitHub or Netlify. Admin sessions use a browser-session cookie and expire after two hours; signing out clears the session. Use a unique password and rotate it by updating `ADMIN_PASSWORD` and redeploying; this also invalidates existing sessions. Saved updates are committed directly to the configured branch and appear after Netlify finishes deploying. There is no separate draft or preview-publish step.
+After setting the variables, redeploy the site. The owner signs into `/admin/` with the dashboard password; they do not need a Turbo account or routine access to GitHub or Netlify. Admin sessions use a browser-session cookie and expire after two hours; signing out clears the session. Phone-verified recovery sends a short-lived Twilio Verify code only to `ADMIN_RECOVERY_PHONE`. After successful verification, the new password's HMAC digest is stored in Netlify Blobs and existing sessions are invalidated. `ADMIN_PASSWORD` is the bootstrap password until the first phone-verified reset. Keep `ADMIN_SESSION_SECRET` stable; if it is rotated, complete phone-verified recovery to replace the password digest. This is phone-verified password recovery, not a second factor on sign-in. The dashboard remains a single shared admin account and does not provide individual staff logins or 2FA. Saved updates are committed directly to the configured branch and appear after Netlify finishes deploying. There is no separate draft or preview-publish step.
+
+The appointment request is a client-side WhatsApp handoff, not a website inbox: no request or patient data is retained by the site. The form collects name, new/existing patient status, service, a brief reason, optional additional notes and insurance carrier, callback number, preferred days, and optional date/time. Visitors review the prefilled message and decide whether to send it. Do not collect sensitive medical details or insurance policy/member identifiers. The honeypot is a basic bot deterrent, not server-side spam protection or CAPTCHA. Review the clinic privacy notice and Twilio's phone-number handling before enabling SMS recovery.
 
 The function accepts writes only for the eight dashboard-managed JSON files, checks the submitted file version to avoid overwriting a newer edit, and keeps its API credentials server-side. The dashboard is intentionally not an offline editor; use the deployed HTTPS site, or run the site with Netlify Dev and its environment variables when developing locally. Do not add branding, homepage copy, or other stable setup information to the dashboard unless owners need to change it routinely.
 

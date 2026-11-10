@@ -1,4 +1,5 @@
 import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
+import { getStore } from "@netlify/blobs";
 
 const COOKIE_NAME = "clinic_admin";
 const SECURE_COOKIE_NAME = "__Host-clinic_admin";
@@ -6,6 +7,7 @@ const SESSION_TTL_SECONDS = 2 * 60 * 60;
 const MAX_BODY_BYTES = 1_500_000;
 const MAX_UPLOAD_BYTES = 3 * 1024 * 1024;
 const MAX_UPLOAD_BODY_BYTES = 4_200_000;
+const ADMIN_SECRETS = getStore("clinic-admin-secrets");
 const ALLOWED_FILES = new Set([
   "js/content/clinic-profile.json",
   "js/content/opening-hours.json",
@@ -38,12 +40,81 @@ function requiredSettings() {
   return {
     password: ADMIN_PASSWORD,
     sessionSecret: ADMIN_SESSION_SECRET,
-    sessionKey: createHmac("sha256", ADMIN_SESSION_SECRET).update(ADMIN_PASSWORD).digest("base64url"),
     githubToken: GITHUB_TOKEN,
     owner: GITHUB_OWNER,
     repo: GITHUB_REPO,
     branch: process.env.GITHUB_BRANCH || "main"
   };
+}
+
+function passwordDigest(password, secret) {
+  return createHmac("sha256", secret)
+    .update(`clinic-admin-password-check\0${password}`)
+    .digest("base64url");
+}
+
+async function activePasswordDigest(settings) {
+  const digest = await ADMIN_SECRETS.get("admin-password-hash", { type: "text" }) ||
+    passwordDigest(settings.password, settings.sessionSecret);
+  if (!/^[A-Za-z0-9_-]{43}$/.test(digest)) {
+    throw new Error("The stored dashboard password is invalid. Complete phone-verified recovery to replace it.");
+  }
+  return digest;
+}
+
+function sessionKey(settings, digest) {
+  return createHmac("sha256", settings.sessionSecret).update(digest).digest("base64url");
+}
+
+function twilioSettings() {
+  const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_VERIFY_SERVICE_SID, ADMIN_RECOVERY_PHONE } = process.env;
+  if (!/^AC[a-f\d]{32}$/i.test(TWILIO_ACCOUNT_SID || "") ||
+      !TWILIO_AUTH_TOKEN ||
+      !/^VA[a-f\d]{32}$/i.test(TWILIO_VERIFY_SERVICE_SID || "") ||
+      !/^\+[1-9]\d{7,14}$/.test(ADMIN_RECOVERY_PHONE || "")) return null;
+  return { accountSid: TWILIO_ACCOUNT_SID, authToken: TWILIO_AUTH_TOKEN,
+    serviceSid: TWILIO_VERIFY_SERVICE_SID, recoveryPhone: ADMIN_RECOVERY_PHONE };
+}
+
+async function claimPasswordResetSlot() {
+  const key = "admin-password-reset-last-sent";
+  const now = Date.now();
+  const current = await ADMIN_SECRETS.getWithMetadata(key, { type: "text" });
+  if (!current) {
+    return (await ADMIN_SECRETS.set(key, String(now), { onlyIfNew: true })).modified;
+  }
+  const lastSent = Number(current.data);
+  if (!Number.isFinite(lastSent) || !current.etag) {
+    throw new Error("The password recovery rate limit could not be verified.");
+  }
+  if (now - lastSent < 60_000) return false;
+  return (await ADMIN_SECRETS.set(key, String(now), { onlyIfMatch: current.etag })).modified;
+}
+
+async function twilioVerify(settings, resource, values) {
+  const body = new URLSearchParams(values);
+  const response = await fetch(
+    `https://verify.twilio.com/v2/Services/${settings.serviceSid}/${resource}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${Buffer.from(`${settings.accountSid}:${settings.authToken}`).toString("base64")}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body
+    }
+  );
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error("The password recovery service returned an invalid response.");
+  }
+  if (!response.ok) {
+    console.error("Twilio Verify operation failed.", response.status, result.code || "");
+    throw new Error("The password recovery service could not complete the request. Try again later.");
+  }
+  return result;
 }
 
 function signature(payload, secret) {
@@ -275,7 +346,8 @@ export default async (request) => {
 
   const action = new URL(request.url).searchParams.get("action");
   if (request.method === "GET" && action === "session") {
-    return jsonResponse(200, { authenticated: hasSession(request, settings.sessionKey) });
+    const activeDigest = await activePasswordDigest(settings);
+    return jsonResponse(200, { authenticated: hasSession(request, sessionKey(settings, activeDigest)) });
   }
 
   if (request.method === "POST" && !hasSameOrigin(request)) {
@@ -290,18 +362,69 @@ export default async (request) => {
       return jsonResponse(400, { error: error.message });
     }
     const submittedPassword = typeof body?.password === "string" ? body.password : "";
-    const submittedHash = createHmac("sha256", "clinic-admin-password-check").update(submittedPassword).digest();
-    const expectedHash = createHmac("sha256", "clinic-admin-password-check").update(settings.password).digest();
+    const activeDigest = await activePasswordDigest(settings);
+    const submittedHash = Buffer.from(passwordDigest(submittedPassword, settings.sessionSecret));
+    const expectedHash = Buffer.from(activeDigest);
     if (!timingSafeEqual(submittedHash, expectedHash)) {
       return jsonResponse(401, { error: "That password was not accepted." });
     }
     const expires = String(Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS);
-    const value = `${expires}.${signature(expires, settings.sessionKey)}`;
+    const value = `${expires}.${signature(expires, sessionKey(settings, activeDigest))}`;
     const name = cookieName(request);
     const secure = name === SECURE_COOKIE_NAME ? " Secure;" : "";
     return jsonResponse(200, { authenticated: true }, {
       "Set-Cookie": `${name}=${value}; Path=/; HttpOnly;${secure} SameSite=Strict`
     });
+  }
+
+  if (request.method === "POST" &&
+      (action === "password-reset-start" || action === "password-reset-complete")) {
+    const recovery = twilioSettings();
+    if (!recovery) {
+      return jsonResponse(503, { error: "Phone-verified password recovery has not been configured." });
+    }
+    let body;
+    try {
+      body = await readJson(request);
+    } catch (error) {
+      return jsonResponse(400, { error: error.message });
+    }
+
+    try {
+      if (action === "password-reset-start") {
+        if (!await claimPasswordResetSlot()) {
+          return jsonResponse(429, { error: "Please wait one minute before requesting another verification code." });
+        }
+        await twilioVerify(recovery, "Verifications", {
+          To: recovery.recoveryPhone,
+          Channel: "sms"
+        });
+        return jsonResponse(200, {
+          message: "If recovery is configured, a verification code has been sent to the preset admin phone."
+        });
+      }
+
+      const code = typeof body?.code === "string" ? body.code.trim() : "";
+      const newPassword = typeof body?.newPassword === "string" ? body.newPassword : "";
+      if (!/^\d{4,10}$/.test(code) ||
+          newPassword.length < 16 || newPassword.length > 128) {
+        return jsonResponse(400, { error: "Enter the verification code and a password between 16 and 128 characters." });
+      }
+      const verification = await twilioVerify(recovery, "VerificationCheck", {
+        To: recovery.recoveryPhone,
+        Code: code
+      });
+      if (verification.status !== "approved") {
+        return jsonResponse(400, { error: "The verification code was not accepted. Request a new code and try again." });
+      }
+      const digest = passwordDigest(newPassword, settings.sessionSecret);
+      await ADMIN_SECRETS.set("admin-password-hash", digest);
+      return jsonResponse(200, { message: "Password updated. Sign in with your new password." });
+    } catch (error) {
+      return jsonResponse(502, {
+        error: error.message || "The password recovery service could not complete the request. Try again later."
+      });
+    }
   }
 
   if (request.method === "POST" && action === "logout") {
@@ -312,7 +435,8 @@ export default async (request) => {
     });
   }
 
-  if (!hasSession(request, settings.sessionKey)) {
+  const activeDigest = await activePasswordDigest(settings);
+  if (!hasSession(request, sessionKey(settings, activeDigest))) {
     return jsonResponse(401, { error: "Please sign in again." });
   }
 

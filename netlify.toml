@@ -1,8 +1,21 @@
 [build]
   publish = "."
   functions = "netlify/functions"
+  command = "npm run build"
+
+[[redirects]]
+  from = "http://*"
+  to = "https://:splat"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/api/admin-api"
   to = "/.netlify/functions/admin-api"
   status = 200
+
+[[redirects]]
+  from = "/health-tools.html"
+  to = "/tools.html"
+  status = 301
+  force = true

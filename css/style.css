@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap");
-
 :root {
   --primary-color: #2e86ab;
   --primary-dark: #1d5b6f;
@@ -28,7 +26,7 @@ a { color: var(--primary-dark); }
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid var(--accent-color); outline-offset: 3px; }
-h1, h2, h3, h4 { margin: 0 0 .65em; font-family: "Poppins", sans-serif; font-weight: 700; line-height: 1.2; }
+h1, h2, h3, h4 { margin: 0 0 .65em; font-family: "Open Sans", sans-serif; font-weight: 700; line-height: 1.2; }
 h1 { font-size: clamp(2.2rem, 5vw, 3.7rem); }
 h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
 h3 { font-size: 1.2rem; }
@@ -45,7 +43,7 @@ p { margin: 0 0 1rem; }
 
 .site-header { position: sticky; z-index: 1000; top: 0; background: rgba(255,255,255,.97); box-shadow: 0 2px 12px rgba(0,0,0,.08); }
 .header-inner { display: flex; min-height: 78px; align-items: center; justify-content: space-between; gap: 20px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--primary-dark); font-family: "Poppins", sans-serif; font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--primary-dark); font-family: "Open Sans", sans-serif; font-size: 1.1rem; font-weight: 700; text-decoration: none; }
 .brand-mark { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; color: white; background: var(--primary-color); font-size: 1.45rem; }
 .primary-nav { display: flex; align-items: center; gap: clamp(10px, 1.6vw, 24px); }
 .primary-nav > a { color: var(--dark-color); font-size: .9rem; font-weight: 600; text-decoration: none; transition: var(--transition); }
@@ -159,7 +157,7 @@ p { margin: 0 0 1rem; }
 .service-card ul { padding-inline-start: 20px; }
 .service-card .button { margin-top: auto; align-self: flex-start; }
 .feature-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 36px; padding: 28px 20px; color: white; background: var(--primary-dark); text-align: center; }
-.feature-strip strong { display: block; font: 700 1.6rem "Poppins", sans-serif; }
+.feature-strip strong { display: block; font: 700 1.6rem "Open Sans", sans-serif; }
 .product-card { overflow: hidden; border-radius: var(--border-radius); background: white; box-shadow: var(--box-shadow); transition: var(--transition); }
 .product-image { position: relative; min-height: 210px; background: #eff7f8; }
 .product-image img { width: 100%; height: 220px; object-fit: cover; }
@@ -907,6 +905,94 @@ body { color: #142a3a; background: #f6f9fb; }
 :root[data-theme="dark"] .blog-card { border-color: #2b424f; background: #172833; }
 :root[data-theme="dark"] .blog-card h2,
 :root[data-theme="dark"] .blog-card details > p { color: #e4edf2; }
+
+:root {
+  --primary-color: #16766e;
+  --primary-dark: #105b55;
+  --secondary-color: #b88a55;
+  --accent-color: #b85f38;
+  --light-color: #f3f2ed;
+  --dark-color: #1d2b37;
+  --gray-color: #657581;
+  --white-color: #fffefa;
+  --border-radius: 14px;
+  --box-shadow: 0 12px 32px rgba(29, 43, 55, .08);
+}
+
+body { background: #fffefa; }
+.site-header { border-bottom: 1px solid rgba(29, 43, 55, .08); background: rgba(255, 254, 250, .96); backdrop-filter: blur(16px); }
+.brand-mark { border-radius: 14px; background: linear-gradient(145deg, #16766e, #2d9a8b); }
+.hero { position: relative; background: radial-gradient(ellipse at 86% 20%, rgba(184, 138, 85, .14), transparent 30%), linear-gradient(120deg, #f3f2ed 0%, #fbfaf6 57%, #e8f2ef 100%); }
+.hero::after { position: absolute; right: 4%; bottom: 8%; width: 130px; height: 130px; border: 1px solid rgba(22, 118, 110, .18); border-radius: 50%; content: ""; pointer-events: none; }
+.hero-grid { position: relative; z-index: 1; }
+.hero-image { border: 10px solid rgba(255, 254, 250, .86); border-radius: 38% 38% 18px 18px; background: #dcebe6; box-shadow: 0 26px 64px rgba(29, 73, 68, .18); }
+.hero-image img { object-position: center top; }
+.page-hero { position: relative; overflow: hidden; background: radial-gradient(ellipse at 88% 0%, rgba(184, 138, 85, .16), transparent 34%), linear-gradient(115deg, #f3f2ed, #eaf3f0); }
+.section-muted { background: linear-gradient(140deg, #f4f3ee, #eef4f1 75%, #f8f3eb); }
+.section-heading { margin-bottom: 44px; }
+.section-heading .eyebrow { color: var(--primary-dark); }
+.service-card, .testimonial-card, .membership-card, .qualification-card, .info-card, .tool-card, .cart-panel {
+  border: 1px solid rgba(29, 43, 55, .08);
+  border-radius: 18px;
+  box-shadow: 0 12px 34px rgba(29, 43, 55, .07);
+}
+.service-icon { border-radius: 14px; color: var(--primary-dark); background: #e7f1ed; }
+.product-card, .blog-card { border: 1px solid rgba(29, 43, 55, .09); border-radius: 18px; box-shadow: 0 12px 34px rgba(29, 43, 55, .07); }
+.button { border-radius: 10px; }
+.button-primary { background: linear-gradient(135deg, #16766e, #105b55); box-shadow: 0 5px 14px rgba(16, 91, 85, .16); }
+.button-secondary { border-color: rgba(22, 118, 110, .35); }
+.cta-band { position: relative; overflow: hidden; background: linear-gradient(115deg, #143a3b, #105b55 68%, #16766e); }
+.cta-band::before, .cta-band::after { position: absolute; width: 220px; height: 220px; border: 1px solid rgba(255, 255, 255, .13); border-radius: 50%; content: ""; }
+.cta-band::before { top: -150px; left: 8%; }
+.cta-band::after { right: 6%; bottom: -180px; }
+.site-footer { background: #172a35; }
+.contact-form :where(input, select, textarea), .blog-filters :where(input, select), .shop-search input[type="search"] { border-radius: 10px; }
+.contact-form :where(input, select, textarea):focus, .blog-filters :where(input, select):focus, .shop-search input[type="search"]:focus { border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(22, 118, 110, .12); }
+.appointment-days { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+.appointment-days label { display: flex; grid-template-columns: none; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid rgba(29, 43, 55, .12); border-radius: 10px; background: var(--white-color); font-weight: 500; }
+.appointment-days input { width: auto; margin: 0; accent-color: var(--primary-color); }
+.contact-form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.contact-form fieldset legend { margin-bottom: 8px; font-weight: 700; }
+.contact-form fieldset .appointment-days { margin-top: 8px; }
+.field-error { margin: -4px 0 0; color: #a63d1a; font-size: .9rem; }
+.appointment-days label:has(input:disabled) { opacity: .48; }
+.contact-form[data-appointment-form] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.contact-form[data-appointment-form] > label,
+.contact-form[data-appointment-form] > .field-wide,
+.contact-form[data-appointment-form] > button { grid-column: 1 / -1; }
+.contact-form[data-appointment-form] > label:has(#appointment-name),
+.contact-form[data-appointment-form] > label:has(#patient-status),
+.contact-form[data-appointment-form] > label:has(#appointment-phone),
+.contact-form[data-appointment-form] > label:has(#appointment-service),
+.contact-form[data-appointment-form] > label:has(#insurance-carrier),
+.contact-form[data-appointment-form] > label:has(#appointment-date),
+.contact-form[data-appointment-form] > label:has(#appointment-time) { grid-column: span 1; }
+@media (max-width: 640px) {
+  .contact-form[data-appointment-form] { grid-template-columns: 1fr; }
+  .contact-form[data-appointment-form] > label,
+  .contact-form[data-appointment-form] > .field-wide,
+  .contact-form[data-appointment-form] > button { grid-column: 1; }
+}
+.form-honeypot { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+.privacy-note { padding: 14px 16px; border-inline-start: 4px solid var(--secondary-color); border-radius: 8px; background: rgba(184, 138, 85, .1); }
+
+:root[data-theme="dark"] {
+  --primary-color: #60c5b6;
+  --primary-dark: #8bd8cb;
+  --secondary-color: #d0a978;
+  --accent-color: #ec9a73;
+  --light-color: #1c2a32;
+  --dark-color: #e5edf0;
+  --gray-color: #b1c0c6;
+  --white-color: #17252e;
+}
+:root[data-theme="dark"] body { background: #14222b; }
+:root[data-theme="dark"] .site-header { border-color: rgba(230, 243, 244, .08); background: rgba(20, 34, 43, .96); }
+:root[data-theme="dark"] .hero,
+:root[data-theme="dark"] .page-hero { background: radial-gradient(ellipse at 88% 0%, rgba(208, 169, 120, .12), transparent 34%), linear-gradient(120deg, #172b35, #1d343b); }
+:root[data-theme="dark"] .section-muted { background: linear-gradient(140deg, #172831, #1b3037 75%, #202e35); }
+:root[data-theme="dark"] .service-icon { color: #b6e8df; background: #213e42; }
+:root[data-theme="dark"] .appointment-days label { border-color: #38515b; background: #17252e; }
 
 .blog-filters {
   display: grid;

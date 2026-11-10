@@ -6,12 +6,9 @@
   <meta name="description" content="Welcome to Dr. [Name]'s clinic in Kuwait. Explore services and book an appointment.">
   <title>Dr. [Name] Clinic | [Specialty] in Kuwait</title>
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Noto+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fonts.css"><link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ar.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/vendor/fontawesome.min.css">
 </head>
 <body>
   <a class="skip-link" href="#main" data-en="Skip to content" data-ar="انتقل إلى المحتوى">Skip to content</a>
@@ -36,7 +33,7 @@
           <p data-home-copy="heroIntro" data-en="Learn about our clinic, explore services and contact us to ask about care." data-ar="تعرف على عيادتنا واستكشف خدماتنا وتواصل معنا للاستفسار عن الرعاية.">Learn about our clinic, explore services and contact us to ask about care.</p>
           <div class="button-row"><a class="button button-primary" href="appointment.html" data-home-copy="heroAppointmentButton" data-en="Book an Appointment" data-ar="احجز موعداً">Book an Appointment</a><a class="button button-secondary" href="#" data-whatsapp data-en="Chat on WhatsApp" data-ar="تواصل عبر واتساب">Chat on WhatsApp</a></div>
         </div>
-        <div class="hero-image"><img src="img/doctor.svg" data-doctor-portrait alt="Replace with the doctor's approved portrait"></div>
+        <div class="hero-image"><picture><source data-default-portrait-source srcset="img/doctor.avif" type="image/avif"><source data-default-portrait-source srcset="img/doctor.webp" type="image/webp"><img src="img/doctor.svg" data-doctor-portrait width="800" height="900" alt="Illustrative doctor portrait" fetchpriority="high" decoding="async"></picture></div>
       </div>
     </section>
     <section class="section section-muted" data-home-section="services">

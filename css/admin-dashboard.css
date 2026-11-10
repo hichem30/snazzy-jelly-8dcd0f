@@ -9,7 +9,7 @@
   --canvas: #f5f8fa;
   --surface: #fff;
   --shadow: 0 8px 26px rgba(25, 55, 70, .07);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--canvas);
 }
@@ -96,6 +96,28 @@ a { color: inherit; }
 .button-light:hover:not(:disabled) { border-color: var(--primary); background: #f1f8fa; }
 .button-danger { border-color: #efc3b4; color: #a63d1a; background: #fff; }
 .button-wide { width: 100%; }
+.password-reset-panel {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  padding: clamp(16px, 4vw, 22px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.password-reset-panel h2 { margin: 0; font-size: 1.15rem; }
+.password-reset-panel form { display: grid; gap: 10px; }
+.password-reset-panel input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--surface);
+}
+.password-reset-panel .message { margin: 0; }
+.login-panel > #password-reset-start { margin-top: 10px; }
 
 .menu-wrap { position: relative; }
 .menu-button { gap: 9px; }

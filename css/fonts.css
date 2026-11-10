@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/open-sans-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Arabic";
+  src: url("../fonts/noto-sans-arabic.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans Devanagari";
+  src: url("../fonts/noto-sans-devanagari.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}

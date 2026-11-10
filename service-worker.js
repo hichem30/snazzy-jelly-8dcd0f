@@ -1,4 +1,4 @@
-const CACHE_NAME = "clinic-site-shell-v5";
+const CACHE_NAME = "clinic-site-shell-v6";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -12,8 +12,17 @@ const APP_SHELL = [
   "./tools.html",
   "./css/style.css",
   "./css/ar.css",
+  "./css/fonts.css",
+  "./css/vendor/fontawesome.min.css",
   "./css/accessibility.css",
   "./css/print.css",
+  "./fonts/open-sans-latin.woff2",
+  "./fonts/noto-sans-arabic.woff2",
+  "./fonts/noto-sans-devanagari.woff2",
+  "./fonts/fa-brands-400.woff2",
+  "./fonts/fa-regular-400.woff2",
+  "./fonts/fa-solid-900.woff2",
+  "./fonts/fa-v4compatibility.woff2",
   "./js/data.js",
   "./js/main.js",
   "./js/calculators.js",
@@ -28,7 +37,28 @@ const APP_SHELL = [
   "./js/content/blog.json",
   "./js/content/patient-info.json",
   "./js/content/health-resources.json",
-  "./img/favicon.svg"
+  "./img/favicon.svg",
+  "./img/doctor.svg",
+  "./img/doctor.webp",
+  "./img/doctor.avif",
+  "./img/products/bp-monitor.svg",
+  "./img/products/bp-monitor.webp",
+  "./img/products/bp-monitor.avif",
+  "./img/products/glucometer.svg",
+  "./img/products/glucometer.webp",
+  "./img/products/glucometer.avif",
+  "./img/products/glucosamine.svg",
+  "./img/products/glucosamine.webp",
+  "./img/products/glucosamine.avif",
+  "./img/products/omega3.svg",
+  "./img/products/omega3.webp",
+  "./img/products/omega3.avif",
+  "./img/products/probiotic.svg",
+  "./img/products/probiotic.webp",
+  "./img/products/probiotic.avif",
+  "./img/products/vitamin-d.svg",
+  "./img/products/vitamin-d.webp",
+  "./img/products/vitamin-d.avif"
 ];
 
 self.addEventListener("install", (event) => {

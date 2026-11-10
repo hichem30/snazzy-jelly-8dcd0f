@@ -482,6 +482,9 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     document.querySelectorAll("[data-doctor-portrait]").forEach((image) => {
       image.src = doctorInfo.portrait;
       image.alt = `Portrait of ${doctorInfo.name}`;
+      if (doctorInfo.portrait !== "img/doctor.svg") {
+        image.closest("picture")?.querySelectorAll("[data-default-portrait-source]").forEach((source) => source.remove());
+      }
     });
   }
   document.querySelectorAll("[data-appointment-intro]").forEach((element) => {
@@ -726,7 +729,7 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
             ? (testimonial.quoteHi || testimonial.quote)
             : testimonial.quote;
         const image = testimonial.image
-          ? `<img src="${escapeHtml(testimonial.image)}" alt="">`
+          ? `<img src="${escapeHtml(testimonial.image)}" alt="" width="160" height="160" loading="lazy" decoding="async">`
           : "";
         return `<article class="testimonial-card">${image}<blockquote>${escapeHtml(quote)}</blockquote><cite>${escapeHtml(testimonial.name)}</cite></article>`;
       }).join("");
@@ -1545,8 +1548,14 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     const paymentUrl = paymentLinks.enabled && validMyFatoorahUrl(product.paymentLink)
       ? `<a class="button button-secondary payment-link" href="${escapeHtml(product.paymentLink)}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("Pay online with myFatoorah"))}</a>`
       : "";
+    const hasLocalSvgFallback = /^img\/products\/[A-Za-z0-9._/-]+\.svg$/.test(product.image) &&
+      !product.image.split("/").includes("..");
+    const imageBase = hasLocalSvgFallback ? product.image.slice(0, -4) : "";
+    const productImage = `<picture>${imageBase
+      ? `<source srcset="${escapeHtml(`${imageBase}.avif`)}" type="image/avif"><source srcset="${escapeHtml(`${imageBase}.webp`)}" type="image/webp">`
+      : ""}<img src="${escapeHtml(product.image)}" alt="${escapeHtml(localizedName)}" width="480" height="320" loading="lazy" decoding="async"></picture>`;
     return `<article class="product-card">
-      <div class="product-image">${stockStatus}<img src="${escapeHtml(product.image)}" alt="${escapeHtml(localizedName)}" loading="lazy"></div>
+      <div class="product-image">${stockStatus}${productImage}</div>
       <div class="product-card-body"><p class="eyebrow">${escapeHtml(t(product.category))}</p>
         <h3>${escapeHtml(localizedName)}</h3><p>${escapeHtml(localizedDescription)}</p>
         <p class="product-price">${product.price} KWD</p>
@@ -1632,7 +1641,7 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     const updateValidation = (focusSummary = false) => {
       const invalidFields = [...form.elements].filter((field) =>
         field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement
-      ).filter((field) => !field.checkValidity() && field.type !== "hidden");
+      ).filter((field) => !field.validity.valid && field.type !== "hidden");
       invalidFields.forEach((field) => {
         field.setAttribute("aria-invalid", "true");
         let error = form.querySelector(`#${CSS.escape(`${form.id || form.name}-${field.name}-error`)}`);
@@ -1758,11 +1767,13 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     if (handoffHeading) {
       handoffHeading.dataset.en = "Continue in WhatsApp";
       handoffHeading.dataset.ar = "تابع عبر واتساب";
+      handoffHeading.dataset.hi = "WhatsApp में जारी रखें";
       localizeHandoff(handoffHeading);
     }
     if (handoffCopy) {
       handoffCopy.dataset.en = "WhatsApp should open with your request. Review the message and tap Send to submit it. Your appointment is not confirmed until the clinic contacts you.";
       handoffCopy.dataset.ar = "سيفتح واتساب مع طلبك. راجع الرسالة واضغط إرسال لتقديمها. لا يتأكد الموعد حتى تتواصل معك العيادة.";
+      handoffCopy.dataset.hi = "WhatsApp में आपका अनुरोध खुलेगा। संदेश की समीक्षा करें और भेजने के लिए Send दबाएँ। क्लिनिक के संपर्क करने तक अपॉइंटमेंट की पुष्टि नहीं होती।";
       localizeHandoff(handoffCopy);
     }
     const whatsappRequestLink = document.createElement("a");
@@ -1773,6 +1784,7 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     whatsappRequestLink.dataset.whatsappRequestLink = "";
     whatsappRequestLink.dataset.en = "Open WhatsApp to send request";
     whatsappRequestLink.dataset.ar = "افتح واتساب لإرسال الطلب";
+    whatsappRequestLink.dataset.hi = "अनुरोध भेजने के लिए WhatsApp खोलें";
     localizeHandoff(whatsappRequestLink);
     const calendarButton = appointmentHandoff.querySelector("[data-calendar-download]");
     appointmentHandoff.insertBefore(whatsappRequestLink, calendarButton || null);
@@ -1783,12 +1795,67 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
     whatsappError.setAttribute("role", "alert");
     whatsappError.dataset.en = "The clinic's WhatsApp number is not configured. Please call the clinic instead.";
     whatsappError.dataset.ar = "رقم واتساب العيادة غير مضبوط. يرجى الاتصال بالعيادة بدلاً من ذلك.";
+    whatsappError.dataset.hi = "क्लिनिक का WhatsApp नंबर सेट नहीं है। कृपया इसके बजाय क्लिनिक को कॉल करें।";
     whatsappError.hidden = true;
     localizeHandoff(whatsappError);
     appointmentForm.after(whatsappError);
 
+    const preferredDayInputs = [...appointmentForm.querySelectorAll('input[name="preferred-days"]')];
+    const preferredDayGroup = appointmentForm.querySelector("[data-preferred-days]");
+    preferredDayInputs.forEach((input) => {
+      const clinicDay = hours.find((row) => row.day.toLocaleLowerCase() === input.value.toLocaleLowerCase());
+      const dayIsClosed = clinicDay && /^(?:closed|مغلق)$/i.test(clinicDay.hours.trim());
+      if (dayIsClosed) {
+        input.disabled = true;
+        input.closest("label").hidden = true;
+      }
+    });
+    const preferredDayError = document.createElement("p");
+    preferredDayError.className = "field-error";
+    preferredDayError.setAttribute("role", "alert");
+    preferredDayError.dataset.en = "Choose at least one preferred day.";
+    preferredDayError.dataset.ar = "يرجى اختيار يوم واحد على الأقل.";
+    preferredDayError.dataset.hi = "कृपया कम से कम एक पसंदीदा दिन चुनें।";
+    preferredDayGroup?.after(preferredDayError);
+    preferredDayError.hidden = true;
+    const updatePreferredDayValidity = () => {
+      const hasPreferredDay = preferredDayInputs.some((input) => input.checked);
+      const firstAvailableDay = preferredDayInputs.find((input) => !input.disabled);
+      if (!firstAvailableDay) {
+        preferredDayError.dataset.en = "No open days are configured. Please contact the clinic.";
+        preferredDayError.dataset.ar = "لا توجد أيام عمل متاحة حالياً. يرجى التواصل مع العيادة.";
+        preferredDayError.dataset.hi = "कामकाजी दिन उपलब्ध नहीं हैं। कृपया क्लिनिक से संपर्क करें।";
+      } else {
+        preferredDayError.dataset.en = "Choose at least one preferred day.";
+        preferredDayError.dataset.ar = "يرجى اختيار يوم واحد على الأقل.";
+        preferredDayError.dataset.hi = "कृपया कम से कम एक पसंदीदा दिन चुनें।";
+      }
+      if (firstAvailableDay) {
+        firstAvailableDay.setCustomValidity(
+          hasPreferredDay ? "" : (document.documentElement.lang === "ar"
+            ? preferredDayError.dataset.ar
+            : document.documentElement.lang === "hi"
+              ? preferredDayError.dataset.hi
+              : preferredDayError.dataset.en)
+        );
+      }
+      preferredDayError.textContent = document.documentElement.lang === "ar"
+        ? preferredDayError.dataset.ar
+        : document.documentElement.lang === "hi"
+          ? preferredDayError.dataset.hi
+          : preferredDayError.dataset.en;
+      preferredDayError.hidden = hasPreferredDay || Boolean(firstAvailableDay);
+      return hasPreferredDay;
+    };
+    preferredDayInputs.forEach((input) => input.addEventListener("change", updatePreferredDayValidity));
+    updatePreferredDayValidity();
+
     appointmentForm.addEventListener("submit", (event) => {
       event.preventDefault();
+      const honeypot = appointmentForm.querySelector('[name="companyWebsite"]');
+      if (honeypot?.value) return;
+      if (!updatePreferredDayValidity() || !appointmentForm.reportValidity()) return;
+
       const digits = doctorInfo.whatsapp.replace(/\D/g, "");
       if (!/^\d{6,15}$/.test(digits)) {
         localizeHandoff(whatsappError);
@@ -1799,18 +1866,37 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
       const values = new FormData(appointmentForm);
       const date = String(values.get("preferred-date") || "");
       const time = String(values.get("preferred-time") || "");
+      const patientStatus = appointmentForm.querySelector("#patient-status")?.selectedOptions[0]?.textContent || "";
+      const service = appointmentForm.querySelector("#appointment-service")?.selectedOptions[0]?.textContent || "";
+      const preferredDays = preferredDayInputs
+        .filter((input) => input.checked)
+        .map((input) => input.closest("label")?.querySelector("span")?.textContent || input.value);
+      const label = (id) => appointmentForm.querySelector(`label[for="${id}"] span`)?.textContent || "";
       const message = [
-        `Hello ${doctorInfo.name}, I would like to request an appointment.`,
-        `Name: ${String(values.get("name") || "")}`,
-        `Email: ${String(values.get("email") || "")}`,
-        `Phone: ${String(values.get("phone") || "")}`,
-        `Service: ${String(values.get("service") || "")}`,
-        ...(date ? [`Preferred date: ${date}`] : []),
-        ...(time ? [`Preferred time: ${time}`] : []),
+        document.documentElement.lang === "ar"
+          ? `مرحباً ${doctorInfo.name}، أرغب في طلب موعد.`
+          : document.documentElement.lang === "hi"
+            ? `नमस्ते ${doctorInfo.name}, मैं अपॉइंटमेंट का अनुरोध करना चाहता/चाहती हूँ।`
+            : `Hello ${doctorInfo.name}, I would like to request an appointment.`,
+        `${label("appointment-name")}: ${String(values.get("name") || "").trim()}`,
+        `${appointmentForm.querySelector('label[for="patient-status"] span')?.textContent || "Patient status"}: ${patientStatus}`,
+        `${label("appointment-phone")}: ${String(values.get("callback-number") || "").trim()}`,
+        `${label("appointment-service")}: ${service}`,
+        `${label("appointment-reason")}: ${String(values.get("reason") || "").trim()}`,
         ...(String(values.get("message") || "").trim()
-          ? [`Notes: ${String(values.get("message")).trim()}`]
+          ? [`${label("appointment-message")}: ${String(values.get("message")).trim()}`]
           : []),
-        "Please do not include urgent or sensitive medical information. This is a request, not a confirmed appointment."
+        ...(String(values.get("insurance-carrier") || "").trim()
+          ? [`${appointmentForm.querySelector('label[for="insurance-carrier"] span')?.textContent || "Insurance carrier"}: ${String(values.get("insurance-carrier")).trim()}`]
+          : []),
+        `${preferredDayGroup?.querySelector("legend span")?.textContent || "Preferred days"}: ${preferredDays.join(", ")}`,
+        ...(date ? [`${label("appointment-date")}: ${date}`] : []),
+        ...(time ? [`${label("appointment-time")}: ${time}`] : []),
+        document.documentElement.lang === "ar"
+          ? "يرجى عدم تضمين معلومات طبية حساسة أو حالات طارئة. هذا طلب وليس موعداً مؤكداً."
+          : document.documentElement.lang === "hi"
+            ? "कृपया संवेदनशील चिकित्सा जानकारी या आपातकालीन चिंताएँ शामिल न करें। यह अनुरोध है, पुष्टि किया गया अपॉइंटमेंट नहीं।"
+            : "Please do not include sensitive medical information or urgent concerns. This is a request, not a confirmed appointment."
       ].join("\n");
       const whatsappUrl = `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
       whatsappRequestLink.href = whatsappUrl;
@@ -1823,6 +1909,8 @@ window.siteDataReady.then(({ products, doctorInfo, shopEnabled, services, hours,
       }));
       whatsappRequestLink.focus();
     });
+    const appointmentSubmitButton = appointmentForm.querySelector('button[type="submit"]');
+    if (appointmentSubmitButton) appointmentSubmitButton.disabled = false;
   }
 
   if (query.get("submitted") === "true") {

@@ -1,8 +1,128 @@
 <!doctype html>
 <html lang="en" dir="ltr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Request an appointment with Dr. [Name] in Kuwait."><title>Appointments | Dr. [Name] Clinic</title><link rel="icon" href="img/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Noto+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/ar.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></head>
-<body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="container header-inner"><a class="brand" href="index.html"><span class="brand-mark">+</span><span>Dr. [Name] Clinic</span></a><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button><nav class="primary-nav" aria-label="Main navigation"><button class="menu-close" type="button" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><a href="about.html" data-en="About" data-ar="عن الطبيب">About</a><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a><a href="shop.html" data-en="Shop" data-ar="المتجر">Shop</a><a href="appointment.html" aria-current="page" data-en="Appointment" data-ar="المواعيد">Appointment</a><a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a><a href="faq.html" data-en="FAQ &amp; Reviews" data-ar="الأسئلة الشائعة وآراء المرضى" data-hi="अक्सर पूछे जाने वाले प्रश्न और समीक्षाएँ">FAQ &amp; Reviews</a><div class="language-switch" aria-label="Language"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="ar" aria-pressed="false">عربي</button></div></nav></div></header>
-<main id="main"><section class="page-hero"><div class="container"><p class="eyebrow" data-en="We're here to help" data-ar="يسعدنا مساعدتك">We're here to help</p><h1 data-en="Book an Appointment" data-ar="احجز موعداً">Book an Appointment</h1><p data-en="Send a request to the clinic through WhatsApp and wait for confirmation before attending." data-ar="أرسل طلباً إلى العيادة عبر واتساب وانتظر التأكيد قبل الحضور.">Send a request to the clinic through WhatsApp and wait for confirmation before attending.</p></div></section>
-<section class="section"><div class="container"><div class="booking-grid"><div><h2 id="appointment-form-heading" data-appointment-request data-en="Request an Appointment" data-ar="طلب موعد">Request an Appointment</h2><p data-appointment-request data-appointment-intro data-en="Complete the form to open WhatsApp. Review the message and tap Send to submit your request. The appointment is not confirmed until the clinic contacts you." data-ar="أكمل النموذج لفتح واتساب. راجع الرسالة واضغط إرسال لتقديم طلبك. لا يتأكد الموعد حتى تتواصل معك العيادة.">Complete the form to open WhatsApp. Review the message and tap Send to submit your request. The appointment is not confirmed until the clinic contacts you.</p><section class="info-card live-booking-card" data-live-booking hidden aria-labelledby="live-booking-heading"><h3 id="live-booking-heading" data-en="Check live availability" data-ar="تحقق من المواعيد المتاحة">Check live availability</h3><p data-en="Choose an available time in the clinic's hosted booking calendar." data-ar="اختر وقتاً متاحاً من تقويم المواعيد المستضاف للعيادة.">Choose an available time in the clinic's hosted booking calendar.</p><a class="button button-primary" data-booking-link href="#" target="_blank" rel="noopener noreferrer" hidden data-en="Open live booking calendar" data-ar="افتح تقويم المواعيد">Open live booking calendar</a><p class="booking-disclaimer" data-en="Bookings are managed by the external calendar. This website does not collect payment." data-ar="تتم إدارة المواعيد عبر التقويم الخارجي. لا يجمع هذا الموقع أي مدفوعات.">Bookings are managed by the external calendar. This website does not collect payment.</p></section><form class="contact-form" name="appointment-request" method="post" data-appointment-form data-appointment-request aria-labelledby="appointment-form-heading"><label for="appointment-name">Name <span class="field-required">*</span><input id="appointment-name" name="name" type="text" autocomplete="name" required></label><label for="appointment-email">Email <span class="field-required">*</span><input id="appointment-email" name="email" type="email" autocomplete="email" required></label><label for="appointment-phone">Phone <span class="field-required">*</span><input id="appointment-phone" name="phone" type="tel" autocomplete="tel" required></label><label for="appointment-service">Service <span class="field-required">*</span><select id="appointment-service" name="service" required><option value="">Select a service</option><option>General Consultation</option><option>Blood Tests</option><option>ECG</option><option>Vaccinations</option><option>Telemedicine</option><option>Pre-Employment Checkup</option><option>Other</option></select></label><label for="appointment-date">Preferred date<input id="appointment-date" name="preferred-date" type="date"></label><label for="appointment-time">Preferred time<input id="appointment-time" name="preferred-time" type="time"></label><label for="appointment-message">Notes<textarea id="appointment-message" name="message" placeholder="Please do not include urgent or sensitive medical information."></textarea></label><button class="button button-primary" type="submit">Send Appointment Request</button></form><section class="info-card" data-appointment-handoff hidden aria-live="polite"><h3 data-en="Continue in WhatsApp" data-ar="تابع عبر واتساب">Continue in WhatsApp</h3><p data-en="WhatsApp should open with your request. Review the message and tap Send to submit it. Your appointment is not confirmed until the clinic contacts you." data-ar="سيفتح واتساب مع طلبك. راجع الرسالة واضغط إرسال لتقديمها. لا يتأكد الموعد حتى تتواصل معك العيادة.">WhatsApp should open with your request. Review the message and tap Send to submit it. Your appointment is not confirmed until the clinic contacts you.</p><p data-requested-appointment hidden><span data-en="Requested date and time (not confirmed):" data-ar="التاريخ والوقت المطلوبان (غير مؤكدين):">Requested date and time (not confirmed):</span> <time data-requested-date></time> <span data-en="at" data-ar="الساعة">at</span> <time data-requested-time></time></p><button class="button button-secondary" type="button" data-calendar-download hidden data-en="Add requested time to calendar (not confirmed)" data-ar="أضف الوقت المطلوب إلى التقويم (غير مؤكد)">Add requested time to calendar (not confirmed)</button><a href="contact.html" data-en="Contact the clinic" data-ar="تواصل مع العيادة">Contact the clinic</a> · <a href="index.html" data-en="Return to the home page" data-ar="العودة إلى الصفحة الرئيسية">Return to the home page</a></section></div>
-<aside class="info-list"><div class="info-card"><h3><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Us</h3><p>+965 [PHONE]</p><a class="button button-secondary" href="tel:+965[PHONE]">Call Now</a></div><div class="info-card"><h3><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</h3><p>+965 [PHONE]</p><a class="button button-primary" href="#" data-whatsapp>Message Now</a></div><div class="info-card"><h3><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</h3><p>info@drname.kw</p><a class="button button-secondary" href="mailto:info@drname.kw">Send Email</a></div><div class="emergency-note">For emergencies, call 112 or visit the nearest hospital.</div><div class="info-card"><h3>Clinic Hours</h3><table class="hours-table"><tbody><tr><th>Sun–Thu</th><td>8 AM–8 PM</td></tr><tr><th>Fri–Sat</th><td>Closed</td></tr></tbody></table></div></aside></div></div></section></main>
-<footer class="site-footer"><div class="container"><div class="footer-grid"><div><h2>Clinic</h2><p>[Full clinic address, Kuwait]</p><p><strong>Hours:</strong><br>Sun–Thu: 8 AM–8 PM<br>Fri–Sat: Closed</p></div><div><h3>Quick Links</h3><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li></ul></div><div><h3>Contact</h3><p>+965 [PHONE]</p><p>info@drname.kw</p><div class="social-links"><a href="#" aria-label="Instagram profile"><i class="fa-brands fa-instagram"></i></a><a href="#" aria-label="Facebook profile"><i class="fa-brands fa-facebook"></i></a><a href="#" aria-label="LinkedIn profile"><i class="fa-brands fa-linkedin"></i></a></div></div></div><div class="footer-bottom"><p>© <span data-year></span> Dr. [Name]. All rights reserved.</p></div></div></footer><a class="whatsapp-float" href="#" data-whatsapp aria-label="Contact the clinic on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a><script src="js/data.js" defer></script><script src="js/ics-generator.js" defer></script><script src="js/main.js" defer></script></body></html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Request an appointment with Dr. [Name] in Kuwait. Choose a service and preferred days, then send your request to the clinic on WhatsApp.">
+  <title>Appointment Requests | Dr. [Name] Clinic</title>
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ar.css">
+  <link rel="stylesheet" href="css/vendor/fontawesome.min.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-en="Skip to content" data-ar="انتقل إلى المحتوى">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">+</span><span>Dr. [Name] Clinic</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="menu-close" type="button" aria-label="Close menu"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="about.html" data-en="About" data-ar="عن الطبيب">About</a>
+        <a href="services.html" data-en="Services" data-ar="الخدمات">Services</a>
+        <a href="shop.html" data-en="Shop" data-ar="المتجر">Shop</a>
+        <a href="appointment.html" aria-current="page" data-en="Appointment" data-ar="المواعيد">Appointment</a>
+        <a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+        <a href="faq.html" data-en="FAQ &amp; Reviews" data-ar="الأسئلة الشائعة وآراء المرضى" data-hi="अक्सर पूछे जाने वाले प्रश्न और समीक्षाएँ">FAQ &amp; Reviews</a>
+        <div class="language-switch" aria-label="Language"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="ar" aria-pressed="false">عربي</button></div>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow" data-en="We're here to help" data-ar="يسعدنا مساعدتك" data-hi="हम आपकी सहायता के लिए यहाँ हैं">We're here to help</p>
+        <h1 data-en="Request an Appointment" data-ar="طلب موعد" data-hi="अपॉइंटमेंट का अनुरोध करें">Request an Appointment</h1>
+        <p data-en="Tell us what works for you. This is a request only; the clinic will contact you to confirm availability." data-ar="أخبرنا بما يناسبك. هذا طلب فقط، وستتواصل العيادة معك لتأكيد التوفر." data-hi="हमें बताएं कि आपके लिए क्या सुविधाजनक है। यह केवल अनुरोध है; उपलब्धता की पुष्टि के लिए क्लिनिक आपसे संपर्क करेगा।">Tell us what works for you. This is a request only; the clinic will contact you to confirm availability.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container booking-grid">
+        <div>
+          <h2 id="appointment-form-heading" data-appointment-request data-en="Appointment request" data-ar="طلب موعد" data-hi="अपॉइंटमेंट अनुरोध">Appointment request</h2>
+          <p data-appointment-request data-appointment-intro data-en="Complete the form to open WhatsApp with a prepared message. Review it and tap Send to submit your request. No details are sent until you send the message in WhatsApp." data-ar="أكمل النموذج لفتح واتساب برسالة جاهزة. راجعها واضغط إرسال لتقديم طلبك. لن تُرسل البيانات حتى ترسل الرسالة عبر واتساب." data-hi="तैयार संदेश के साथ WhatsApp खोलने के लिए फ़ॉर्म भरें। अनुरोध भेजने के लिए संदेश की समीक्षा करें और Send दबाएँ। WhatsApp में संदेश भेजने तक कोई जानकारी साझा नहीं होगी।">Complete the form to open WhatsApp with a prepared message. Review it and tap Send to submit your request. No details are sent until you send the message in WhatsApp.</p>
+          <section class="info-card live-booking-card" data-live-booking hidden aria-labelledby="live-booking-heading">
+            <h3 id="live-booking-heading" data-en="Check live availability" data-ar="تحقق من المواعيد المتاحة" data-hi="उपलब्ध समय देखें">Check live availability</h3>
+            <p data-en="Choose an available time in the clinic's hosted booking calendar." data-ar="اختر وقتاً متاحاً من تقويم المواعيد المستضاف للعيادة." data-hi="क्लिनिक के बाहरी बुकिंग कैलेंडर में उपलब्ध समय चुनें।">Choose an available time in the clinic's hosted booking calendar.</p>
+            <a class="button button-primary" data-booking-link href="#" target="_blank" rel="noopener noreferrer" hidden data-en="Open live booking calendar" data-ar="افتح تقويم المواعيد" data-hi="बुकिंग कैलेंडर खोलें">Open live booking calendar</a>
+            <p class="booking-disclaimer" data-en="Bookings are managed by the external calendar. This website does not collect payment." data-ar="تتم إدارة المواعيد عبر التقويم الخارجي. لا يجمع هذا الموقع أي مدفوعات." data-hi="बुकिंग बाहरी कैलेंडर में प्रबंधित होती है। यह वेबसाइट भुगतान नहीं लेती।">Bookings are managed by the external calendar. This website does not collect payment.</p>
+          </section>
+          <form class="contact-form" name="appointment-request" method="post" data-appointment-form data-appointment-request aria-labelledby="appointment-form-heading">
+            <label for="appointment-name"><span data-en="Full name" data-ar="الاسم الكامل" data-hi="पूरा नाम">Full name</span> <span class="field-required">*</span><input id="appointment-name" name="name" type="text" autocomplete="name" required></label>
+            <label for="patient-status"><span data-en="Patient status" data-ar="حالة المريض" data-hi="रोगी की स्थिति">Patient status</span> <span class="field-required">*</span>
+              <select id="patient-status" name="patient-status" required>
+                <option value="" data-en="Select one" data-ar="اختر" data-hi="एक विकल्प चुनें">Select one</option>
+                <option value="new" data-en="New patient" data-ar="مريض جديد" data-hi="नया रोगी">New patient</option>
+                <option value="existing" data-en="Existing patient" data-ar="مريض حالي" data-hi="मौजूदा रोगी">Existing patient</option>
+              </select>
+            </label>
+            <label for="appointment-phone"><span data-en="Callback number" data-ar="رقم الهاتف للاتصال" data-hi="संपर्क फ़ोन नंबर">Callback number</span> <span class="field-required">*</span><input id="appointment-phone" name="callback-number" type="tel" autocomplete="tel" required></label>
+            <label for="appointment-service"><span data-en="Service" data-ar="الخدمة" data-hi="सेवा">Service</span> <span class="field-required">*</span>
+              <select id="appointment-service" name="service" required>
+                <option value="" data-en="Select a service" data-ar="اختر الخدمة" data-hi="सेवा चुनें">Select a service</option>
+                <option>General Consultation</option><option>Blood Tests</option><option>ECG</option><option>Vaccinations</option><option>Telemedicine</option><option>Pre-Employment Checkup</option><option>Other</option>
+              </select>
+            </label>
+            <label for="appointment-reason"><span data-en="Reason for visit" data-ar="سبب الزيارة" data-hi="आने का कारण">Reason for visit</span> <span class="field-required">*</span>
+              <textarea id="appointment-reason" name="reason" maxlength="280" required aria-describedby="reason-help"></textarea>
+              <small id="reason-help" data-en="Please keep this brief and do not include sensitive medical details or urgent concerns." data-ar="يرجى الاختصار وعدم إدراج تفاصيل طبية حساسة أو حالات طارئة." data-hi="कृपया संक्षिप्त रखें और संवेदनशील चिकित्सा विवरण या आपातकालीन चिंताएँ शामिल न करें।">Please keep this brief and do not include sensitive medical details or urgent concerns.</small>
+            </label>
+            <label for="appointment-message"><span data-en="Additional notes (optional)" data-ar="ملاحظات إضافية (اختياري)" data-hi="अतिरिक्त जानकारी (वैकल्पिक)">Additional notes (optional)</span>
+              <textarea id="appointment-message" name="message" maxlength="280" aria-describedby="appointment-message-help"></textarea>
+              <small id="appointment-message-help" data-en="Do not include sensitive medical details, insurance policy information, or urgent concerns." data-ar="لا تدرج تفاصيل طبية حساسة أو معلومات وثيقة التأمين أو حالات طارئة." data-hi="संवेदनशील चिकित्सा विवरण, बीमा पॉलिसी की जानकारी या आपातकालीन चिंताएँ शामिल न करें।">Do not include sensitive medical details, insurance policy information, or urgent concerns.</small>
+            </label>
+            <label for="insurance-carrier"><span data-en="Insurance carrier (optional)" data-ar="شركة التأمين (اختياري)" data-hi="बीमा कंपनी (वैकल्पिक)">Insurance carrier (optional)</span><input id="insurance-carrier" name="insurance-carrier" type="text" maxlength="100" autocomplete="organization"></label>
+            <fieldset class="field-wide">
+              <legend><span data-en="Preferred days" data-ar="الأيام المناسبة" data-hi="पसंदीदा दिन">Preferred days</span> <span class="field-required">*</span></legend>
+              <div class="appointment-days" data-preferred-days>
+                <label><input type="checkbox" name="preferred-days" value="Sunday"><span data-en="Sunday" data-ar="الأحد" data-hi="रविवार">Sunday</span></label>
+                <label><input type="checkbox" name="preferred-days" value="Monday"><span data-en="Monday" data-ar="الاثنين" data-hi="सोमवार">Monday</span></label>
+                <label><input type="checkbox" name="preferred-days" value="Tuesday"><span data-en="Tuesday" data-ar="الثلاثاء" data-hi="मंगलवार">Tuesday</span></label>
+                <label><input type="checkbox" name="preferred-days" value="Wednesday"><span data-en="Wednesday" data-ar="الأربعاء" data-hi="बुधवार">Wednesday</span></label>
+                <label><input type="checkbox" name="preferred-days" value="Thursday"><span data-en="Thursday" data-ar="الخميس" data-hi="गुरुवार">Thursday</span></label>
+                <label><input type="checkbox" name="preferred-days" value="Friday"><span data-en="Friday" data-ar="الجمعة" data-hi="शुक्रवार">Friday</span></label>
+                <label><input type="checkbox" name="preferred-days" value="Saturday"><span data-en="Saturday" data-ar="السبت" data-hi="शनिवार">Saturday</span></label>
+              </div>
+            </fieldset>
+            <label for="appointment-date"><span data-en="Preferred date (optional)" data-ar="التاريخ المفضل (اختياري)" data-hi="पसंदीदा तारीख (वैकल्पिक)">Preferred date (optional)</span><input id="appointment-date" name="preferred-date" type="date"></label>
+            <label for="appointment-time"><span data-en="Preferred time (optional)" data-ar="الوقت المفضل (اختياري)" data-hi="पसंदीदा समय (वैकल्पिक)">Preferred time (optional)</span><input id="appointment-time" name="preferred-time" type="time"></label>
+            <div class="form-honeypot" aria-hidden="true"><label for="appointment-company">Leave this field empty<input id="appointment-company" name="companyWebsite" type="text" tabindex="-1" autocomplete="off"></label></div>
+            <p class="privacy-note field-wide" data-en="Your request opens WhatsApp addressed to the clinic's number configured by the clinic owner. You decide whether to send it. Do not send sensitive medical or insurance policy information." data-ar="سيفتح طلبك واتساب موجهاً إلى رقم العيادة الذي ضبطه مالك الموقع. أنت من يقرر الإرسال. لا ترسل معلومات طبية حساسة أو بيانات وثيقة التأمين." data-hi="आपका अनुरोध क्लिनिक मालिक द्वारा निर्धारित नंबर पर WhatsApp खोलेगा। संदेश भेजना आपका निर्णय है। संवेदनशील चिकित्सा या बीमा पॉलिसी की जानकारी न भेजें।">Your request opens WhatsApp addressed to the clinic's number configured by the clinic owner. You decide whether to send it. Do not send sensitive medical or insurance policy information.</p>
+            <button class="button button-primary" type="submit" data-en="Continue to WhatsApp" data-ar="المتابعة إلى واتساب" data-hi="WhatsApp पर आगे बढ़ें" disabled>Continue to WhatsApp</button>
+          </form>
+          <section class="info-card" data-appointment-handoff hidden aria-live="polite">
+            <h3 data-en="Continue in WhatsApp" data-ar="تابع عبر واتساب" data-hi="WhatsApp में जारी रखें">Continue in WhatsApp</h3>
+            <p data-en="Review the prepared request in WhatsApp and tap Send. Your appointment is not confirmed until the clinic contacts you." data-ar="راجع الطلب المُعد في واتساب واضغط إرسال. لا يتأكد الموعد حتى تتواصل معك العيادة." data-hi="WhatsApp में तैयार अनुरोध की समीक्षा करें और Send दबाएँ। क्लिनिक के संपर्क करने तक अपॉइंटमेंट की पुष्टि नहीं होती।">Review the prepared request in WhatsApp and tap Send. Your appointment is not confirmed until the clinic contacts you.</p>
+            <p data-requested-appointment hidden><span data-en="Requested date and time (not confirmed):" data-ar="التاريخ والوقت المطلوبان (غير مؤكدين):" data-hi="अनुरोधित तारीख और समय (पुष्टि नहीं):">Requested date and time (not confirmed):</span> <time data-requested-date></time> <span data-en="at" data-ar="الساعة" data-hi="समय">at</span> <time data-requested-time></time></p>
+            <button class="button button-secondary" type="button" data-calendar-download hidden data-en="Add requested time to calendar (not confirmed)" data-ar="أضف الوقت المطلوب إلى التقويم (غير مؤكد)" data-hi="अनुरोधित समय कैलेंडर में जोड़ें (पुष्टि नहीं)">Add requested time to calendar (not confirmed)</button>
+            <a href="contact.html" data-en="Contact the clinic" data-ar="تواصل مع العيادة" data-hi="क्लिनिक से संपर्क करें">Contact the clinic</a> · <a href="index.html" data-en="Return to the home page" data-ar="العودة إلى الصفحة الرئيسية" data-hi="मुखपृष्ठ पर लौटें">Return to the home page</a>
+          </section>
+        </div>
+        <aside class="info-list">
+          <div class="info-card"><h3><i class="fa-solid fa-phone" aria-hidden="true"></i> <span data-en="Call Us" data-ar="اتصل بنا">Call Us</span></h3><p>+965 [PHONE]</p><a class="button button-secondary" href="tel:+965[PHONE]" data-en="Call Now" data-ar="اتصل الآن">Call Now</a></div>
+          <div class="info-card"><h3><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</h3><p>+965 [PHONE]</p><a class="button button-primary" href="#" data-whatsapp data-en="Message Now" data-ar="راسلنا الآن">Message Now</a></div>
+          <div class="info-card"><h3><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</h3><p>info@drname.kw</p><a class="button button-secondary" href="mailto:info@drname.kw" data-en="Send Email" data-ar="أرسل بريداً إلكترونياً">Send Email</a></div>
+          <div class="emergency-note" data-en="For emergencies, call 112 or visit the nearest hospital." data-ar="في حالات الطوارئ، اتصل بالرقم 112 أو توجه إلى أقرب مستشفى.">For emergencies, call 112 or visit the nearest hospital.</div>
+          <div class="info-card"><h3 data-en="Clinic Hours" data-ar="ساعات العيادة">Clinic Hours</h3><table class="hours-table"><tbody><tr><th>Sun–Thu</th><td>8 AM–8 PM</td></tr><tr><th>Fri–Sat</th><td>Closed</td></tr></tbody></table></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h2 data-en="Clinic" data-ar="العيادة">Clinic</h2><p>[Full clinic address, Kuwait]</p></div>
+        <div><h3 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h3><ul><li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li><li><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a></li><li><a href="contact.html" data-en="Contact" data-ar="اتصل بنا">Contact</a></li></ul></div>
+        <div><h3 data-en="Contact" data-ar="اتصل بنا">Contact</h3><p>+965 [PHONE]</p><p>info@drname.kw</p></div>
+      </div>
+      <div class="footer-bottom"><p>© <span data-year></span> Dr. [Name]. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p></div>
+    </div>
+  </footer>
+  <a class="whatsapp-float" href="#" data-whatsapp aria-label="Contact the clinic on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+  <script src="js/data.js" defer></script>
+  <script src="js/ics-generator.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

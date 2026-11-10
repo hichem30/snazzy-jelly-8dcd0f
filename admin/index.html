@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
+    <meta name="description" content="Private dashboard for managing clinic website content and settings.">
     <meta name="theme-color" content="#f5f8fa">
     <title>Clinic dashboard</title>
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/admin-dashboard.css">
     <script src="/js/admin-dashboard.js" defer></script>
   </head>
@@ -53,6 +55,20 @@
           <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
           <button class="button button-primary button-wide" type="submit" data-i18n="Continue">Continue</button>
         </form>
+        <button class="button button-light button-wide" id="password-reset-start" type="button" data-i18n="Forgot password?">Forgot password?</button>
+        <section class="password-reset-panel" id="password-reset-panel" hidden aria-labelledby="password-reset-heading">
+          <h2 id="password-reset-heading" data-i18n="Reset dashboard password">Reset dashboard password</h2>
+          <p data-i18n="A verification code will be sent to the recovery phone configured by the site owner.">A verification code will be sent to the recovery phone configured by the site owner.</p>
+          <form id="password-reset-form" hidden>
+            <label for="recovery-code" data-i18n="SMS verification code">SMS verification code</label>
+            <input id="recovery-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,10}" required>
+            <label for="new-admin-password" data-i18n="New dashboard password">New dashboard password</label>
+            <input id="new-admin-password" name="new-password" type="password" autocomplete="new-password" minlength="16" maxlength="128" required>
+            <button class="button button-primary button-wide" type="submit" data-i18n="Update password">Update password</button>
+          </form>
+          <button class="button button-light button-wide" id="password-reset-back" type="button" data-i18n="Back to sign in">Back to sign in</button>
+          <p class="message" id="password-reset-message" role="status" aria-live="polite"></p>
+        </section>
         <p class="message" id="login-message" role="status" aria-live="polite"></p>
       </section>
 
@@ -79,5 +95,8 @@
         <p class="privacy-note" data-i18n="Do not add patient medical records or other sensitive health information here.">Do not add patient medical records or other sensitive health information here.</p>
       </section>
     </main>
+    <footer class="dashboard-footer">
+      <p>Private clinic dashboard</p>
+    </footer>
   </body>
 </html>
